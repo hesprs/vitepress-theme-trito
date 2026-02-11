@@ -1,13 +1,13 @@
 {
 	"name": "vitepress-theme-trito",
-    "version": "1.0.0",
+	"version": "1.0.0",
 	"description": "A visually refurbished Vitepress default theme.",
 	"keywords": [
-        "front-end",
+		"front-end",
+		"typescript",
 		"vitepress",
-		"vitepress-theme",
-		"typescript"
-    ],
+		"vitepress-theme"
+	],
 	"homepage": "https://hesprs.github.io/vitepress-theme-trito",
 	"bugs": {
 		"url": "https://github.com/hesprs/vitepress-theme-trito/issues"
