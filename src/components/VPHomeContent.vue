@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { useWindowSize } from '@vueuse/core';
+import { useData } from 'vitepress';
+
+const { frontmatter } = useData();
 
 const { width: vw } = useWindowSize({
 	initialWidth: 0,
@@ -8,7 +11,11 @@ const { width: vw } = useWindowSize({
 </script>
 
 <template>
-	<div class="vp-doc container" :style="vw ? { '--vp-offset': `calc(50% - ${vw / 2}px)` } : {}">
+	<div
+		class="container"
+		:class="{ 'vp-doc': !frontmatter.unstyled }"
+		:style="vw ? { '--vp-offset': `calc(50% - ${vw / 2}px)` } : {}"
+	>
 		<slot />
 	</div>
 </template>

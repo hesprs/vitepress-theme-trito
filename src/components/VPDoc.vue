@@ -7,7 +7,7 @@ import VPDocFooter from './VPDocFooter.vue';
 import VPDocAsideOutline from './VPDocAsideOutline.vue';
 import VPDocAsideSidebar from './VPDocAsideSidebar.vue';
 
-const { theme } = useData();
+const { theme, frontmatter } = useData();
 
 const route = useRoute();
 const { hasAside, leftAside, maxAsideHeightOffset } = useLayout();
@@ -40,11 +40,11 @@ const pageName = computed(() => route.path.replace(/[./]+/g, '_').replace(/_html
 					<slot name="doc-before" />
 					<main class="main">
 						<Content
-							class="vp-doc"
-							:class="[
-								pageName,
-								theme.externalLinkIcon && 'external-link-icon-enabled',
-							]"
+							:class="{
+								'vp-doc': !frontmatter.unstyled,
+								[pageName]: pageName,
+								'external-link-icon-enabled': theme.externalLinkIcon,
+							}"
 						/>
 					</main>
 					<VPDocFooter>

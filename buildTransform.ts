@@ -6,6 +6,6 @@ const replaceScss = async (filePath: string) => {
 	await writeFile(filePath, updated, 'utf8');
 };
 
-await replaceScss('./dist/index.mjs');
+await replaceScss('./dist/index.js');
 await replaceScss('./dist/index.d.ts');
 console.log('Replaced .scss → .css in dist files');
