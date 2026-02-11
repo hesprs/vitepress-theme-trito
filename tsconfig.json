@@ -1,0 +1,38 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"strict": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"strictNullChecks": true,
+		"resolveJsonModule": true,
+		"verbatimModuleSyntax": true,
+		"jsx": "preserve",
+		"jsxImportSource": "vue",
+		"noEmit": true,
+		"outDir": "dist",
+		"allowImportingTsExtensions": true,
+		"lib": ["ESNext", "DOM", "dom.iterable"],
+		"paths": {
+			"@/*": ["./src/*"],
+			"@": ["./src"]
+		}
+	},
+	"include": [
+		"test/**/*",
+		"test/.vitepress/**/*",
+		"src/**/*",
+		"build.config.ts",
+		"buildTransform.ts"
+	],
+	"exclude": ["node_modules", "dist"],
+	"tsc-alias": {
+		"fileExtensions": {
+			"inputGlob": "{js,jsx,mjs,ts,tsx,vue}",
+			"outputCheck": ["js", "json", "jsx", "mjs", "ts", "tsx", "vue"]
+		}
+	}
+}
