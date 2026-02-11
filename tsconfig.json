@@ -33,6 +33,8 @@
 		"fileExtensions": {
 			"inputGlob": "{js,jsx,mjs,ts,tsx,vue}",
 			"outputCheck": ["js", "json", "jsx", "mjs", "ts", "tsx", "vue"]
-		}
+		},
+		"resolveFullPaths": true,
+		"resolveFullExtension": ".js"
 	}
 }

@@ -25,8 +25,8 @@
 		"./dist"
 	],
 	"type": "module",
-	"main": "./dist/index.mjs",
-	"module": "./dist/index.mjs",
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"scripts": {
 		"build": "unbuild && node ./buildTransform.ts && tsc-alias",
