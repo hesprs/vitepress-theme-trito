@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { computed, provide, useSlots } from 'vue';
-import Background from '@/components/background.vue';
-import ContextMenu from '@/components/contextMenu.vue';
-import LoadingView from '@/components/loadingView.vue';
+import Background from '@/components/VPBackground.vue';
+import ContextMenu from '@/components/VPContextMenu.vue';
+import LoadingView from '@/components/VPLoadingView.vue';
 import VPContent from '@/components/VPContent.vue';
 import VPFooter from '@/components/VPFooter.vue';
 import VPNav from '@/components/VPNav.vue';
 import VPSidebar from '@/components/VPSidebar.vue';
 import { useData } from '@/composables/data';
 import { layoutInfoInjectionKey, registerWatchers } from '@/composables/layout';
-import { setupRouteChange } from './composables/routeChange';
-import setupTransition from '@/composables/themeToggleTransition';
+import { setupRouteChange } from './composables/route-change';
+import setupTransition from '@/composables/theme-toggle-transition';
 
 const { frontmatter, isDark } = useData();
 setupTransition(isDark);

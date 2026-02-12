@@ -96,11 +96,11 @@ const { page, frontmatter } = useData();
 .VPContent {
 	flex-grow: 1;
 	flex-shrink: 0;
-	margin: var(--vp-nav-height) auto 0;
+	margin: var(--vp-nav-space) auto 0;
 	width: 100%;
 	padding-top: 24px;
 	@media (min-width: 960px) {
-		padding-top: 36px;
+		padding-top: 32px;
 	}
 }
 </style>

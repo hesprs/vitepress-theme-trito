@@ -23,7 +23,7 @@ const classes = ref<Record<string, boolean>>({});
 
 watchPostEffect(() => {
 	classes.value = {
-		top: y.value === 0,
+		top: y.value <= 1,
 		'screen-open': props.isScreenOpen,
 		'show-title': showTitle.value,
 	};
@@ -64,22 +64,25 @@ watchPostEffect(() => {
 	position: relative;
 	height: var(--vp-nav-height);
 	white-space: nowrap;
-	border-bottom: 1px solid var(--vp-c-divider);
+	margin: 0 auto;
+	top: var(--vp-nav-top);
+	border-radius: calc(var(--vp-nav-height) / 2);
+	max-width: var(--vp-layout-max-width);
+	width: calc(100% - var(--vp-nav-top) * 2);
+	border: 1px solid var(--vp-c-border);
+	box-shadow: var(--vp-shadow-2);
 	transition:
 		background-color 0.25s,
 		border 0.25s,
-		backdrop-filter 0.25s;
+		backdrop-filter 0.25s,
+		box-shadow 0.25s;
 	background-color: var(--vp-nav-bg-color);
 	backdrop-filter: blur(20px) saturate(140%);
-	&.screen-open {
-		transition: none;
-		background-color: var(--vp-nav-bg-color);
-		border-bottom: 1px solid var(--vp-c-divider);
-	}
-	&.top {
-		border-bottom: 1px solid transparent;
+	&.top:not(.screen-open) {
+		border: 1px solid transparent;
 		background-color: transparent;
 		backdrop-filter: none;
+		box-shadow: none;
 	}
 }
 
@@ -93,13 +96,8 @@ watchPostEffect(() => {
 			transform: translateY(-55px);
 		}
 	}
-	@media (min-width: 768px) {
-		padding: 0 32px;
-	}
 	display: flex;
 	justify-content: space-between;
-	margin: 0 auto;
-	max-width: calc(var(--vp-layout-max-width) - 64px);
 	height: var(--vp-nav-height);
 }
 

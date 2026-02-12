@@ -1,7 +1,7 @@
 {
 	"name": "vitepress-theme-trito",
 	"version": "1.0.0",
-	"description": "A visually refurbished Vitepress default theme.",
+	"description": "Visually refurbished VitePress default theme.",
 	"keywords": [
 		"front-end",
 		"typescript",
@@ -25,6 +25,7 @@
 		"./dist"
 	],
 	"type": "module",
+	"sideEffects": false,
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",

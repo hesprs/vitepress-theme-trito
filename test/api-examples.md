@@ -19,7 +19,7 @@ const { theme, page, frontmatter } = useData()
 
 ### Theme Data
 
-<pre>{{ theme }}</pre>
+<pre>{{ theme }}<pre>
 
 ### Page Data
 

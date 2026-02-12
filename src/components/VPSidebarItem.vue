@@ -94,6 +94,10 @@ function onCaretClick() {
 	padding-bottom: 10px;
 }
 
+.group:last-child .VPSidebarItem {
+	padding-bottom: 0px;
+}
+
 .item {
 	position: relative;
 	display: flex;

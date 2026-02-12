@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useRouteChange } from '@/composables/routeChange';
+import { useRouteChange } from '@/composables/route-change';
 import { onBeforeUnmount, ref } from 'vue';
 import { useData } from '@/composables/data';
 import { useI18n } from '@/composables/i18n';

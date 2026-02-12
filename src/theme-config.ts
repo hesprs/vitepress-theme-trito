@@ -279,6 +279,8 @@ export namespace TritoTheme {
 		actionText?: string;
 	}
 
+	// outline -------------------------------------------------------------------
+
 	export type OutlineItem = Omit<Header, 'slug' | 'children'> & {
 		element: HTMLHeadElement;
 		children?: OutlineItem[];

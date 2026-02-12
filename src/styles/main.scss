@@ -31,7 +31,8 @@ html.dark {
 	transition:
 		outline-color 0.3s,
 		box-shadow 0.3s,
-		background 0.3s;
+		background 0.3s,
+		flex 0.4s;
 	outline: 1px solid;
 	outline-color: var(--vp-c-border);
 	.dark & {

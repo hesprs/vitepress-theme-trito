@@ -1,3 +1,7 @@
+---
+outline: deep
+---
+
 # Markdown Extension Examples
 
 This page demonstrates some of the built-in markdown extensions provided by VitePress.
@@ -95,6 +99,22 @@ This is a details block.
 4. three-one
 5. three-two
 6. four
+
+## Headings
+
+## Heading 2
+
+## Heading 2
+
+### Heading 3
+
+### Heading 3
+
+### Heading 3
+
+#### Heading 4
+
+#### Heading 4
 
 ## More
 

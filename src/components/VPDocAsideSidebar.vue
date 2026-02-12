@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { IconMenu2, IconChevronDown } from '@tabler/icons-vue';
-import { watch, ref, useTemplateRef } from 'vue';
+import { watch, ref, useTemplateRef, onMounted, type Ref } from 'vue';
+import { useElementSize } from '@vueuse/core';
 import { useI18n } from '@/composables/i18n';
 import { useLayout } from '@/composables/layout';
 import VPSidebarGroup from './VPSidebarGroup.vue';
@@ -11,17 +12,12 @@ const { sidebarGroups, hasSidebar } = useLayout();
 const key = ref(0);
 const sidebar = useTemplateRef('sidebar');
 const expand = useTemplateRef('expand');
+const content = useTemplateRef('content');
+const { height: contentHeight } = useElementSize(content);
 
-watch(
-	sidebarGroups,
-	() => {
-		key.value += 1;
-	},
-	{ deep: true },
-);
+watch(sidebarGroups, () => (key.value += 1), { deep: true });
 
 watch(collapsed, () => {
-	console.log(collapsed.value);
 	if (collapsed.value) sidebar.value?.scrollTo(0, 0);
 });
 
@@ -34,54 +30,48 @@ function toggle(e: PointerEvent) {
 </script>
 
 <template>
-	<div class="sidebar-wrapper" :class="{ collapse: collapsed }" v-if="hasSidebar">
-		<nav
-			aria-labelledby="doc-sidebar-aria-label"
-			class="VPDocAsideSidebar s-card"
-			:class="{
-				'card-enhance': collapsed,
-				hover: collapsed,
-			}"
-			@click="toggle"
-			ref="sidebar"
+	<nav
+		aria-labelledby="doc-sidebar-aria-label"
+		class="VPDocAsideSidebar s-card"
+		:class="{
+			'card-enhance': collapsed,
+			hover: collapsed,
+			collapse: collapsed,
+		}"
+		:style="{ maxHeight: `${contentHeight + 62}px` }"
+		v-if="hasSidebar"
+		@click="toggle"
+		ref="sidebar"
+	>
+		<div
+			aria-level="2"
+			class="sidebar-title"
+			id="doc-outline-sidebar-label"
+			role="heading"
+			ref="expand"
 		>
-			<div
-				aria-level="2"
-				class="sidebar-title"
-				id="doc-outline-sidebar-label"
-				role="heading"
-				ref="expand"
-			>
-				<IconMenu2 class="icon-toc" />
-				{{ i18n.menu }}
-				<IconChevronDown class="expand" />
-			</div>
-			<div class="content">
-				<VPSidebarGroup :items="sidebarGroups" :key />
-			</div>
-		</nav>
-	</div>
+			<IconMenu2 class="icon-toc" />
+			{{ i18n.menu }}
+			<IconChevronDown class="expand" />
+		</div>
+		<div class="content" ref="content">
+			<VPSidebarGroup :items="sidebarGroups" :key />
+		</div>
+	</nav>
 </template>
 
 <style lang="scss" scoped>
-.sidebar-wrapper {
-	min-height: 58px;
-	flex: 1;
-	transition: flex 0.4s;
-	&.collapse {
-		flex: 0;
-		height: 58px;
-	}
-}
-
 .VPDocAsideSidebar {
-	padding-left: 16px;
-	overflow: scroll;
+	padding-left: 1rem;
+	overflow-y: scroll;
 	overscroll-behavior: contain;
-	max-height: 100%;
-	.collapse & {
+	min-height: 56px;
+	flex: 1;
+	&.collapse {
 		overflow: hidden;
 		cursor: pointer;
+		flex: 0;
+		height: 56px;
 	}
 }
 
@@ -113,8 +103,7 @@ function toggle(e: PointerEvent) {
 	transition:
 		background-color 0.25s,
 		padding 0.25s;
-	.sidebar-wrapper:not(.collapse) &:hover,
-	.collapse:hover & {
+	.VPDocAsideSidebar:not(.collapse) &:hover {
 		background-color: var(--vp-c-brand-soft);
 		color: var(--vp-c-brand-1);
 		padding: 0 8px;

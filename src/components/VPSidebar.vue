@@ -54,6 +54,7 @@ const needSidebar = computed(() => hasSidebar.value && width.value <= 960);
 	transform: translateX(-100%);
 	transition: transform 0.25s ease;
 	pointer-events: none;
+	box-shadow: var(--vp-shadow-3);
 	&.open {
 		pointer-events: auto;
 		transform: translateX(0);

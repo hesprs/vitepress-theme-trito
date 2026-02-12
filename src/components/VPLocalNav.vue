@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
 import { useData } from '@/composables/data';
 import { useLayout } from '@/composables/layout';
 import { useI18n } from '@/composables/i18n';
@@ -9,48 +8,39 @@ import { useSidebarControl } from '@/composables/sidebar';
 const { page, title, theme } = useData();
 const { headers } = useLayout();
 const i18n = useI18n();
-const { isOpen, open, close } = useSidebarControl();
-
-const navHeight = ref(0);
-
-onMounted(() => {
-	navHeight.value = parseInt(
-		getComputedStyle(document.documentElement).getPropertyValue('--vp-nav-height'),
-		10,
-	);
-});
+const { isOpen, open } = useSidebarControl();
 </script>
 
 <template>
 	<div class="VPLocalNav">
-		<div class="container">
-			<button
-				v-if="theme.sidebar"
-				class="menu"
-				:aria-expanded="isOpen"
-				aria-controls="VPSidebarNav"
-				@click="open"
-			>
-				<span class="vpi-align-left menu-icon"></span>
-				<span class="menu-text">{{ i18n.menu }}</span>
-			</button>
-			<h4 class="title">{{ page.title || title }}</h4>
-			<VPLocalNavOutlineDropdown :headers :navHeight />
-		</div>
+		<button
+			v-if="theme.sidebar"
+			class="menu"
+			:aria-expanded="isOpen"
+			aria-controls="VPSidebarNav"
+			@click="open"
+		>
+			<span class="vpi-align-left menu-icon"></span>
+			<span class="menu-text">{{ i18n.menu }}</span>
+		</button>
+		<h4 class="title">{{ page.title || title }}</h4>
+		<VPLocalNavOutlineDropdown :headers />
 	</div>
 </template>
 
 <style lang="scss" scoped>
 .VPLocalNav {
-	top: 0;
-	left: 0;
 	z-index: var(--vp-z-index-local-nav);
-	padding-top: var(--vp-layout-top-height, 0px);
+	height: var(--vp-nav-height);
 	width: 100%;
 	opacity: 0;
 	transition:
 		transform 0.3s,
 		opacity 0.2s;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 18px;
 	@media (max-width: 960px) {
 		.show-title & {
 			pointer-events: auto;
@@ -59,18 +49,11 @@ onMounted(() => {
 		}
 	}
 	@media (min-width: 960px) {
-		top: var(--vp-nav-height);
+		top: var(--vp-nav-space);
 	}
 	@media (min-width: 1280px) {
 		display: none;
 	}
-}
-
-.container {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin: 0 18px;
 }
 
 .menu {
@@ -106,5 +89,6 @@ onMounted(() => {
 
 .title {
 	font-weight: 500;
+	font-size: 0.9em;
 }
 </style>

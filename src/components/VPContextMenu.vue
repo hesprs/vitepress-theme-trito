@@ -135,7 +135,7 @@ import {
 	openInNewTab,
 	refresh,
 	scrollToTop,
-} from '@/composables/contextMenuActions';
+} from '@/composables/context-menu-actions';
 import { useData } from '@/composables/data';
 import { useI18n } from '@/composables/i18n';
 import { toggleAppearanceKey } from '@/shared';

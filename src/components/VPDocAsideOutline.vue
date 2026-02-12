@@ -1,17 +1,19 @@
 <script setup lang="ts">
 import { IconVocabulary, IconChevronDown } from '@tabler/icons-vue';
-import { ref, useTemplateRef, watch } from 'vue';
+import { ref, useTemplateRef, watch, type Ref, onMounted } from 'vue';
 import { useI18n } from '@/composables/i18n';
 import { useLayout } from '@/composables/layout';
 import { useActiveAnchor } from '@/composables/outline';
 import VPDocOutlineItem from './VPDocOutlineItem.vue';
+import { useElementSize } from '@vueuse/core';
 
 const outline = useTemplateRef('outline');
 const marker = useTemplateRef('marker');
 const expand = useTemplateRef('expand');
 const i18n = useI18n();
 const collapsed = ref(false);
-
+const content = useTemplateRef('content');
+const { height: contentHeight } = useElementSize(content);
 const { headers, hasLocalNav } = useLayout();
 
 useActiveAnchor(outline, marker);
@@ -28,56 +30,50 @@ function toggle(e: PointerEvent) {
 </script>
 
 <template>
-	<div class="outline-wrapper" :class="{ collapse: collapsed }" v-if="hasLocalNav">
-		<nav
-			aria-labelledby="doc-outline-aria-label"
-			class="VPDocAsideOutline s-card"
-			:class="{
-				'card-enhance': collapsed,
-				hover: collapsed,
-			}"
-			ref="outline"
-			@click="toggle"
+	<nav
+		aria-labelledby="doc-outline-aria-label"
+		class="VPDocAsideOutline s-card"
+		v-if="hasLocalNav"
+		:class="{
+			'card-enhance': collapsed,
+			hover: collapsed,
+			collapse: collapsed,
+		}"
+		:style="{ maxHeight: `calc(${contentHeight}px + 62px)` }"
+		ref="outline"
+		@click="toggle"
+	>
+		<div
+			aria-level="2"
+			class="outline-title"
+			id="doc-outline-aria-label"
+			role="heading"
+			ref="expand"
 		>
-			<div
-				aria-level="2"
-				class="outline-title"
-				id="doc-outline-aria-label"
-				role="heading"
-				ref="expand"
-			>
-				<IconVocabulary />
-				{{ i18n.onThisPage }}
-				<IconChevronDown class="expand" />
-			</div>
-			<div class="content">
-				<div class="outline-marker" ref="marker" />
-				<VPDocOutlineItem :headers :root="true" />
-			</div>
-		</nav>
-	</div>
+			<IconVocabulary />
+			{{ i18n.onThisPage }}
+			<IconChevronDown class="expand" />
+		</div>
+		<div class="content" ref="content">
+			<div class="outline-marker" ref="marker" />
+			<VPDocOutlineItem :headers :root="true" />
+		</div>
+	</nav>
 </template>
 
 <style lang="scss" scoped>
-.outline-wrapper {
-	min-height: 58px;
-	transition: flex 0.4s;
+.VPDocAsideOutline {
+	padding-left: 1rem;
+	padding-bottom: 0.5rem;
+	overflow-y: scroll;
+	overscroll-behavior: contain;
+	min-height: 56px;
 	flex: 1;
 	&.collapse {
-		flex: 0;
-		height: 58px;
-	}
-}
-
-.VPDocAsideOutline {
-	padding-left: 16px;
-	padding-bottom: 8px;
-	overflow: scroll;
-	overscroll-behavior: contain;
-	max-height: 100%;
-	.collapse & {
 		overflow: hidden;
 		cursor: pointer;
+		flex: 0;
+		height: 56px;
 	}
 }
 
@@ -142,8 +138,7 @@ function toggle(e: PointerEvent) {
 	transition:
 		background-color 0.25s,
 		padding 0.25s;
-	.outline-wrapper:not(.collapse) &:hover,
-	.collapse:hover & {
+	.VPDocAsideOutline:not(.collapse) &:hover {
 		background-color: var(--vp-c-brand-soft);
 		color: var(--vp-c-brand-1);
 		padding: 0 8px;

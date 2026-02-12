@@ -28,7 +28,7 @@ defineProps<{
 
 <style lang="scss" scoped>
 .VPMenu {
-	max-height: calc(100vh - var(--vp-nav-height));
+	max-height: calc(100vh - var(--vp-nav-space));
 }
 
 .VPMenu :deep(.group) {

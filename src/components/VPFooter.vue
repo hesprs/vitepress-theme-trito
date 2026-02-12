@@ -2,14 +2,11 @@
 import { useData } from '@/composables/data';
 import VPFooterSocialLinks from './VPFooterSocialLinks.vue';
 import { registerFooter } from '@/composables/layout';
-import { onMounted, useTemplateRef } from 'vue';
+import { useTemplateRef } from 'vue';
 
 const { theme, frontmatter } = useData();
 const footer = useTemplateRef('footer');
-
-onMounted(() => {
-	if (footer.value) registerFooter(footer.value);
-});
+registerFooter(footer);
 </script>
 
 <template>
