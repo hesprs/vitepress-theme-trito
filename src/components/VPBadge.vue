@@ -19,6 +19,7 @@ withDefaults(defineProps<Props>(), {
 	display: inline-block;
 	margin-left: 2px;
 	border: 1px solid transparent;
+    box-shadow: var(--vp-shadow-1);
 	border-radius: 12px;
 	padding: 0 10px;
 	line-height: 22px;

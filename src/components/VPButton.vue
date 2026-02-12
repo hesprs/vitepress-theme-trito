@@ -44,7 +44,7 @@ const component = computed(() => {
 	text-align: center;
 	font-weight: 600;
 	white-space: nowrap;
-	box-shadow: var(--vp-shadow-2);
+	box-shadow: var(--vp-shadow-1);
 	transition:
 		color 0.25s,
 		border-color 0.25s,
