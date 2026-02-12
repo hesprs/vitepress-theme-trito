@@ -34,20 +34,4 @@ const { width: vw } = useWindowSize({
 		padding: 0 64px;
 	}
 }
-
-.vp-doc {
-	:deep(.VPHomeSponsors),
-	:deep(.VPTeamPage) {
-		margin-left: var(--vp-offset, calc(50% - 50vw));
-		margin-right: var(--vp-offset, calc(50% - 50vw));
-	}
-	:deep(.VPHomeSponsors h2) {
-		border-top: none;
-		letter-spacing: normal;
-	}
-	:deep(.VPHomeSponsors a),
-	:deep(.VPTeamPage a) {
-		text-decoration: none;
-	}
-}
 </style>

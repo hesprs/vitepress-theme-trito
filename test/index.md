@@ -3,14 +3,14 @@ home: true
 layout: home
 hero:
   name: Trito
-  text: A visually refurbished Vitepress default theme
+  text: visually refurbished VitePress default theme
   actions:
     - theme: brand
       text: API Examples
       link: /api-examples
     - theme: alt
       text: Markdown Examples
-      link: /markdown examples
+      link: /markdown-examples
 features:
   - title: Lorum ipsum ...
     icon: 🧪

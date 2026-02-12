@@ -16,6 +16,7 @@
 .vp-doc h1 {
 	font-size: 2rem;
 	text-align: center;
+	line-height: 1.2em;
 	padding-bottom: 0.5rem;
 	.header-anchor {
 		display: none;
@@ -38,7 +39,6 @@
 		content: '';
 		position: absolute;
 		left: 0;
-		top: 0;
 		bottom: 0;
 		width: 100%;
 		height: 8px;

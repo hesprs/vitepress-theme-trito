@@ -40,9 +40,12 @@ const { theme, page, title } = useData();
 }
 .title {
 	transition: opacity 0.2s;
+	display: flex;
+	align-items: center;
 	font-weight: 500;
 	opacity: 0;
 	user-select: none;
+	height: var(--vp-nav-height);
 	.show-title & {
 		opacity: 1;
 		user-select: auto;
@@ -64,7 +67,7 @@ const { theme, page, title } = useData();
 	}
 	@media (min-width: 960px) {
 		&.show-title {
-			transform: translateY(-43px);
+			transform: translateY(calc(0px - var(--vp-nav-height)));
 		}
 	}
 }

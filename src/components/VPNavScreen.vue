@@ -39,15 +39,16 @@ const isLocked = useScrollLock(inBrowser ? document.body : null);
 
 .VPNavScreen {
 	position: fixed;
-	top: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px));
-	right: 0;
-	bottom: 0;
-	left: 0;
+	top: calc(var(--vp-nav-space) + var(--vp-nav-top) + var(--vp-layout-top-height, 0px));
+	right: var(--vp-nav-top);
+	bottom: var(--vp-nav-top);
+	left: var(--vp-nav-top);
 	padding: 0 32px;
-	width: 100%;
 	background-color: var(--vp-nav-screen-bg-color);
 	overflow-y: auto;
-	transition: background-color 0.25s;
+	border-radius: calc(var(--vp-nav-height) / 2);
+	border: 1px solid var(--vp-c-border);
+	box-shadow: var(--vp-shadow-3);
 }
 
 .VPNavScreen.fade-enter-active,

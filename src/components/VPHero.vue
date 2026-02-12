@@ -126,7 +126,7 @@ const { heroImageSlotExists } = inject(layoutInfoInjectionKey) as LayoutInfo;
 
 .tagline {
 	padding-top: 8px;
-	line-height: 28px;
+	line-height: 32px;
 	font-size: 24px;
 	font-weight: 600;
 	white-space: pre-wrap;
@@ -139,11 +139,11 @@ const { heroImageSlotExists } = inject(layoutInfoInjectionKey) as LayoutInfo;
 	}
 	@media (min-width: 640px) {
 		padding-top: 12px;
-		line-height: 32px;
+		line-height: 36px;
 		font-size: 32px;
 	}
 	@media (min-width: 960px) {
-		line-height: 36px;
+		line-height: 44px;
 		font-size: 40px;
 	}
 }

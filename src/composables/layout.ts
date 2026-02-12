@@ -1,5 +1,5 @@
 import type { TritoTheme } from '@/shared';
-import { useWindowScroll, useWindowSize } from '@vueuse/core';
+import { useElementSize, useWindowScroll, useWindowSize } from '@vueuse/core';
 import { onContentUpdated } from 'vitepress';
 import {
 	type ComputedRef,
@@ -8,8 +8,9 @@ import {
 	ref,
 	shallowReadonly,
 	shallowRef,
-	watchPostEffect,
 	watch,
+	type Ref,
+	type ShallowRef,
 } from 'vue';
 
 import { getSidebar, getSidebarGroups } from '@/support/sidebar';
@@ -19,11 +20,16 @@ import { getHeaders } from './outline';
 
 const headers = shallowRef<TritoTheme.OutlineItem[]>([]);
 const sidebar = shallowRef<TritoTheme.SidebarItem[]>([]);
-let footer: null | HTMLElement = null;
+let footerHeight: Ref<number> | undefined = undefined;
+let contentHeight: Ref<number> | undefined = undefined;
 const maxAsideHeightOffset = ref(0);
 const showTitle = ref(false);
 const { y } = useWindowScroll();
 const { height: windowHeight } = useWindowSize();
+const { height: scrollHeight } = useElementSize(document.body);
+const navSpace =
+	parseInt(getCSSVariable('--vp-nav-height', '0px')) +
+	parseInt(getCSSVariable('--vp-nav-top', '0px'));
 
 export function useLayout() {
 	const { frontmatter, theme } = useData();
@@ -92,25 +98,38 @@ export function registerWatchers() {
 		headers.value = getHeaders(frontmatter.value.outline ?? theme.value.outline);
 	});
 
-	watchPostEffect(() => {
-		showTitle.value = y.value >= 300;
-		computeOffset();
-	});
+	watch(y, () => (showTitle.value = y.value >= 200));
 
-	watch(windowHeight, computeOffset, { immediate: true });
+	watch([y, windowHeight, scrollHeight], calcOffset);
 }
 
-export function registerFooter(_footer: HTMLElement) {
-	footer = _footer;
+function calcOffset() {
+	if (!contentHeight || !footerHeight) return;
+	if (contentHeight.value + navSpace + footerHeight.value + 72 <= windowHeight.value)
+		maxAsideHeightOffset.value = footerHeight.value + 8;
+	else
+		maxAsideHeightOffset.value = Math.max(
+			0,
+			footerHeight.value + 8 - (scrollHeight.value - y.value - windowHeight.value),
+		);
 }
 
-function computeOffset() {
-	maxAsideHeightOffset.value = Math.max(
-		0,
-		(footer?.clientHeight ?? 0) +
-			8 -
-			(document.body.clientHeight - y.value - windowHeight.value),
-	);
+export function registerFooter(footer: ShallowRef<HTMLElement | null>) {
+	footerHeight = useElementSize(
+		footer,
+		{ height: 50, width: 1000 },
+		{ box: 'border-box' },
+	).height;
+	watch(footerHeight, calcOffset);
+}
+
+export function registerContent(footer: ShallowRef<HTMLElement | null>) {
+	contentHeight = useElementSize(
+		footer,
+		{ height: 200, width: 500 },
+		{ box: 'border-box' },
+	).height;
+	watch(contentHeight, calcOffset);
 }
 
 export interface LayoutInfo {
@@ -118,3 +137,9 @@ export interface LayoutInfo {
 }
 
 export const layoutInfoInjectionKey: InjectionKey<LayoutInfo> = Symbol('layout-info');
+
+function getCSSVariable(name: string, fallback: string) {
+	const style = window.getComputedStyle(document.documentElement);
+	const value = style.getPropertyValue(name);
+	return value.trim() ?? fallback;
+}

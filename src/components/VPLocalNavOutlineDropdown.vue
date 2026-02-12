@@ -3,18 +3,16 @@ import { IconArrowBarToUp, IconChevronLeft } from '@tabler/icons-vue';
 import { onKeyStroke } from '@vueuse/core';
 import { onContentUpdated } from 'vitepress';
 import { nextTick, ref, watch } from 'vue';
-import { scrollToTop as toTop } from '@/composables/contextMenuActions';
+import { scrollToTop as toTop } from '@/composables/context-menu-actions';
 import { useI18n } from '@/composables/i18n';
 import type { TritoTheme } from '@/shared';
 import VPDocOutlineItem from './VPDocOutlineItem.vue';
 
 const props = defineProps<{
 	headers: TritoTheme.OutlineItem[];
-	navHeight: number;
 }>();
 
 const open = ref(false);
-const vh = ref(0);
 const main = ref<HTMLDivElement>();
 const items = ref<HTMLDivElement>();
 const i18n = useI18n();
@@ -43,7 +41,6 @@ onContentUpdated(() => {
 
 function toggle() {
 	open.value = !open.value;
-	vh.value = window.innerHeight + Math.min(window.scrollY - props.navHeight, 0);
 }
 
 function onItemClick(e: Event) {
@@ -65,7 +62,7 @@ function scrollToTop() {
 </script>
 
 <template>
-	<div class="VPLocalNavOutlineDropdown" :style="{ '--vp-vh': vh + 'px' }" ref="main">
+	<div class="VPLocalNavOutlineDropdown" ref="main">
 		<button @click="toggle" :class="{ open }" v-if="headers.length > 0">
 			{{ i18n.onThisPage }}
 			<IconChevronLeft class="icon" />
@@ -137,7 +134,7 @@ function scrollToTop() {
 
 .items {
 	position: absolute;
-	top: 40px;
+	top: calc(var(--vp-nav-space));
 	right: 16px;
 	left: 16px;
 	display: grid;
@@ -145,7 +142,7 @@ function scrollToTop() {
 	border: 1px solid var(--vp-c-border);
 	border-radius: 8px;
 	background-color: var(--vp-c-gutter);
-	max-height: calc(var(--vp-vh, 100vh) - 86px);
+	max-height: calc(100vh - var(--vp-nav-space) - var(--vp-nav-top));
 	overflow: hidden auto;
 	box-shadow: var(--vp-shadow-3);
 }

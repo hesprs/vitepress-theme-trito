@@ -8,7 +8,7 @@ export default defineConfig<ThemeConfig>({
 	cleanUrls: true,
 	lastUpdated: true,
 	title: 'Trito',
-	description: 'A visually refurbished Vitepress default theme.',
+	description: 'Visually refurbished VitePress default theme.',
 	head: [
 		['link', { rel: 'icon', href: '/favicon.ico' }],
 		['meta', { name: 'color-scheme', content: 'dark light' }],
