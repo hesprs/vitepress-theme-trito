@@ -1,6 +1,7 @@
 import type { TritoTheme } from '@/shared';
 import { useElementSize, useWindowScroll, useWindowSize } from '@vueuse/core';
 import { onContentUpdated } from 'vitepress';
+import { inBrowser } from 'vitepress';
 import {
 	type ComputedRef,
 	computed,
@@ -26,10 +27,11 @@ const maxAsideHeightOffset = ref(0);
 const showTitle = ref(false);
 const { y } = useWindowScroll();
 const { height: windowHeight } = useWindowSize();
-const { height: scrollHeight } = useElementSize(document.body);
-const navSpace =
-	parseInt(getCSSVariable('--vp-nav-height', '0px')) +
-	parseInt(getCSSVariable('--vp-nav-top', '0px'));
+const { height: scrollHeight } = inBrowser ? useElementSize(document.body) : useElementSize(ref());
+const navSpace = inBrowser
+	? parseInt(getCSSVariable('--vp-nav-height', '0px')) +
+		parseInt(getCSSVariable('--vp-nav-top', '0px'))
+	: 0;
 
 export function useLayout() {
 	const { frontmatter, theme } = useData();

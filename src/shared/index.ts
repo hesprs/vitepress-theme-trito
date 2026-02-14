@@ -1,5 +1,6 @@
-import type { AdditionalConfig, HeadConfig, PageData, SiteData } from './types';
 // oxlint-disable typescript/no-explicit-any
+import type { AdditionalConfig, HeadConfig, PageData, SiteData } from './types';
+import { inBrowser } from 'vitepress';
 import type { InjectionKey } from 'vue';
 
 export const toggleAppearanceKey: InjectionKey<
@@ -32,8 +33,6 @@ const UnpackStackView = Symbol('stack-view:unpack');
 const HASH_RE = /#.*$/;
 const HASH_OR_QUERY_RE = /[?#].*$/;
 const INDEX_OR_EXT_RE = /(?:(^|\/)index)?\.(?:md|html)$/;
-
-export const inBrowser = typeof document !== 'undefined';
 
 export const notFoundPageData: PageData = {
 	relativePath: '404.md',

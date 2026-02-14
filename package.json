@@ -1,6 +1,6 @@
 {
 	"name": "vitepress-theme-trito",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Visually refurbished VitePress default theme.",
 	"keywords": [
 		"front-end",
@@ -37,7 +37,8 @@
 		"build": "unbuild && node ./buildTransform.ts && tsc-alias",
 		"lint": "oxlint --type-aware --fix && oxfmt",
 		"check": "vue-tsc && oxfmt --check && oxlint --type-aware",
-		"dev": "vitepress dev test"
+		"dev": "vitepress dev test",
+		"test-build": "vitepress build test"
 	},
 	"dependencies": {
 		"@docsearch/css": "^4.5.4",
