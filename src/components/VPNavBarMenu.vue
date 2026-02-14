@@ -29,27 +29,13 @@ const { theme, page, title } = useData();
 .nav {
 	height: var(--vp-nav-height);
 	gap: 8px;
-	transition: opacity 0.2s;
-	opacity: 1;
-	.show-title & {
-		opacity: 0;
-		& * {
-			pointer-events: none;
-		}
-	}
 }
 .title {
-	transition: opacity 0.2s;
 	display: flex;
 	align-items: center;
 	font-weight: 500;
-	opacity: 0;
 	user-select: none;
 	height: var(--vp-nav-height);
-	.show-title & {
-		opacity: 1;
-		user-select: auto;
-	}
 	@media (max-width: 960px) {
 		display: none;
 	}
@@ -57,13 +43,13 @@ const { theme, page, title } = useData();
 .VPNavBarMenu {
 	display: none;
 	margin: auto;
-	flex-direction: column;
 	align-items: center;
 	transition:
 		transform 0.3s,
 		opacity 0.2s;
 	@media (min-width: 768px) {
 		display: flex;
+		flex-direction: column;
 	}
 	@media (min-width: 960px) {
 		&.show-title {

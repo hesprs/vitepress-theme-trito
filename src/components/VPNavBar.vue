@@ -32,7 +32,7 @@ watchPostEffect(() => {
 
 <template>
 	<div class="VPNavBar" :class="classes">
-		<div class="container">
+		<div class="hero-bar">
 			<div class="title">
 				<VPNavBarTitle>
 					<template #nav-bar-title-before>
@@ -64,6 +64,7 @@ watchPostEffect(() => {
 	position: relative;
 	height: var(--vp-nav-height);
 	white-space: nowrap;
+	overflow: hidden;
 	margin: 0 auto;
 	top: var(--vp-nav-top);
 	border-radius: calc(var(--vp-nav-height) / 2);
@@ -86,14 +87,12 @@ watchPostEffect(() => {
 	}
 }
 
-.container {
-	transition:
-		transform 0.3s,
-		opacity 0.2s;
+.hero-bar {
+	transition: transform 0.3s;
 	padding: 0 8px 0 16px;
 	@media (max-width: 960px) {
 		.show-title & {
-			transform: translateY(-55px);
+			transform: translateY(calc(0px - var(--vp-nav-height)));
 		}
 	}
 	display: flex;
@@ -103,7 +102,7 @@ watchPostEffect(() => {
 
 .title {
 	flex-shrink: 0;
-	height: calc(var(--vp-nav-height) - 1px);
+	height: var(--vp-nav-height);
 	transition: background-color 0.5s;
 }
 
