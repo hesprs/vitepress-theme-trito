@@ -10,12 +10,12 @@ export default defineConfig<ThemeConfig>({
 	title: 'Trito',
 	description: 'Visually refurbished VitePress default theme.',
 	head: [
-		['link', { rel: 'icon', href: '/favicon.ico' }],
+		['link', { rel: 'icon', href: '/logo.svg' }],
 		['meta', { name: 'color-scheme', content: 'dark light' }],
 	],
 	themeConfig: {
-		logo: { src: '/logo-small.svg', alt: 'Website logo' },
-		logoLarge: { src: '/logo.svg', alt: 'Website large logo' },
+		logo: { src: '/logo.svg', alt: 'Website logo' },
+		logoLarge: { src: '/logo.svg', alt: 'Website logo' },
 		aside: 'left',
 		search: { provider: 'local' },
 		socialLinks: [

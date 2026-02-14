@@ -33,25 +33,17 @@ const { isOpen, open } = useSidebarControl();
 	z-index: var(--vp-z-index-local-nav);
 	height: var(--vp-nav-height);
 	width: 100%;
-	opacity: 0;
-	transition:
-		transform 0.3s,
-		opacity 0.2s;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	padding: 0 18px;
+	transition: transform 0.3s;
 	@media (max-width: 960px) {
 		.show-title & {
-			pointer-events: auto;
-			opacity: 1;
-			transform: translateY(-55px);
+			transform: translateY(calc(0px - var(--vp-nav-height)));
 		}
 	}
 	@media (min-width: 960px) {
-		top: var(--vp-nav-space);
-	}
-	@media (min-width: 1280px) {
 		display: none;
 	}
 }
@@ -89,6 +81,6 @@ const { isOpen, open } = useSidebarControl();
 
 .title {
 	font-weight: 500;
-	font-size: 0.9em;
+	font-size: 0.8em;
 }
 </style>

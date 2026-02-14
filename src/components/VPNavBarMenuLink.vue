@@ -14,15 +14,21 @@ const { page } = useData();
 const href = computed(() =>
 	typeof props.item.link === 'function' ? props.item.link(page.value) : props.item.link,
 );
+
+const isActiveLink = computed(() =>
+	isActive(
+		page.value.relativePath,
+		props.item.activeMatch || href.value,
+		!!props.item.activeMatch,
+	),
+);
 </script>
 
 <template>
 	<VPLink
 		class="nav-btn"
 		style="padding: 4px 12px"
-		:class="{
-			active: isActive(page.relativePath, item.activeMatch || href, !!item.activeMatch),
-		}"
+		:class="{ active: isActiveLink }"
 		:href
 		:target="item.target"
 		:rel="item.rel"
