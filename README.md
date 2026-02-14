@@ -31,7 +31,7 @@
     </a>
 </p>
 
-## What is Trito?
+## ❓ What is Trito?
 
 Trito (pronounced as try-toe) is a [VitePress](https://vitepress.dev/) theme, which determines the look and feel of a VitePress generated site.
 
@@ -39,7 +39,7 @@ Trito titles itself as **"visually refurbished VitePress default theme"**, thus 
 
 Trito is designed to be a **drop-in replacement** to the default theme. If you want to make your site different from all other VitePress websites, please choose Trito 🌊. Don't forget to add a star ⭐!
 
-## How to use it?
+## 🚀 How to use it?
 
 Firstly install it using your favorite package manager, choose `devDependency` or not based on your use case, here we take `npm` as an example:
 
@@ -68,7 +68,7 @@ export default defineConfig<ThemeConfig>({ // the type parameter is critical
 
 The extension of the theme is exactly the same as the default theme, refer to [how to extend the theme](https://vitepress.dev/guide/extending-default-theme) and [how to use the a custom theme](https://vitepress.dev/guide/custom-theme#consuming-a-custom-theme) in the official documentation for more detail.
 
-## Configuration
+## 🛠 Configuration
 
 Trito keeps minimal intrusion to the default theme APIs.
 
@@ -114,7 +114,7 @@ New frontmatter option `unstyled: boolean`: by setting it to `true`, pre-made st
 
 - All handled by internal i18n utility.
 
-## Sites Using Trito
+## 🌐 Sites Using Trito
 
 - [Pointeract documentation](https://pointeract.consensia.cc)
 - [Hēsperus' portfolio](https://hesprs.github.io)
@@ -122,6 +122,6 @@ New frontmatter option `unstyled: boolean`: by setting it to `true`, pre-made st
 
 Disclaimer: `vitepress-theme-trito` is not related to, or effected by, the content of any of the sites above.
 
-## Copyright & License
+## 📝 Copyright & License
 
 Copyright ©️ 2025-2026 Hesprs (Hēsperus) | [MIT License](https://mit-license.org/)

@@ -1,6 +1,9 @@
 name: Build and Publish to npm
 
 on:
+  push:
+    tags:
+      - 'v*.*.*'
   workflow_dispatch:
 
 permissions:
