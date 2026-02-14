@@ -29,6 +29,10 @@
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",
+	"publishConfig": {
+		"access": "public",
+		"provenance": true
+	},
 	"scripts": {
 		"build": "unbuild && node ./buildTransform.ts && tsc-alias",
 		"lint": "oxlint --type-aware --fix && oxfmt",
