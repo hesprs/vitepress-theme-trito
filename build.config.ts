@@ -9,9 +9,6 @@ export default defineBuildConfig({
 			ext: 'js',
 		},
 	],
-	replace: {
-		'.scss': '.css',
-	},
 	clean: true,
 	sourcemap: true,
 	declaration: true,

@@ -54,15 +54,20 @@ import Trito from 'vitepress-theme-trito';
 export default Trito;
 ```
 
-Specifically for TypeScript, go to `.vitepress/config.ts` and do the modifications below:
+Go to `.vitepress/config.ts` or `.vitepress/config.js` and do the modifications below:
 
 ```TypeScript
 // ... some other imports
-import { ThemeConfig } from 'vitepress-theme-trito';
+import { ThemeConfig } from 'vitepress-theme-trito'; // specifically for TypeScript
 import { defineConfig } from 'vitepress';
 
-export default defineConfig<ThemeConfig>({ // the type parameter is critical
+export default defineConfig<ThemeConfig>({ // [specifically for TypeScript] the type parameter is critical
     // ... your config
+    vite: {
+        ssr: {
+            noExternal: ['vitepress-theme-trito'], // this ensures the website can build
+        },
+    },
 })
 ```
 
