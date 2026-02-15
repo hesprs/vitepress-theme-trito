@@ -118,4 +118,6 @@ This is a details block.
 
 ## More
 
+![preview image of a document page with light and dark theme](https://github.com/hesprs/vitepress-theme-trito/raw/main/assets/preview2.png)
+
 Check out the documentation for the [full list of markdown extensions](https://vitepress.dev/guide/markdown).

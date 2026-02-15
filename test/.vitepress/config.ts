@@ -13,6 +13,16 @@ export default defineConfig<ThemeConfig>({
 		['link', { rel: 'icon', href: '/logo.svg' }],
 		['meta', { name: 'color-scheme', content: 'dark light' }],
 	],
+	locales: {
+		root: {
+			label: 'English',
+			lang: 'en',
+		},
+		'zh-Hans': {
+			label: '简体中文',
+			lang: 'zh-Hans',
+		},
+	},
 	themeConfig: {
 		logo: { src: '/logo.svg', alt: 'Website logo' },
 		logoLarge: { src: '/logo.svg', alt: 'Website logo' },
