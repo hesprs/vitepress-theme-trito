@@ -2,6 +2,12 @@ import { computed } from 'vue';
 
 import { useData } from './data';
 
+export function setupI18n() {
+	const { theme } = useData();
+	if (!theme.value.i18n) return;
+	Object.assign(i18nTranslations, theme.value.i18n);
+}
+
 export function useI18n() {
 	const { localeIndex } = useData();
 	return computed(
@@ -11,7 +17,7 @@ export function useI18n() {
 	);
 }
 
-const i18nTranslations = {
+export const i18nTranslations = {
 	en: {
 		prev: 'Previous Page',
 		next: 'Next Page',
@@ -38,6 +44,7 @@ const i18nTranslations = {
 			title: 'PAGE NOT FOUND',
 			quote: "But if you don't change your direction, and if you keep looking, you may end up where you are heading.",
 			linkText: 'Return Home',
+			code: '404',
 		},
 	},
 	'zh-Hans': {
@@ -66,6 +73,7 @@ const i18nTranslations = {
 			title: '页面未找到',
 			quote: '但如果你不改变方向，如果你继续寻找，你可能会到达你要去的地方。',
 			linkText: '返回首页',
+			code: '404',
 		},
 	},
 	ja: {
@@ -94,6 +102,7 @@ const i18nTranslations = {
 			title: 'ページが見つかりません',
 			quote: 'しかし、もしあなたが進む方向を変えず、探し続けたら、やがて目指していた場所にたどり着くかもしれません。',
 			linkText: 'ホームに戻る',
+			code: '404',
 		},
 	},
 	de: {
@@ -122,6 +131,7 @@ const i18nTranslations = {
 			title: 'SEITE NICHT GEFUNDEN',
 			quote: 'Aber wenn du deine Richtung nicht änderst und weiterhin suchst, könntest du genau dort ankommen, wohin du unterwegs bist.',
 			linkText: 'Zur Startseite zurückkehren',
+			code: '404',
 		},
 	},
 	fr: {
@@ -150,6 +160,7 @@ const i18nTranslations = {
 			title: 'PAGE NON TROUVÉE',
 			quote: 'Mais si vous ne changez pas de direction et continuez à chercher, vous finirez peut-être là où vous allez.',
 			linkText: 'Retour à l’accueil',
+			code: '404',
 		},
 	},
 	es: {
@@ -178,6 +189,7 @@ const i18nTranslations = {
 			title: 'PÁGINA NO ENCONTRADA',
 			quote: 'Pero si no cambias de dirección y sigues buscando, podrías terminar donde te diriges.',
 			linkText: 'Volver al inicio',
+			code: '404',
 		},
 	},
 };

@@ -11,6 +11,7 @@ import { useData } from '@/composables/data';
 import { layoutInfoInjectionKey, registerWatchers } from '@/composables/layout';
 import { setupRouteChange } from './composables/route-change';
 import setupTransition from '@/composables/theme-toggle-transition';
+import { setupI18n } from './composables/i18n';
 
 const { frontmatter, isDark } = useData();
 setupTransition(isDark);
@@ -20,6 +21,7 @@ const heroImageSlotExists = computed(() => !!slots['home-hero-image']);
 
 registerWatchers();
 setupRouteChange();
+setupI18n();
 provide(layoutInfoInjectionKey, { heroImageSlotExists });
 </script>
 

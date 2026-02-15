@@ -128,7 +128,7 @@ const provider = __ALGOLIA__ ? 'algolia' : __VP_LOCAL_SEARCH__ ? 'local' : '';
 		<template v-else-if="provider === 'algolia'">
 			<VPAlgoliaSearchBox
 				v-if="loaded"
-				:algolia="theme.search?.options ?? theme.algolia"
+				:algolia="theme.search?.options"
 				@vue:beforeMount="actuallyLoaded = true"
 			/>
 

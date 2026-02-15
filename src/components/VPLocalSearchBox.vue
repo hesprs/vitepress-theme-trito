@@ -101,13 +101,12 @@ const showDetailedList = useLocalStorage(
 const disableDetailedView = computed(() => {
 	return (
 		theme.value.search?.provider === 'local' &&
-		(theme.value.search.options?.disableDetailedView === true ||
-			theme.value.search.options?.detailedView === false)
+		theme.value.search.options?.detailedView === false
 	);
 });
 
 const buttonText = computed(() => {
-	const options = theme.value.search?.options ?? theme.value.algolia;
+	const options = theme.value.search?.options;
 
 	return (
 		options?.locales?.[localeIndex.value]?.translations?.button?.buttonText ||
