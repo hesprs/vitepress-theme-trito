@@ -18,7 +18,7 @@ const { localeLinks, currentLang } = useLangs({ correspondingLink: true });
 		:label="i18n.changeLang"
 	>
 		<template #icon>
-			<IconLanguageHiragana class="icon" />
+			<IconLanguageHiragana />
 		</template>
 		<div class="items">
 			<p class="title">{{ currentLang.label }}</p>
@@ -39,6 +39,7 @@ const { localeLinks, currentLang } = useLangs({ correspondingLink: true });
 }
 
 .title {
+	white-space: nowrap;
 	padding: 0 24px 0 12px;
 	line-height: 32px;
 	font-size: 14px;
