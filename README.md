@@ -77,13 +77,15 @@ If you want to stylize the styles, you can see all configurable CSS variables in
 
 The theme configuration is **almost identical** to the default theme's, which is documented well at the [reference page](https://vitepress.dev/reference/site-config). But some options do differ in nuances, see below:
 
-### Home Page (the `index.md` at your site pages root)
+### Frontmatters
 
-Frontmatter option `hero.image`: removed, which is replaced by [`logoLarge` theme config](#new-option-logolarge)
+#### Removed Home Page Option `hero.image`
 
-### Common Markdown Page (including `Home`)
+- Replaced by [`logoLarge` theme config](#new-option-logolarge)
 
-New frontmatter option `unstyled: boolean`: by setting it to `true`, pre-made styles will not be applied to the text content of the page.
+#### New Common Markdown Page (including `Home`) Option `unstyled: boolean`
+
+- By setting it to `true`, pre-made styles will not be applied to the text content of the page.
 
 ### Theme Config
 
@@ -91,6 +93,16 @@ New frontmatter option `unstyled: boolean`: by setting it to `true`, pre-made st
 
 - Type: [`ThemeableImage`](https://vitepress.dev/reference/default-theme-config#logo)
 - It determines the hero image and the image in loading view, replacing `hero.image` in home frontmatter.
+
+#### New Option `i18n`
+
+- Adds or overrides translation strings.
+- Type: Object, keys are locale codes (e.g., `en`, `de`, `zh-Hans`), values are objects of translations.
+- See [this file](https://github.com/hesprs/vitepress-theme-trito/blob/main/src/composables/i18n.ts).
+
+#### New Option `NotFoundLink`
+
+- Configures the target of the return link shown in the 404 page.
 
 #### Removed `outline.label`
 
@@ -111,7 +123,7 @@ New frontmatter option `unstyled: boolean`: by setting it to `true`, pre-made st
 
 - It downgrades UX and the UI has no room for it.
 
-#### Removed `darkModeSwitchLabel`, `lightModeSwitchTitle`, `darkModeSwitchTitle`, `sidebarMenuLabel`, `returnToTopLabel`, `langMenuLabel`
+#### Removed `darkModeSwitchLabel`, `lightModeSwitchTitle`, `darkModeSwitchTitle`, `sidebarMenuLabel`, `returnToTopLabel`, `langMenuLabel`, `notFound`
 
 - All handled by internal i18n utility.
 

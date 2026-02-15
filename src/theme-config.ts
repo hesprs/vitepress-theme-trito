@@ -1,3 +1,4 @@
+import type { i18nTranslations } from '@/composables/i18n';
 // oxlint-disable typescript/no-explicit-any
 import type { DocSearchProps } from '@/shared/docsearch';
 import type { Header, PageData } from '@/shared/index';
@@ -58,6 +59,13 @@ export namespace TritoTheme {
 		aside?: boolean | 'left';
 
 		/**
+		 * Translations of the text pieces used in UI.
+		 * @see https://github.com/hesprs/vitepress-theme-trito/blob/main/src/composables/i18n.ts
+		 * Where the keys are locale codes (e.g. 'en', 'de'), and values are the translation objects.
+		 */
+		i18n?: Record<string, typeof i18nTranslations.en>;
+
+		/**
 		 * Info for the edit link. If it's undefined, the edit link feature will
 		 * be disabled.
 		 *
@@ -98,11 +106,6 @@ export namespace TritoTheme {
 			| { provider: 'algolia'; options: AlgoliaSearchOptions };
 
 		/**
-		 * @deprecated Use `search` instead.
-		 */
-		algolia?: AlgoliaSearchOptions;
-
-		/**
 		 * Changing locale when current url is `/foo` will redirect to `/locale/foo`.
 		 *
 		 * @default true
@@ -117,9 +120,11 @@ export namespace TritoTheme {
 		externalLinkIcon?: boolean;
 
 		/**
-		 * Customize text of 404 page.
+		 * Customize the return link of 404 page.
+		 *
+		 * @default '/' or '/<locale>/' depending on `i18nRouting`
 		 */
-		notFound?: NotFoundOptions;
+		notFoundLink?: string;
 	}
 
 	// nav -----------------------------------------------------------------------
@@ -334,42 +339,5 @@ export namespace TritoTheme {
 	 */
 	export interface AlgoliaSearchOptions extends DocSearchProps {
 		locales?: Record<string, Partial<DocSearchProps>>;
-	}
-
-	// not found -----------------------------------------------------------------
-
-	export interface NotFoundOptions {
-		/**
-		 * Set custom not found message.
-		 *
-		 * @default 'PAGE NOT FOUND'
-		 */
-		title?: string;
-
-		/**
-		 * Set custom not found description.
-		 *
-		 * @default "But if you don't change your direction, and if you keep looking, you may end up where you are heading."
-		 */
-		quote?: string;
-
-		/**
-		 * Target of the home link.
-		 *
-		 * @default '/'
-		 */
-		link?: string;
-
-		/**
-		 * Set custom home link text.
-		 *
-		 * @default 'Return Home'
-		 */
-		linkText?: string;
-
-		/**
-		 * @default '404'
-		 */
-		code?: string;
 	}
 }
