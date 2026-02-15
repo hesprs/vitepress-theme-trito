@@ -71,16 +71,20 @@ function scrollToTop() {
 			{{ i18n.returnToTop }}
 			<IconArrowBarToUp class="icon" />
 		</button>
-		<Transition name="flyout">
-			<div v-if="open" ref="items" class="items" @click="onItemClick">
-				<div class="header">
-					<a class="top-link" href="#" @click="scrollToTop"> {{ i18n.returnToTop }} </a>
+		<Teleport defer to=".VPNav">
+			<Transition name="fadeDown">
+				<div v-if="open" ref="items" class="items" @click="onItemClick">
+					<div class="header">
+						<a class="top-link" href="#" @click="scrollToTop">
+							{{ i18n.returnToTop }}
+						</a>
+					</div>
+					<div class="outline">
+						<VPDocOutlineItem :headers />
+					</div>
 				</div>
-				<div class="outline">
-					<VPDocOutlineItem :headers />
-				</div>
-			</div>
-		</Transition>
+			</Transition>
+		</Teleport>
 	</div>
 </template>
 
@@ -133,8 +137,8 @@ function scrollToTop() {
 }
 
 .items {
-	position: absolute;
-	top: calc(var(--vp-nav-space));
+	position: fixed;
+	top: var(--vp-nav-empty);
 	right: 16px;
 	left: 16px;
 	display: grid;
@@ -142,9 +146,10 @@ function scrollToTop() {
 	border: 1px solid var(--vp-c-border);
 	border-radius: 8px;
 	background-color: var(--vp-c-gutter);
-	max-height: calc(100vh - var(--vp-nav-space) - var(--vp-nav-top));
+	max-height: calc(100vh - var(--vp-nav-empty));
 	overflow: hidden auto;
 	box-shadow: var(--vp-shadow-3);
+	z-index: 100;
 }
 
 @media (min-width: 960px) {
@@ -171,19 +176,5 @@ function scrollToTop() {
 .outline {
 	padding: 8px 0;
 	background-color: var(--vp-c-bg-soft);
-}
-
-.flyout-enter-active {
-	transition: all 0.2s ease-out;
-}
-
-.flyout-leave-active {
-	transition: all 0.15s ease-in;
-}
-
-.flyout-enter-from,
-.flyout-leave-to {
-	opacity: 0;
-	transform: translateY(-16px);
 }
 </style>

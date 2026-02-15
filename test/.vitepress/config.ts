@@ -30,6 +30,13 @@ export default defineConfig<ThemeConfig>({
 			{ text: 'Home', link: '/' },
 			{ text: 'API', link: '/api-examples' },
 			{ text: 'Markdown', link: '/markdown-examples' },
+			{
+				text: 'Group',
+				items: [
+					{ text: 'text1', link: 'link1' },
+					{ text: 'text1', link: 'link1' },
+				],
+			},
 		],
 		sidebar: [
 			{

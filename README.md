@@ -23,12 +23,8 @@
 <img align="center" src="./assets/preview2.png" alt="preview image of the documentation page with light and dark theme">
 
 <p align="center">
-    <a href="#sites-using-trito">
-        <strong>Demo</strong>
-    </a> • 
-    <a href="https://vitepress.dev/">
-        <strong>About VitePress</strong>
-    </a>
+    <a href="#🌐-sites-using-trito"><strong>Demos</strong></a> • 
+    <a href="https://vitepress.dev/"><strong>About VitePress</strong></a>
 </p>
 
 ## ❓ What is Trito?
@@ -58,10 +54,10 @@ Go to `.vitepress/config.ts` or `.vitepress/config.js` and do the modifications 
 
 ```TypeScript
 // ... some other imports
-import { ThemeConfig } from 'vitepress-theme-trito'; // specifically for TypeScript
+import { ThemeConfig } from 'vitepress-theme-trito'; // specially for TypeScript
 import { defineConfig } from 'vitepress';
 
-export default defineConfig<ThemeConfig>({ // [specifically for TypeScript] the type parameter is critical
+export default defineConfig<ThemeConfig>({ // [specially for TypeScript] the type parameter makes VitePress aware of the theme
     // ... your config
     vite: {
         ssr: {
@@ -83,7 +79,7 @@ The theme configuration is **almost identical** to the default theme's, which is
 
 ### Home Page (the `index.md` at your site pages root)
 
-Frontmatter option `hero.image`: removed, which is replaced by [`logoLarge` theme config](#logolarge)
+Frontmatter option `hero.image`: removed, which is replaced by [`logoLarge` theme config](#new-option-logolarge)
 
 ### Common Markdown Page (including `Home`)
 
@@ -104,12 +100,12 @@ New frontmatter option `unstyled: boolean`: by setting it to `true`, pre-made st
 #### Removed `editLink.text`
 
 - Handled by internal i18n utility.
-- Now `editLink` directly sets the link pattern, refer to [official docs](https://vitepress.dev/reference/default-theme-edit-link).
+- Now `editLink` **directly configures the link pattern**, refer to [official docs](https://vitepress.dev/reference/default-theme-edit-link).
 
 #### Removed `lastUpdated.text`
 
 - Handled by internal i18n utility.
-- Now `lastUpdated` directly sets the date format, refer to [official docs](https://vitepress.dev/reference/default-theme-last-updated).
+- Now `lastUpdated` **directly configures the date format**, refer to [official docs](https://vitepress.dev/reference/default-theme-last-updated).
 
 #### Removed `carbonads`
 
