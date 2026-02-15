@@ -23,7 +23,7 @@
 <img align="center" src="./assets/preview2.png" alt="preview image of the documentation page with light and dark theme">
 
 <p align="center">
-    <a href="#🌐-sites-using-trito"><strong>Demos</strong></a> • 
+    <a href="#-sites-using-trito"><strong>Demos</strong></a> • 
     <a href="https://vitepress.dev/"><strong>About VitePress</strong></a>
 </p>
 
