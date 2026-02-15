@@ -131,6 +131,7 @@ const { heroImageSlotExists } = inject(layoutInfoInjectionKey) as LayoutInfo;
 	font-weight: 600;
 	white-space: pre-wrap;
 	color: var(--vp-c-text-2);
+	text-align: center;
 	.VPHero.has-image & {
 		margin: 0 auto;
 		@media (min-width: 960px) {
@@ -145,6 +146,7 @@ const { heroImageSlotExists } = inject(layoutInfoInjectionKey) as LayoutInfo;
 	@media (min-width: 960px) {
 		line-height: 44px;
 		font-size: 40px;
+		text-align: left;
 	}
 }
 
@@ -224,7 +226,7 @@ const { heroImageSlotExists } = inject(layoutInfoInjectionKey) as LayoutInfo;
 
 :deep(.image-src) {
 	width: 100%;
-	max-width: calc(200px + 20vw);
+	max-width: calc(240px + 20vw);
 	object-fit: contain;
 	flex: 1;
 }
