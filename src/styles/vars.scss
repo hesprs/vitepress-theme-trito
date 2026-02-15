@@ -405,6 +405,7 @@
 	}
 
 	--vp-nav-space: calc((var(--vp-nav-height) + var(--vp-nav-top)));
+	--vp-nav-empty: calc((var(--vp-nav-space) + var(--vp-nav-top)));
 
 	/**
      * Colors Backdrop

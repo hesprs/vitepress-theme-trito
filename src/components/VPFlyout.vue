@@ -1,5 +1,5 @@
 <script lang="ts" setup generic="T extends TritoTheme.NavItem">
-import { onMounted, onUnmounted, ref, useTemplateRef } from 'vue';
+import { onMounted, onUnmounted, ref, useTemplateRef, watch } from 'vue';
 import type { TritoTheme } from '@/shared';
 import VPMenu from './VPMenu.vue';
 
@@ -12,10 +12,12 @@ defineProps<{
 }>();
 
 const open = ref(false);
-const menu = useTemplateRef('menu');
+const menuLeft = ref(0);
+const flyout = useTemplateRef('flyout');
+const buttonRef = useTemplateRef('buttonRef');
 
 const handleClickOutside = (e: PointerEvent) => {
-	if (open.value && !menu.value?.contains(e.target as Node)) open.value = false;
+	if (open.value && !flyout.value?.contains(e.target as Node)) open.value = false;
 };
 
 onMounted(() => {
@@ -25,16 +27,24 @@ onMounted(() => {
 onUnmounted(() => {
 	window.removeEventListener('click', handleClickOutside);
 });
+
+watch(open, (value) => {
+	if (!buttonRef.value || !value) return;
+	const boundingRect = buttonRef.value.getBoundingClientRect();
+	menuLeft.value = boundingRect.left + boundingRect.width / 2;
+});
 </script>
 
 <template>
-	<div class="VPFlyout flex-center" ref="menu">
+	<div class="VPFlyout flex-center" ref="flyout">
 		<button
 			type="button"
 			aria-haspopup="true"
 			:aria-expanded="open"
 			:aria-label="label"
 			@click="open = !open"
+			@mouseenter="open = true"
+			ref="buttonRef"
 		>
 			<span v-if="button || icon || $slots.icon" class="text flex-center">
 				<slot name="icon" />
@@ -46,11 +56,20 @@ onUnmounted(() => {
 			<span v-else class="vpi-more-horizontal icon" />
 		</button>
 
-		<div class="menu" :class="{ open: open }" @mouseleave="open = false">
-			<VPMenu :items>
-				<slot />
-			</VPMenu>
-		</div>
+		<Teleport defer to=".VPNav">
+			<Transition name="fadeDown">
+				<div
+					class="menu"
+					v-if="open"
+					@mouseleave="open = false"
+					:style="{ left: `${menuLeft}px` }"
+				>
+					<VPMenu :items>
+						<slot />
+					</VPMenu>
+				</div>
+			</Transition>
+		</Teleport>
 	</div>
 </template>
 
@@ -79,19 +98,11 @@ onUnmounted(() => {
 }
 
 .menu {
-	z-index: 100;
 	display: flex;
 	justify-content: center;
 	position: absolute;
 	top: calc(100% + 10px);
 	width: 0;
 	overflow: visible;
-	opacity: 0;
-	pointer-events: none;
-	transition: opacity 0.25s;
-	&.open {
-		pointer-events: auto;
-		opacity: 1;
-	}
 }
 </style>

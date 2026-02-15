@@ -39,7 +39,7 @@ const isLocked = useScrollLock(inBrowser ? document.body : null);
 
 .VPNavScreen {
 	position: fixed;
-	top: calc(var(--vp-nav-space) + var(--vp-nav-top) + var(--vp-layout-top-height, 0px));
+	top: calc(var(--vp-nav-empty) + var(--vp-layout-top-height, 0px));
 	right: var(--vp-nav-top);
 	bottom: var(--vp-nav-top);
 	left: var(--vp-nav-top);
