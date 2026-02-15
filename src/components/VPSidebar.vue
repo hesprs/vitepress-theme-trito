@@ -50,7 +50,7 @@ const needSidebar = computed(() => hasSidebar.value && width.value <= 960);
 	width: calc(100vw - 64px);
 	max-width: 320px;
 	background-color: var(--vp-sidebar-bg-color);
-	overflow: scroll;
+	overflow: hidden scroll;
 	transform: translateX(-100%);
 	transition: transform 0.25s ease;
 	pointer-events: none;
