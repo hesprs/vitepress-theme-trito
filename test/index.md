@@ -4,6 +4,7 @@ layout: home
 hero:
   name: Trito
   text: visually refurbished VitePress default theme
+  tagline: Some stuff that is very long so that it can be a tagline.
   actions:
     - theme: brand
       text: API Examples
