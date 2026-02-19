@@ -5,10 +5,8 @@ import '@/styles/components/vp-code.css';
 import '@/styles/components/vp-code-group.css';
 import '@/styles/components/vp-doc.scss';
 import '@/styles/fonts.css';
-
-import type { TritoTheme } from '@/theme-config';
 import type { Theme } from 'vitepress';
-
+import type { TritoTheme } from '@/theme-config';
 import VPBadge from '@/components/VPBadge.vue';
 import Layout from '@/Layout.vue';
 

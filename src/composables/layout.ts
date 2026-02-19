@@ -1,4 +1,3 @@
-import type { TritoTheme } from '@/shared';
 import { useElementSize, useWindowScroll, useWindowSize } from '@vueuse/core';
 import { onContentUpdated } from 'vitepress';
 import { inBrowser } from 'vitepress';
@@ -13,9 +12,8 @@ import {
 	type Ref,
 	type ShallowRef,
 } from 'vue';
-
+import type { TritoTheme } from '@/shared';
 import { getSidebar, getSidebarGroups } from '@/support/sidebar';
-
 import { useData } from './data';
 import { getHeaders } from './outline';
 

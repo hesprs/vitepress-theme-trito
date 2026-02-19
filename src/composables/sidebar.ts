@@ -9,11 +9,8 @@ import {
 	watchPostEffect,
 	type ComputedRef,
 } from 'vue';
-
 import { isActive } from '@/shared';
-
 import { hasActiveLink as containsActiveLink } from '../support/sidebar';
-
 import { useData } from './data';
 
 const isOpen = ref(false);

@@ -1,9 +1,7 @@
-import type { TritoTheme } from '@/shared';
 import { getScrollOffset } from 'vitepress';
 import { onMounted, onUnmounted, type Ref } from 'vue';
-
+import type { TritoTheme } from '@/shared';
 import { throttleAndDebounce } from '@/support/utils';
-
 import { useAside } from './aside';
 
 const ignoreRE = /\b(?:VPBadge|header-anchor|footnote-ref|ignore-header)\b/;

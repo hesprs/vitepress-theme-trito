@@ -1,6 +1,5 @@
-import { resolve } from 'node:path';
-
 import type { ThemeConfig } from '@';
+import { resolve } from 'node:path';
 import { defineConfig } from 'vitepress';
 
 export default defineConfig<ThemeConfig>({
