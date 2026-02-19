@@ -1,9 +1,9 @@
+import type { Options as _MiniSearchOptions } from 'minisearch';
 import type { i18nTranslations } from '@/composables/i18n';
 // oxlint-disable typescript/no-explicit-any
 import type { DocSearchProps } from '@/shared/docsearch';
 import type { Header, PageData } from '@/shared/index';
 import type { LocalSearchTranslations } from '@/shared/local-search';
-import type { Options as _MiniSearchOptions } from 'minisearch';
 
 export namespace TritoTheme {
 	export interface Config {

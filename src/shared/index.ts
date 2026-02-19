@@ -1,7 +1,7 @@
+import type { InjectionKey } from 'vue';
+import { inBrowser } from 'vitepress';
 // oxlint-disable typescript/no-explicit-any
 import type { AdditionalConfig, HeadConfig, PageData, SiteData } from './types';
-import { inBrowser } from 'vitepress';
-import type { InjectionKey } from 'vue';
 
 export const toggleAppearanceKey: InjectionKey<
 	(coords: { clientX: number; clientY: number }) => Promise<void>

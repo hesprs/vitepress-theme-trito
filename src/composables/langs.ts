@@ -1,7 +1,5 @@
 import { computed } from 'vue';
-
 import { ensureStartingSlash } from '@/support/utils';
-
 import { useData } from './data';
 
 export function useLangs({ correspondingLink = false } = {}) {

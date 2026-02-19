@@ -1,5 +1,4 @@
 import { computed } from 'vue';
-
 import { useData } from './data';
 
 export function setupI18n() {

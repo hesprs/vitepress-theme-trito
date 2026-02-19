@@ -1,5 +1,4 @@
 import { computed } from 'vue';
-
 import { useData } from './data';
 import { useI18n } from './i18n';
 
