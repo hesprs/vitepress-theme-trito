@@ -8,10 +8,10 @@
 <h4 align="center">Visually refurbished VitePress default theme</h4>
 
 <p align="center">
-    <a href="https://www.npmjs.com/package/json-canvas-viewer">
+    <a href="https://www.npmjs.com/package/vitepress-theme-trito">
         <img src="https://img.shields.io/npm/v/vitepress-theme-trito?logo=npm&labelColor=red&logoColor=white&color=333333" alt="npm package">
     </a>
-    <a href="https://github.com/hesprs/json-canvas-viewer/actions">
+    <a href="https://github.com/hesprs/vitepress-theme-trito/actions">
         <img src="https://img.shields.io/github/actions/workflow/status/hesprs/vitepress-theme-trito/ci.yml?style=flat&logo=github&logoColor=white&label=CI&labelColor=d4ab00&color=333333" alt="ci">
     </a>
     <img src="https://img.shields.io/badge/Types-Strict-333333?logo=typescript&labelColor=blue&logoColor=white" alt="TypeScript">
