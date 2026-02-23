@@ -17,6 +17,7 @@ defineProps<{
 <template>
 	<VPLink
 		class="VPFeature s-card card-enhance"
+		:class="{ hover: link }"
 		:href="link"
 		:rel
 		:target
@@ -56,10 +57,7 @@ defineProps<{
 <style lang="scss" scoped>
 .VPFeature {
 	height: 100%;
-}
-
-.VPFeature.link:hover {
-	border-color: var(--vp-c-brand-1);
+	display: block;
 }
 
 .box {
