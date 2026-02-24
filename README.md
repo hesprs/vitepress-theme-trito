@@ -20,6 +20,7 @@
 
 <p align="center">
     <img align="center" src="./assets/home.gif" alt="preview image of the hero page with before-after animation">
+    <br>
     <img align="center" src="./assets/page.gif" alt="preview image of the documentation page with before-after animation">
 </p>
 
