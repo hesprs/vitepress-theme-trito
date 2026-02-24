@@ -18,9 +18,10 @@
     <img src="https://img.shields.io/badge/%F0%9F%96%90%EF%B8%8F%20Made%20by-Humans-333333?labelColor=25C260" alt="Made by Humans">
 </p>
 
-<img align="center" src="./assets/preview1.png" alt="preview image of the hero page with light and dark theme">
-
-<img align="center" src="./assets/preview2.png" alt="preview image of the documentation page with light and dark theme">
+<p align="center">
+    <img align="center" src="./assets/home.gif" alt="preview image of the hero page with before-after animation">
+    <img align="center" src="./assets/page.gif" alt="preview image of the documentation page with before-after animation">
+</p>
 
 <p align="center">
     <a href="#-sites-using-trito"><strong>Demos</strong></a> • 
