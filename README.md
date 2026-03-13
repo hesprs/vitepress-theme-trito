@@ -89,6 +89,16 @@ The theme configuration is **almost identical** to the default theme's, which is
 
 - By setting it to `true`, pre-made styles will not be applied to the text content of the page.
 
+### Slots
+
+#### Doc Page `content-before`
+
+- Slot for content before the main content card (not in the card).
+
+#### Doc Page `content-after`
+
+- Slot for content after the main content card (not in the card).
+
 ### Theme Config
 
 #### New Option `logoLarge`

@@ -35,6 +35,7 @@ registerContent(content);
 		</div>
 
 		<div class="content">
+			<slot name="content-before" />
 			<div class="content-container s-card" ref="content">
 				<slot name="doc-before" />
 				<main class="main">
@@ -53,6 +54,7 @@ registerContent(content);
 				</VPDocFooter>
 				<slot name="doc-after" />
 			</div>
+			<slot name="content-after" />
 		</div>
 		<slot name="doc-bottom" />
 	</div>
