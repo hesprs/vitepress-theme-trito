@@ -40,4 +40,4 @@ jobs:
         run: pnpm build
 
       - name: Run test website build
-        run: pnpm test-build
+        run: pnpm build:test
