@@ -16,11 +16,6 @@ html.dark {
 	--main-border-shadow: #00000050;
 }
 
-* {
-	-webkit-user-drag: none;
-	box-sizing: border-box;
-}
-
 .s-card {
 	padding: 0.8rem;
 	border-radius: 16px;
@@ -80,7 +75,7 @@ html.dark {
 
 ::selection {
 	background-color: var(--vp-c-brand-1);
-	color: #efefef;
+	color: var(--vp-c-text-revert);
 }
 
 .nav-btn {
@@ -101,7 +96,10 @@ html.dark {
 	&:hover,
 	&.active {
 		background-color: var(--vp-c-brand-1);
-		color: var(--main-card-background);
+		color: var(--vp-c-text-revert);
+	}
+	&.active {
+		font-weight: 600;
 	}
 }
 

@@ -2,6 +2,7 @@
 import { IconMenu2, IconChevronDown } from '@tabler/icons-vue';
 import { watch, ref, useTemplateRef, onMounted, type Ref } from 'vue';
 import { useElementSize } from '@vueuse/core';
+import { useData } from '@/composables/data';
 import { useI18n } from '@/composables/i18n';
 import { useLayout } from '@/composables/layout';
 import VPSidebarGroup from './VPSidebarGroup.vue';
@@ -9,6 +10,7 @@ import VPSidebarGroup from './VPSidebarGroup.vue';
 const i18n = useI18n();
 const collapsed = ref(false);
 const { sidebarGroups, hasSidebar } = useLayout();
+const { theme } = useData();
 const key = ref(0);
 const sidebar = useTemplateRef('sidebar');
 const expand = useTemplateRef('expand');
@@ -51,7 +53,7 @@ function toggle(e: PointerEvent) {
 			ref="expand"
 		>
 			<IconMenu2 class="icon-toc" />
-			{{ i18n.menu }}
+			{{ theme.i18n?.menu ?? i18n.menu }}
 			<IconChevronDown class="expand" />
 		</div>
 		<div class="content" ref="content">

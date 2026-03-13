@@ -2,6 +2,7 @@
 import type { TritoTheme } from '@/shared';
 import VPImage from './VPImage.vue';
 import VPLink from './VPLink.vue';
+import { IconArrowRight } from '@tabler/icons-vue';
 
 defineProps<{
 	icon?: TritoTheme.FeatureIcon;
@@ -47,7 +48,7 @@ defineProps<{
 			<div v-if="linkText" class="link-text">
 				<p class="link-text-value">
 					{{ linkText }}
-					<span class="vpi-arrow-right link-text-icon" />
+					<IconArrowRight class="link-text-icon" />
 				</p>
 			</div>
 		</article>
@@ -112,5 +113,7 @@ defineProps<{
 
 .link-text-icon {
 	margin-left: 6px;
+	width: 14px;
+	height: 14px;
 }
 </style>

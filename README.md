@@ -99,8 +99,7 @@ The theme configuration is **almost identical** to the default theme's, which is
 #### New Option `i18n`
 
 - Adds or overrides translation strings.
-- Type: Object, keys are locale codes (e.g., `en`, `de`, `zh-Hans`), values are objects of translations.
-- See [this file](https://github.com/hesprs/vitepress-theme-trito/blob/main/src/composables/i18n.ts).
+- Type: Object, values are translation texts.
 
 #### New Option `NotFoundLink`
 

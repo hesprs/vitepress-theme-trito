@@ -6,6 +6,7 @@ import { useI18n } from '@/composables/i18n';
 import { usePrevNext } from '@/composables/prev-next';
 import VPDocFooterLastUpdated from './VPDocFooterLastUpdated.vue';
 import VPLink from './VPLink.vue';
+import { IconEdit } from '@tabler/icons-vue';
 
 const { theme, page, frontmatter } = useData();
 const i18n = useI18n();
@@ -27,7 +28,7 @@ const showFooter = computed(
 		<div v-if="hasEditLink || hasLastUpdated" class="edit-info">
 			<div v-if="hasEditLink" class="edit-link">
 				<VPLink class="edit-link-button" :href="editLink.url" :no-icon="true">
-					<span class="vpi-square-pen edit-link-icon" />
+					<IconEdit class="edit-link-icon" />
 					{{ editLink.text }}
 				</VPLink>
 			</div>
@@ -40,13 +41,13 @@ const showFooter = computed(
 		<nav v-if="control.prev?.link || control.next?.link" class="prev-next" aria-label="Pager">
 			<div class="pager">
 				<VPLink v-if="control.prev?.link" class="pager-link prev" :href="control.prev.link">
-					<span class="desc">{{ i18n.prev }}</span>
+					<span class="desc">{{ theme.i18n?.prev ?? i18n.prev }}</span>
 					<span class="title" v-html="control.prev.text"></span>
 				</VPLink>
 			</div>
 			<div class="pager">
 				<VPLink v-if="control.next?.link" class="pager-link next" :href="control.next.link">
-					<span class="desc">{{ i18n.next }}</span>
+					<span class="desc">{{ theme.i18n?.next ?? i18n.next }}</span>
 					<span class="title" v-html="control.next.text"></span>
 				</VPLink>
 			</div>

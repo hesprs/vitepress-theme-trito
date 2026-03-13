@@ -39,7 +39,8 @@ onMounted(() => {
 
 <template>
 	<p class="VPLastUpdated">
-		{{ i18n.lastUpdate }}: <time ref="timeRef" :datetime="isoDatetime">{{ datetime }}</time>
+		{{ theme.i18n?.lastUpdate ?? i18n.lastUpdate }}:
+		<time ref="timeRef" :datetime="isoDatetime">{{ datetime }}</time>
 	</p>
 </template>
 

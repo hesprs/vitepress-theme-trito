@@ -7,7 +7,9 @@
 					style="max-width: 800px; max-height: 500px; width: 90%"
 					:image="theme.logoLarge"
 				/>
-				<span :class="{ show: showTip }" class="tip">{{ i18n.loadingTip }}</span>
+				<span :class="{ show: showTip }" class="tip">{{
+					theme.i18n?.loadingTip ?? i18n.loadingTip
+				}}</span>
 			</div>
 		</Transition>
 	</Teleport>

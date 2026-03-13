@@ -17,7 +17,7 @@ onMounted(async () => {
 	if (
 		span instanceof HTMLElement &&
 		span.className.startsWith('vpi-social-') &&
-		(getComputedStyle(span).maskImage || getComputedStyle(span).webkitMaskImage) === 'none'
+		(getComputedStyle(span).maskImage || getComputedStyle(span).maskImage) === 'none'
 	) {
 		span.style.setProperty(
 			'--icon',
@@ -57,6 +57,9 @@ if (import.meta.env.SSR) {
 	height: 36px;
 	color: var(--vp-c-text-2);
 	transition: color 0.5s;
+	&::before {
+		display: none;
+	}
 }
 
 .VPSocialLink:hover {

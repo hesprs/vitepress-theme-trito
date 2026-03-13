@@ -4,6 +4,7 @@ import { useLayout } from '@/composables/layout';
 import { useI18n } from '@/composables/i18n';
 import VPLocalNavOutlineDropdown from './VPLocalNavOutlineDropdown.vue';
 import { useSidebarControl } from '@/composables/sidebar';
+import { IconMenu2 } from '@tabler/icons-vue';
 
 const { page, title, theme } = useData();
 const { headers } = useLayout();
@@ -20,8 +21,8 @@ const { isOpen, open } = useSidebarControl();
 			aria-controls="VPSidebarNav"
 			@click="open"
 		>
-			<span class="vpi-align-left menu-icon"></span>
-			<span class="menu-text">{{ i18n.menu }}</span>
+			<IconMenu2 class="menu-icon" />
+			<span class="menu-text">{{ theme.i18n?.menu ?? i18n.menu }}</span>
 		</button>
 		<h4 class="title">{{ page.title || title }}</h4>
 		<VPLocalNavOutlineDropdown :headers />
@@ -67,8 +68,9 @@ const { isOpen, open } = useSidebarControl();
 }
 
 .menu-icon {
-	margin-right: 8px;
-	font-size: 14px;
+	margin-right: 6px;
+	width: 14px;
+	height: 14px;
 }
 
 .menu,

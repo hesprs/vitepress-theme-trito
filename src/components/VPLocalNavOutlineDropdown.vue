@@ -5,6 +5,7 @@ import { onContentUpdated } from 'vitepress';
 import { nextTick, ref, watch } from 'vue';
 import { scrollToTop as toTop } from '@/composables/context-menu-actions';
 import { useI18n } from '@/composables/i18n';
+import { useData } from '@/composables/data';
 import type { TritoTheme } from '@/shared';
 import VPDocOutlineItem from './VPDocOutlineItem.vue';
 
@@ -16,6 +17,7 @@ const open = ref(false);
 const main = ref<HTMLDivElement>();
 const items = ref<HTMLDivElement>();
 const i18n = useI18n();
+const { theme } = useData();
 
 function closeOnClickOutside(e: Event) {
 	if (!main.value?.contains(e.target as Node)) {
@@ -64,11 +66,11 @@ function scrollToTop() {
 <template>
 	<div class="VPLocalNavOutlineDropdown" ref="main">
 		<button @click="toggle" :class="{ open }" v-if="headers.length > 0">
-			{{ i18n.onThisPage }}
+			{{ theme.i18n?.onThisPage ?? i18n.onThisPage }}
 			<IconChevronLeft class="icon" />
 		</button>
 		<button @click="scrollToTop" v-else>
-			{{ i18n.returnToTop }}
+			{{ theme.i18n?.returnToTop ?? i18n.returnToTop }}
 			<IconArrowBarToUp class="icon" />
 		</button>
 		<Teleport defer to=".VPNav">
@@ -76,7 +78,7 @@ function scrollToTop() {
 				<div v-if="open" ref="items" class="items" @click="onItemClick">
 					<div class="header">
 						<a class="top-link" href="#" @click="scrollToTop">
-							{{ i18n.returnToTop }}
+							{{ theme.i18n?.returnToTop ?? i18n.returnToTop }}
 						</a>
 					</div>
 					<div class="outline">
@@ -113,7 +115,6 @@ function scrollToTop() {
 .icon {
 	display: inline-block;
 	vertical-align: middle;
-	margin-left: 2px;
 	margin-right: -4px;
 	height: 16px;
 	width: 16px;
@@ -124,10 +125,6 @@ function scrollToTop() {
 @media (min-width: 960px) {
 	.VPLocalNavOutlineDropdown button {
 		font-size: 14px;
-	}
-
-	.icon {
-		font-size: 16px;
 	}
 }
 

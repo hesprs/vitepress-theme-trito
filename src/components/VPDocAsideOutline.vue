@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { IconVocabulary, IconChevronDown } from '@tabler/icons-vue';
-import { ref, useTemplateRef, watch, type Ref, onMounted } from 'vue';
+import { ref, useTemplateRef, watch } from 'vue';
 import { useI18n } from '@/composables/i18n';
+import { useData } from '@/composables/data';
 import { useLayout } from '@/composables/layout';
 import { useActiveAnchor } from '@/composables/outline';
 import VPDocOutlineItem from './VPDocOutlineItem.vue';
@@ -11,6 +12,7 @@ const outline = useTemplateRef('outline');
 const marker = useTemplateRef('marker');
 const expand = useTemplateRef('expand');
 const i18n = useI18n();
+const { theme } = useData();
 const collapsed = ref(false);
 const content = useTemplateRef('content');
 const { height: contentHeight } = useElementSize(content);
@@ -51,7 +53,7 @@ function toggle(e: PointerEvent) {
 			ref="expand"
 		>
 			<IconVocabulary />
-			{{ i18n.onThisPage }}
+			{{ theme.i18n?.onThisPage ?? i18n.onThisPage }}
 			<IconChevronDown class="expand" />
 		</div>
 		<div class="content" ref="content">
