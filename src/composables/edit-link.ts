@@ -12,6 +12,6 @@ export function useEditLink() {
 		if (typeof pattern === 'function') url = pattern(page.value);
 		else url = pattern.replace(/:path/g, page.value.filePath);
 
-		return { url, text: i18n.value.edit };
+		return { url, text: theme.value.i18n?.edit ?? i18n.value.edit };
 	});
 }

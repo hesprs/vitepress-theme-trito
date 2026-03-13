@@ -1,12 +1,6 @@
 import { computed } from 'vue';
 import { useData } from './data';
 
-export function setupI18n() {
-	const { theme } = useData();
-	if (!theme.value.i18n) return;
-	Object.assign(i18nTranslations, theme.value.i18n);
-}
-
 export function useI18n() {
 	const { localeIndex } = useData();
 	return computed(

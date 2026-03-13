@@ -5,7 +5,7 @@ import { useI18n } from '@/composables/i18n';
 import { toggleAppearanceKey } from '@/shared';
 import VPSwitch from './VPSwitch.vue';
 
-const { site, isDark } = useData();
+const { site, isDark, theme } = useData();
 const toggleAppearance = inject(toggleAppearanceKey, async () => {
 	isDark.value = !isDark.value;
 });
@@ -24,7 +24,7 @@ watchPostEffect(() => {
 		"
 		class="VPNavScreenAppearance"
 	>
-		<p class="text">{{ i18n.appearance }}</p>
+		<p class="text">{{ theme.i18n?.appearance ?? i18n.appearance }}</p>
 		<VPSwitch
 			:title="switchTitle"
 			class="VPSwitchAppearance"

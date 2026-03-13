@@ -37,7 +37,7 @@
 						@click="openInNewTab(selection.data.href)"
 					>
 						<IconAppWindow />
-						<span class="name">{{ i18n.newTab }}</span>
+						<span class="name">{{ theme.i18n?.newTab ?? i18n.newTab }}</span>
 					</div>
 					<div
 						v-if="selection.type === 'link'"
@@ -45,7 +45,7 @@
 						@click="copyText(selection.data.href)"
 					>
 						<IconCopy />
-						<span class="name">{{ i18n.copyLink }}</span>
+						<span class="name">{{ theme.i18n?.copyLink ?? i18n.copyLink }}</span>
 					</div>
 					<!-- image selection -->
 					<div
@@ -54,7 +54,7 @@
 						@click="copyImage(selection.data.src)"
 					>
 						<IconClipboardCopy />
-						<span class="name">{{ i18n.copyImage }}</span>
+						<span class="name">{{ theme.i18n?.copyImage ?? i18n.copyImage }}</span>
 					</div>
 					<div
 						v-if="selection.type === 'image'"
@@ -62,7 +62,9 @@
 						@click="downloadImage(selection.data.src)"
 					>
 						<IconDownload />
-						<span class="name">{{ i18n.downloadImage }}</span>
+						<span class="name">{{
+							theme.i18n?.downloadImage ?? i18n.downloadImage
+						}}</span>
 					</div>
 					<!-- text selection -->
 					<a
@@ -72,7 +74,7 @@
 						target="_blank"
 					>
 						<IconBrandGoogle />
-						<span class="name">{{ i18n.search }}</span>
+						<span class="name">{{ theme.i18n?.search ?? i18n.search }}</span>
 					</a>
 					<div
 						v-if="selection.type === 'text'"
@@ -80,19 +82,29 @@
 						@click="copyText(selection.data)"
 					>
 						<IconCopy />
-						<span class="name">{{ i18n.copySelection }}</span>
+						<span class="name">{{
+							theme.i18n?.copySelection ?? i18n.copySelection
+						}}</span>
 					</div>
 				</div>
 				<div class="all-menu general">
 					<div class="btn" @click="copyText(router.route.path)">
 						<!-- TODO: Refine URL -->
 						<IconLink />
-						<span class="name">{{ i18n.copyCurrentURL }}</span>
+						<span class="name">{{
+							theme.i18n?.copyCurrentURL ?? i18n.copyCurrentURL
+						}}</span>
 					</div>
 					<div class="btn" @click.stop="toggleAppearance">
 						<IconSun v-if="isDark" />
 						<IconMoonStars v-if="!isDark" />
-						<span class="name"> {{ isDark ? i18n.light : i18n.dark }}</span>
+						<span class="name">
+							{{
+								isDark
+									? (theme.i18n?.light ?? i18n.light)
+									: (theme.i18n?.dark ?? i18n.dark)
+							}}</span
+						>
 					</div>
 				</div>
 			</div>
@@ -158,7 +170,7 @@ interface NormalSelection {
 }
 type selection = LinkSelection | ImageSelection | TextSelection | NormalSelection;
 
-const { isDark } = useData();
+const { isDark, theme } = useData();
 const i18n = useI18n();
 const router = useRouter();
 const rightMenuX = ref(0);

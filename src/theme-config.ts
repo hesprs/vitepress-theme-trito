@@ -63,7 +63,7 @@ export namespace TritoTheme {
 		 * @see https://github.com/hesprs/vitepress-theme-trito/blob/main/src/composables/i18n.ts
 		 * Where the keys are locale codes (e.g. 'en', 'de'), and values are the translation objects.
 		 */
-		i18n?: Record<string, typeof i18nTranslations.en>;
+		i18n?: Partial<typeof i18nTranslations.en>;
 
 		/**
 		 * Info for the edit link. If it's undefined, the edit link feature will

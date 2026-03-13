@@ -3,6 +3,7 @@ import type { DefaultTheme } from 'vitepress/theme';
 import { computed } from 'vue';
 import { useSidebarItemControl } from '@/composables/sidebar';
 import VPLink from './VPLink.vue';
+import { IconChevronRight } from '@tabler/icons-vue';
 
 const props = defineProps<{
 	item: DefaultTheme.SidebarItem;
@@ -73,7 +74,7 @@ function onCaretClick() {
 				@keydown.enter="onCaretClick"
 				tabindex="0"
 			>
-				<span class="vpi-chevron-right caret-icon" />
+				<IconChevronRight class="caret-icon" />
 			</div>
 		</div>
 
@@ -208,8 +209,8 @@ function onCaretClick() {
 }
 
 .caret-icon {
-	font-size: 18px;
-	/*rtl:ignore*/
+	width: 18px;
+	height: 18px;
 	transform: rotate(90deg);
 	transition: transform 0.25s;
 }

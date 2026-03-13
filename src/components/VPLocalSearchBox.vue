@@ -31,6 +31,7 @@ import { escapeRegExp, pathToFile } from '@/shared';
 import type { ModalTranslations } from '@/shared/local-search';
 import { LRUCache } from '@/support/lru';
 import { createSearchTranslate } from '@/support/translation';
+import { IconArrowDown, IconArrowLeft, IconArrowUp, IconChevronRight } from '@tabler/icons-vue';
 
 const emit = defineEmits<(e: 'close') => void>();
 
@@ -425,7 +426,7 @@ function onMouseMove(e: MouseEvent) {
 							:title="translate('modal.backButtonTitle')"
 							@click="$emit('close')"
 						>
-							<span class="vpi-arrow-left local-search-icon" />
+							<IconArrowLeft class="local-search-icon" />
 						</button>
 					</div>
 					<input
@@ -504,7 +505,7 @@ function onMouseMove(e: MouseEvent) {
 									<span class="title-icon">#</span>
 									<span v-for="(t, index) in p.titles" :key="index" class="title">
 										<span class="text" v-html="t" />
-										<span class="vpi-chevron-right local-search-icon" />
+										<IconChevronRight class="local-search-icon" />
 									</span>
 									<span class="title main">
 										<span class="text" v-html="p.title" />
@@ -530,10 +531,10 @@ function onMouseMove(e: MouseEvent) {
 				<div class="search-keyboard-shortcuts">
 					<span>
 						<kbd :aria-label="translate('modal.footer.navigateUpKeyAriaLabel')">
-							<span class="vpi-arrow-up navigate-icon" />
+							<IconArrowUp class="navigate-icon" />
 						</kbd>
 						<kbd :aria-label="translate('modal.footer.navigateDownKeyAriaLabel')">
-							<span class="vpi-arrow-down navigate-icon" />
+							<IconArrowDown class="navigate-icon" />
 						</kbd>
 						{{ translate('modal.footer.navigateText') }}
 					</span>
@@ -613,12 +614,14 @@ function onMouseMove(e: MouseEvent) {
 
 .local-search-icon {
 	display: block;
-	font-size: 18px;
+	width: 18px;
+	height: 18px;
 }
 
 .navigate-icon {
 	display: block;
-	font-size: 14px;
+	width: 14px;
+	height: 14px;
 }
 
 .search-icon {

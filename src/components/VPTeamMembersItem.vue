@@ -2,6 +2,7 @@
 import type { TritoTheme } from '@/shared';
 import VPLink from './VPLink.vue';
 import VPSocialLinks from './VPSocialLinks.vue';
+import { IconHeart } from '@tabler/icons-vue';
 
 interface Props {
 	size?: 'small' | 'medium';
@@ -15,12 +16,12 @@ withDefaults(defineProps<Props>(), {
 
 <template>
 	<article class="VPTeamMembersItem" :class="[size]">
-		<div class="profile">
+		<div class="profile s-card card-enhance">
 			<figure class="avatar">
 				<img class="avatar-img" :src="member.avatar" :alt="member.name" />
 			</figure>
 			<div class="data">
-				<h1 class="name">{{ member.name }}</h1>
+				<h2 class="name">{{ member.name }}</h2>
 				<p v-if="member.title || member.org" class="affiliation">
 					<span v-if="member.title" class="title"> {{ member.title }}</span>
 					<span v-if="member.title && member.org" class="at"> @ </span>
@@ -42,7 +43,7 @@ withDefaults(defineProps<Props>(), {
 		</div>
 		<div v-if="member.sponsor" class="sp">
 			<VPLink class="sp-link" :href="member.sponsor" no-icon>
-				<span class="vpi-heart sp-icon" />
+				<IconHeart class="sp-icon" />
 				{{ member.actionText || 'Sponsor' }}
 			</VPLink>
 		</div>
@@ -57,7 +58,6 @@ withDefaults(defineProps<Props>(), {
 	border-radius: 12px;
 	width: 100%;
 	height: 100%;
-	overflow: hidden;
 }
 
 .VPTeamMembersItem.small .profile {
@@ -76,6 +76,8 @@ withDefaults(defineProps<Props>(), {
 .VPTeamMembersItem.small .name {
 	line-height: 24px;
 	font-size: 16px;
+	padding-top: 0;
+	border-top: none;
 }
 
 .VPTeamMembersItem.small .affiliation {
@@ -133,7 +135,6 @@ withDefaults(defineProps<Props>(), {
 
 .profile {
 	flex-grow: 1;
-	background-color: var(--vp-c-bg-soft);
 }
 
 .data {
@@ -219,6 +220,7 @@ withDefaults(defineProps<Props>(), {
 
 .sp-icon {
 	margin-right: 8px;
-	font-size: 16px;
+	width: 16px;
+	height: 16px;
 }
 </style>

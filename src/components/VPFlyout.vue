@@ -2,6 +2,7 @@
 import { onMounted, onUnmounted, ref, useTemplateRef, watch } from 'vue';
 import type { TritoTheme } from '@/shared';
 import VPMenu from './VPMenu.vue';
+import { IconChevronDown } from '@tabler/icons-vue';
 
 defineProps<{
 	icon?: string;
@@ -50,7 +51,7 @@ watch(open, (value) => {
 				<slot name="icon" />
 				<span v-if="icon" :class="[icon, 'option-icon']" />
 				<span v-if="button" v-html="button" />
-				<span v-if="!noChevron" class="vpi-chevron-down text-icon" />
+				<IconChevronDown v-if="!noChevron" class="text-icon" />
 			</span>
 
 			<span v-else class="vpi-more-horizontal icon" />
@@ -90,7 +91,8 @@ watch(open, (value) => {
 
 .text-icon {
 	margin-left: 4px;
-	font-size: 14px;
+	width: 14px;
+	height: 14px;
 }
 
 .icon {

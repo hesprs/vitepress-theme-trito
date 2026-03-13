@@ -99,35 +99,38 @@ const { heroImageSlotExists } = inject(layoutInfoInjectionKey) as LayoutInfo;
 }
 
 .name {
-	line-height: 40px;
-	font-size: 32px;
+	font-family: var(--vp-font-family-serif);
+	line-height: 44px;
+	font-size: 36px;
+	font-weight: 800;
 	@media (min-width: 640px) {
-		line-height: 56px;
-		font-size: 48px;
+		line-height: 60px;
+		font-size: 52px;
 	}
 	@media (min-width: 960px) {
-		line-height: 64px;
-		font-size: 56px;
+		line-height: 68px;
+		font-size: 60px;
 	}
 }
 
 .text {
-	line-height: 36px;
-	font-size: 28px;
+	line-height: 32px;
+	font-size: 26px;
+	font-weight: 700;
 	@media (min-width: 640px) {
-		line-height: 50px;
-		font-size: 42px;
+		line-height: 46px;
+		font-size: 40px;
 	}
 	@media (min-width: 960px) {
-		line-height: 58px;
-		font-size: 50px;
+		line-height: 54px;
+		font-size: 48px;
 	}
 }
 
 .tagline {
 	padding-top: 8px;
-	line-height: 32px;
-	font-size: 24px;
+	line-height: 28px;
+	font-size: 20px;
 	font-weight: 600;
 	white-space: pre-wrap;
 	color: var(--vp-c-text-2);
@@ -140,12 +143,12 @@ const { heroImageSlotExists } = inject(layoutInfoInjectionKey) as LayoutInfo;
 	}
 	@media (min-width: 640px) {
 		padding-top: 12px;
-		line-height: 36px;
-		font-size: 32px;
+		line-height: 32px;
+		font-size: 28px;
 	}
 	@media (min-width: 960px) {
-		line-height: 44px;
-		font-size: 40px;
+		line-height: 40px;
+		font-size: 36px;
 		text-align: left;
 	}
 }
@@ -155,7 +158,6 @@ const { heroImageSlotExists } = inject(layoutInfoInjectionKey) as LayoutInfo;
 	width: fit-content;
 	max-width: calc(200px + 40vw);
 	letter-spacing: -0.4px;
-	font-weight: 700;
 	white-space: pre-wrap;
 	text-align: center;
 	.VPHero.has-image & {

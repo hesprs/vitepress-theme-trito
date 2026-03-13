@@ -11,10 +11,12 @@ const { currentLang } = useLangs();
 
 <template>
 	<div class="NotFound">
-		<p class="code">{{ i18n.notFound.code }}</p>
-		<h1 class="title">{{ i18n.notFound.title }}</h1>
+		<p class="code">{{ theme.i18n?.notFound?.code ?? i18n.notFound.code }}</p>
+		<h1 class="title">{{ theme.i18n?.notFound?.title ?? i18n.notFound.title }}</h1>
 		<div class="divider" />
-		<blockquote class="quote">{{ i18n.notFound.quote }}</blockquote>
+		<blockquote class="quote">
+			{{ theme.i18n?.notFound?.quote ?? i18n.notFound.quote }}
+		</blockquote>
 
 		<div class="action">
 			<a
@@ -22,7 +24,7 @@ const { currentLang } = useLangs();
 				:href="withBase(theme.notFoundLink ?? currentLang.link)"
 				:aria-label="i18n.notFound.linkText"
 			>
-				{{ i18n.notFound.linkText }}
+				{{ theme.i18n?.notFound?.linkText ?? i18n.notFound.linkText }}
 			</a>
 		</div>
 	</div>
