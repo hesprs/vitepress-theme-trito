@@ -108,8 +108,8 @@ const { heroImageSlotExists } = inject(layoutInfoInjectionKey) as LayoutInfo;
 		font-size: 52px;
 	}
 	@media (min-width: 960px) {
-		line-height: 68px;
-		font-size: 60px;
+		line-height: 72px;
+		font-size: 64px;
 	}
 }
 

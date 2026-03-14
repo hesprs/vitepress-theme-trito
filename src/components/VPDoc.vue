@@ -120,11 +120,9 @@ registerContent(content);
 		padding: 30px 30px 12px;
 	}
 	@media (max-width: 768px) {
-		border: 0 solid transparent;
+		border-left-color: transparent;
+		border-right-color: transparent;
 		border-radius: 0;
-		box-shadow:
-			0 4px 16px 2px var(--main-border-shadow),
-			0 2px 4px var(--main-border-shadow);
 	}
 }
 </style>
