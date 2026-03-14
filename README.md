@@ -148,4 +148,7 @@ Disclaimer: `vitepress-theme-trito` is not related to, or effected by, the conte
 
 ## 📝 Copyright & License
 
-Copyright ©️ 2025-2026 Hesprs (Hēsperus) | [MIT License](https://mit-license.org/)
+Trito is adapted from VitePress default theme and released under the [MIT License](https://mit-license.org/).
+
+Copyright ©️ 2019-present, Yuxi (Evan) You (for unchanged parts)
+Copyright ©️ 2025-2026 Hesprs (Hēsperus) (for modifications)
