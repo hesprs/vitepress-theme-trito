@@ -22,6 +22,12 @@
 	.header-anchor {
 		display: none;
 	}
+	@media (min-width: 768px) {
+		font-size: 2.4rem;
+	}
+	@media (min-width: 1200px) {
+		font-size: 2.8rem;
+	}
 }
 .vp-doc h2 {
 	font-size: 1.6rem;
@@ -47,6 +53,13 @@
 		background-color: var(--vp-c-border);
 		z-index: -1;
 	}
+}
+
+.vp-doc h2:first-child,
+.vp-doc h3:first-child {
+	margin-top: 0;
+	padding-top: 0;
+	border-top: none;
 }
 
 .vp-doc h2,
@@ -159,6 +172,7 @@
 .vp-doc img {
 	border-radius: 8px;
 	box-shadow: var(--vp-shadow-2);
+	width: 100%;
 }
 
 /**
