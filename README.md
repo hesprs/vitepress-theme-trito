@@ -136,7 +136,7 @@ The theme configuration is **almost identical** to the default theme's, which is
 
 #### Removed `darkModeSwitchLabel`, `lightModeSwitchTitle`, `darkModeSwitchTitle`, `sidebarMenuLabel`, `returnToTopLabel`, `langMenuLabel`, `notFound`
 
-- All handled by internal i18n utility.
+- All handled by the internal `i18n` option.
 
 ## 🌐 Sites Using Trito
 
@@ -150,5 +150,4 @@ Disclaimer: `vitepress-theme-trito` is not related to, or effected by, the conte
 
 Trito is adapted from VitePress default theme and released under the [MIT License](https://mit-license.org/).
 
-Copyright ©️ 2019-2025, Yuxi (Evan) You (for unchanged parts)<br>
-Copyright ©️ 2025-2026 Hesprs (Hēsperus) (for modifications)
+Copyright ©️ 2025-2026 Hesprs (Hēsperus) (modifications), 2019-2025 Yuxi (Evan) You (unchanged parts)

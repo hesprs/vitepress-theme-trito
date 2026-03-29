@@ -34,19 +34,17 @@ registerContent(content);
 			<slot name="aside-bottom" />
 		</div>
 
-		<div class="content">
+		<main class="content">
 			<slot name="content-before" />
 			<div class="content-container s-card" ref="content">
 				<slot name="doc-before" />
-				<main class="main">
-					<Content
-						:class="{
-							'vp-doc': !frontmatter.unstyled,
-							[pageName]: pageName,
-							'external-link-icon-enabled': theme.externalLinkIcon,
-						}"
-					/>
-				</main>
+				<Content
+					:class="{
+						'vp-doc': !frontmatter.unstyled,
+						[pageName]: pageName,
+						'external-link-icon-enabled': theme.externalLinkIcon,
+					}"
+				/>
 				<VPDocFooter>
 					<template #doc-footer-before>
 						<slot name="doc-footer-before" />
@@ -55,7 +53,7 @@ registerContent(content);
 				<slot name="doc-after" />
 			</div>
 			<slot name="content-after" />
-		</div>
+		</main>
 		<slot name="doc-bottom" />
 	</div>
 </template>
