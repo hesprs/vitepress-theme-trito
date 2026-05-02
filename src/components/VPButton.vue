@@ -3,7 +3,7 @@ import { computed } from 'vue';
 import { normalizeLink } from '@/support/utils';
 import { EXTERNAL_URL_RE } from '../shared';
 
-interface Props {
+type Props = {
 	tag?: string;
 	size?: 'medium' | 'big';
 	theme?: 'brand' | 'alt' | 'sponsor';
@@ -11,17 +11,12 @@ interface Props {
 	href?: string;
 	target?: string;
 	rel?: string;
-}
-const props = withDefaults(defineProps<Props>(), {
-	size: 'medium',
-	theme: 'brand',
-});
+};
+const { tag, size = 'medium', theme = 'brand', text, href, target, rel } = defineProps<Props>();
 
-const isExternal = computed(() => props.href && EXTERNAL_URL_RE.test(props.href));
+const isExternal = computed(() => href && EXTERNAL_URL_RE.test(href));
 
-const component = computed(() => {
-	return props.tag || (props.href ? 'a' : 'button');
-});
+const component = computed(() => tag || (href ? 'a' : 'button'));
 </script>
 
 <template>
@@ -30,8 +25,8 @@ const component = computed(() => {
 		class="VPButton"
 		:class="[size, theme]"
 		:href="href ? normalizeLink(href) : undefined"
-		:target="props.target ?? (isExternal ? '_blank' : undefined)"
-		:rel="props.rel ?? (isExternal ? 'noreferrer' : undefined)"
+		:target="target ?? (isExternal ? '_blank' : undefined)"
+		:rel="rel ?? (isExternal ? 'noreferrer' : undefined)"
 	>
 		<slot>{{ text }}</slot>
 	</component>

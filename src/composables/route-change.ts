@@ -10,8 +10,8 @@ export function useRouteChange() {
 	const onBeforeRouteChange = (func: Func) => onBefore.add(func);
 	const onAfterRouteChange = (func: Func) => onAfter.add(func);
 	return {
-		onBeforeRouteChange,
 		onAfterRouteChange,
+		onBeforeRouteChange,
 	};
 }
 

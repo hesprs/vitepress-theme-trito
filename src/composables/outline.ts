@@ -1,15 +1,16 @@
+import type { Ref } from 'vue';
 import { getScrollOffset } from 'vitepress';
-import { onMounted, onUnmounted, type Ref } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 import type { TritoTheme } from '@/shared';
 import { throttleAndDebounce } from '@/support/utils';
-import { useAside } from './aside';
+import useAside from './aside';
 
 const ignoreRE = /\b(?:VPBadge|header-anchor|footnote-ref|ignore-header)\b/;
 
-// cached list of anchor elements from resolveHeaders
-const resolvedHeaders: { element: HTMLHeadElement; link: string }[] = [];
+// Cached list of anchor elements from resolveHeaders
+const resolvedHeaders: Array<{ element: HTMLHeadElement; link: string }> = [];
 
-export function getHeaders(range: TritoTheme.Config['outline']): TritoTheme.OutlineItem[] {
+export function getHeaders(range: TritoTheme.Config['outline']): Array<TritoTheme.OutlineItem> {
 	const headers = [
 		...document.querySelectorAll(`
 .VPDoc :not(.canvas-viewer) > h1,
@@ -24,9 +25,9 @@ export function getHeaders(range: TritoTheme.Config['outline']): TritoTheme.Outl
 			const level = Number(el.tagName[1]);
 			return {
 				element: el as HTMLHeadElement,
-				title: serializeHeader(el),
-				link: `#${el.id}`,
 				level,
+				link: `#${el.id}`,
+				title: serializeHeader(el),
 			};
 		});
 
@@ -35,24 +36,20 @@ export function getHeaders(range: TritoTheme.Config['outline']): TritoTheme.Outl
 
 function serializeHeader(h: Element): string {
 	let ret = '';
-	for (const node of h.childNodes) {
+	for (const node of h.childNodes)
 		if (node.nodeType === 1) {
 			if (ignoreRE.test((node as Element).className)) continue;
 			ret += node.textContent;
-		} else if (node.nodeType === 3) {
-			ret += node.textContent;
-		}
-	}
+		} else if (node.nodeType === 3) ret += node.textContent;
+
 	return ret.trim();
 }
 
 export function resolveHeaders(
-	headers: TritoTheme.OutlineItem[],
+	headers: Array<TritoTheme.OutlineItem>,
 	range?: TritoTheme.Config['outline'],
-): TritoTheme.OutlineItem[] {
-	if (range === false) {
-		return [];
-	}
+): Array<TritoTheme.OutlineItem> {
+	if (range === false) return [];
 
 	const levelsRange = range || 2;
 
@@ -74,7 +71,7 @@ export function useActiveAnchor(
 
 	const onScroll = throttleAndDebounce(setActiveLink, 100);
 
-	let prevActiveLink: HTMLAnchorElement | null = null;
+	let prevActiveLink: HTMLAnchorElement | undefined;
 
 	onMounted(() => {
 		requestAnimationFrame(setActiveLink);
@@ -86,16 +83,14 @@ export function useActiveAnchor(
 	});
 
 	function setActiveLink() {
-		if (!isAsideEnabled.value) {
-			return;
-		}
+		if (!isAsideEnabled.value) return;
 
 		const scrollY = window.scrollY;
 		const innerHeight = window.innerHeight;
 		const offsetHeight = document.body.offsetHeight;
 		const isBottom = Math.abs(scrollY + innerHeight - offsetHeight) < 1;
 
-		// resolvedHeaders may be repositioned, hidden or fix positioned
+		// ResolvedHeaders may be repositioned, hidden or fix positioned
 		const headers = resolvedHeaders
 			.map(({ element, link }) => ({
 				link,
@@ -104,43 +99,41 @@ export function useActiveAnchor(
 			.filter(({ top }) => !Number.isNaN(top))
 			.sort((a, b) => a.top - b.top);
 
-		// no headers available for active link
+		// No headers available for active link
 		if (!headers.length) {
-			activateLink(null);
+			activateLink();
 			return;
 		}
 
-		// page top
+		// Page top
 		if (scrollY < 1) {
-			activateLink(null);
+			activateLink();
 			return;
 		}
 
-		// page bottom - highlight last link
+		// Page bottom - highlight last link
 		if (isBottom) {
 			activateLink(headers[headers.length - 1].link);
 			return;
 		}
 
-		// find the last header above the top of viewport
-		let activeLink: string | null = null;
+		// Find the last header above the top of viewport
+		let activeLink: string | undefined;
 		for (const { link, top } of headers) {
-			if (top > scrollY + getScrollOffset() + 4) {
-				break;
-			}
+			if (top > scrollY + getScrollOffset() + 4) break;
+
 			activeLink = link;
 		}
 		activateLink(activeLink);
 	}
 
-	function activateLink(hash: string | null) {
+	function activateLink(hash?: string) {
 		if (!container.value || !marker.value) return;
 		if (prevActiveLink) prevActiveLink.classList.remove('active');
 
-		if (hash == null) prevActiveLink = null;
-		else {
-			prevActiveLink = container.value.querySelector(`a[href="${decodeURIComponent(hash)}"]`);
-		}
+		prevActiveLink = !hash
+			? undefined
+			: (container.value.querySelector(`a[href="${decodeURIComponent(hash)}"]`) ?? undefined);
 
 		const activeLink = prevActiveLink;
 
@@ -158,13 +151,13 @@ export function useActiveAnchor(
 function getAbsoluteTop(element: HTMLElement): number {
 	let offsetTop = 0;
 	while (element !== document.body) {
-		if (element === null) {
-			// child element is:
+		if (!element)
+			// Child element is:
 			// - not attached to the DOM (display: none)
 			// - set to fixed position (not scrollable)
 			// - body or html element (null offsetParent)
 			return NaN;
-		}
+
 		offsetTop += element.offsetTop;
 		element = element.offsetParent as HTMLElement;
 	}
@@ -172,14 +165,14 @@ function getAbsoluteTop(element: HTMLElement): number {
 }
 
 function buildTree(
-	data: TritoTheme.OutlineItem[],
+	data: Array<TritoTheme.OutlineItem>,
 	min: number,
 	max: number,
-): TritoTheme.OutlineItem[] {
+): Array<TritoTheme.OutlineItem> {
 	resolvedHeaders.length = 0;
 
-	const result: TritoTheme.OutlineItem[] = [];
-	const stack: (TritoTheme.OutlineItem | { level: number; shouldIgnore: true })[] = [];
+	const result: Array<TritoTheme.OutlineItem> = [];
+	const stack: Array<TritoTheme.OutlineItem | { level: number; shouldIgnore: true }> = [];
 
 	data.forEach((item) => {
 		const node = { ...item, children: [] };

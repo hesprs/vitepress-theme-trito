@@ -1,27 +1,25 @@
 <script setup lang="ts">
-import type { TritoTheme } from '@/shared';
 import { onBeforeUnmount, onMounted, ref } from 'vue';
+import type { TritoTheme } from '@/shared';
 import VPSidebarItem from './VPSidebarItem.vue';
 
-defineProps<{
-	items: TritoTheme.SidebarItem[];
-}>();
+const { items } = defineProps<{ items: Array<TritoTheme.SidebarItem> }>();
 
 const disableTransition = ref(true);
 
-let timer: ReturnType<typeof setTimeout> | null = null;
+let timer: NodeJS.Timeout | undefined;
 
 onMounted(() => {
 	timer = setTimeout(() => {
-		timer = null;
+		timer = undefined;
 		disableTransition.value = false;
 	}, 300);
 });
 
 onBeforeUnmount(() => {
-	if (timer != null) {
+	if (timer) {
 		clearTimeout(timer);
-		timer = null;
+		timer = undefined;
 	}
 });
 </script>

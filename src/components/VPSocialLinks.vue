@@ -2,15 +2,10 @@
 import type { TritoTheme } from '@/shared';
 import VPSocialLink from './VPSocialLink.vue';
 
-withDefaults(
-	defineProps<{
-		links: TritoTheme.SocialLink[];
-		me?: boolean;
-	}>(),
-	{
-		me: true,
-	},
-);
+const { links, me = true } = defineProps<{
+	links: Array<TritoTheme.SocialLink>;
+	me?: boolean;
+}>();
 </script>
 
 <template>

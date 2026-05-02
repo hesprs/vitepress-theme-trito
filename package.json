@@ -34,36 +34,36 @@
 		"provenance": true
 	},
 	"scripts": {
-		"build": "unbuild && node ./buildTransform.ts && tsc-alias",
-		"lint": "oxlint --type-aware --fix && oxfmt",
-		"check": "vue-tsc && oxfmt --check && oxlint --type-aware",
+		"build": "unbuild && tsc-alias",
+		"lint": "oxlint --fix && oxfmt",
+		"check": "vue-tsc && oxfmt --check && oxlint",
 		"dev": "vitepress dev test",
 		"build:test": "vitepress build test",
 		"preview": "vitepress preview test"
 	},
 	"dependencies": {
-		"@docsearch/css": "^4.6.0",
-		"@docsearch/js": "^4.6.0",
-		"@tabler/icons-vue": "^3.36.1",
-		"@vueuse/core": "^14.2.1",
-		"@vueuse/integrations": "^14.2.1",
+		"@docsearch/css": "^4.6.3",
+		"@docsearch/js": "^4.6.3",
+		"@tabler/icons-vue": "^3.41.1",
+		"@vueuse/core": "^14.3.0",
+		"@vueuse/integrations": "^14.3.0",
 		"mark.js": "^8.11.1",
 		"minisearch": "^7.2.0",
 		"vitepress": "2.0.0-alpha.16",
-		"vue": "^3.5.28"
+		"vue": "^3.5.33"
 	},
 	"devDependencies": {
-		"@types/node": "^25.3.0",
-		"oxfmt": "^0.35.0",
-		"oxlint": "^1.48.0",
-		"oxlint-tsgolint": "^0.15.0",
-		"sass": "^1.97.3",
-		"tsc-alias": "^1.8.16",
-		"typescript": "^5.9.3",
+		"@types/node": "^25.6.0",
+		"oxfmt": "^0.47.0",
+		"oxlint": "^1.62.0",
+		"oxlint-tsgolint": "^0.22.1",
+		"sass": "^1.99.0",
+		"tsc-alias": "^1.8.17",
+		"typescript": "^6.0.3",
 		"unbuild": "^3.6.1",
-		"vite": "^7.3.1",
+		"vite": "^8.0.10",
 		"vue-sfc-transformer": "^0.1.17",
-		"vue-tsc": "^3.2.4"
+		"vue-tsc": "^3.2.7"
 	},
 	"packageManager": "pnpm@10.29.2"
 }

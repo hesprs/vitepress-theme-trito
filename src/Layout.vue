@@ -1,22 +1,22 @@
 <script setup lang="ts">
 import { computed, provide, useSlots } from 'vue';
 import Background from '@/components/VPBackground.vue';
-import ContextMenu from '@/components/VPContextMenu.vue';
-import LoadingView from '@/components/VPLoadingView.vue';
 import VPContent from '@/components/VPContent.vue';
+import ContextMenu from '@/components/VPContextMenu.vue';
 import VPFooter from '@/components/VPFooter.vue';
+import LoadingView from '@/components/VPLoadingView.vue';
 import VPNav from '@/components/VPNav.vue';
 import VPSidebar from '@/components/VPSidebar.vue';
-import { useData } from '@/composables/data';
+import useData from '@/composables/data';
 import { layoutInfoInjectionKey, registerWatchers } from '@/composables/layout';
-import { setupRouteChange } from './composables/route-change';
 import setupTransition from '@/composables/theme-toggle-transition';
+import { setupRouteChange } from './composables/route-change';
 
 const { frontmatter, isDark } = useData();
 setupTransition(isDark);
 
 const slots = useSlots();
-const heroImageSlotExists = computed(() => !!slots['home-hero-image']);
+const heroImageSlotExists = computed(() => Boolean(slots['home-hero-image']));
 
 registerWatchers();
 setupRouteChange();

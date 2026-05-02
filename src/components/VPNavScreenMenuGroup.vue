@@ -3,15 +3,15 @@ import { computed, ref } from 'vue';
 import VPNavScreenMenuGroupLink from './VPNavScreenMenuGroupLink.vue';
 import VPNavScreenMenuGroupSection from './VPNavScreenMenuGroupSection.vue';
 
-const props = defineProps<{
+const { text, items } = defineProps<{
 	text: string;
 	// oxlint-disable-next-line typescript/no-explicit-any
-	items: any[];
+	items: Array<any>;
 }>();
 
 const isOpen = ref(false);
 
-const groupId = computed(() => `NavScreenGroup-${props.text.replace(' ', '-').toLowerCase()}`);
+const groupId = computed(() => `NavScreenGroup-${text.replace(' ', '-').toLowerCase()}`);
 
 function toggle() {
 	isOpen.value = !isOpen.value;

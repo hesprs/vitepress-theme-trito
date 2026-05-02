@@ -2,23 +2,23 @@
 import '@docsearch/css';
 import { onKeyStroke } from '@vueuse/core';
 import { defineAsyncComponent, onMounted, onUnmounted, ref } from 'vue';
-import { useData } from '@/composables/data';
 import type { TritoTheme } from '@/shared';
+import useData from '@/composables/data';
 import VPNavBarSearchButton from './VPNavBarSearchButton.vue';
 
 const VPLocalSearchBox = __VP_LOCAL_SEARCH__
 	? defineAsyncComponent(() => import('./VPLocalSearchBox.vue'))
-	: () => null;
+	: () => {};
 
 const VPAlgoliaSearchBox = __ALGOLIA__
 	? defineAsyncComponent(() => import('./VPAlgoliaSearchBox.vue'))
-	: () => null;
+	: () => {};
 
 const { theme } = useData();
 
-// to avoid loading the docsearch js upfront (which is more than 1/3 of the
-// payload), we delay initializing it until the user has actually clicked or
-// hit the hotkey to invoke it.
+// To avoid loading the docsearch js upfront (which is more than 1/3 of the
+// Payload), we delay initializing it until the user has actually clicked or
+// Hit the hotkey to invoke it.
 const loaded = ref(false);
 const actuallyLoaded = ref(false);
 
@@ -27,15 +27,15 @@ const preconnect = () => {
 
 	const rIC = window.requestIdleCallback || setTimeout;
 	rIC(() => {
-		const preconnect = document.createElement('link');
-		preconnect.id = id;
-		preconnect.rel = 'preconnect';
-		preconnect.href = `https://${
+		const preconnectLink = document.createElement('link');
+		preconnectLink.id = id;
+		preconnectLink.rel = 'preconnect';
+		preconnectLink.href = `https://${
 			((theme.value.search?.options as TritoTheme.AlgoliaSearchOptions) ?? theme.value.search)
 				?.appId
 		}-dsn.algolia.net`;
-		preconnect.crossOrigin = '';
-		document.head.appendChild(preconnect);
+		preconnectLink.crossOrigin = '';
+		document.head.appendChild(preconnectLink);
 	});
 };
 

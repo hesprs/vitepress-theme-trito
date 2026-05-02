@@ -5,7 +5,7 @@ import '@/styles/components/vp-code.css';
 import '@/styles/components/vp-code-group.css';
 import '@/styles/components/vp-doc.scss';
 import type { Theme } from 'vitepress';
-import type { TritoTheme } from '@/theme-config';
+import type TritoTheme from '@/theme-config';
 import VPBadge from '@/components/VPBadge.vue';
 import Layout from '@/Layout.vue';
 
@@ -28,7 +28,7 @@ export { default as VPDoc } from '@/components/VPDoc.vue';
 export { default as VPHome } from '@/components/VPHome.vue';
 
 export { useLayout } from '@/composables/layout';
-export type { TritoTheme } from '@/theme-config';
+export type { default as TritoTheme } from '@/theme-config';
 export type ThemeConfig = TritoTheme.Config;
 
 const theme: Theme = {

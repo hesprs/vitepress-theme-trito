@@ -35,41 +35,23 @@ const HASH_OR_QUERY_RE = /[?#].*$/;
 const INDEX_OR_EXT_RE = /(?:(^|\/)index)?\.(?:md|html)$/;
 
 export const notFoundPageData: PageData = {
-	relativePath: '404.md',
-	filePath: '',
-	title: '404',
 	description: 'Not Found',
-	headers: [],
+	filePath: '',
 	frontmatter: { layout: 'page' },
-	lastUpdated: 0,
+	headers: [],
 	isNotFound: true,
+	lastUpdated: 0,
+	relativePath: '404.md',
+	title: '404',
 };
 
-export function isActive(
-	currentPath: string,
-	matchPath?: string,
-	asRegex: boolean = false,
-): boolean {
-	if (matchPath === undefined) {
-		return false;
-	}
-
+export function isActive(currentPath: string, matchPath?: string, asRegex = false): boolean {
+	if (matchPath === undefined) return false;
 	currentPath = normalize(`/${currentPath}`);
-
-	if (asRegex) {
-		return new RegExp(matchPath).test(currentPath);
-	}
-
-	if (normalize(matchPath) !== currentPath) {
-		return false;
-	}
-
-	const hashMatch = matchPath.match(HASH_RE);
-
-	if (hashMatch) {
-		return (inBrowser ? location.hash : '') === hashMatch[0];
-	}
-
+	if (asRegex) return new RegExp(matchPath).test(currentPath);
+	if (normalize(matchPath) !== currentPath) return false;
+	const hashMatch = HASH_RE.exec(matchPath);
+	if (hashMatch) return (inBrowser ? location.hash : '') === hashMatch[0];
 	return true;
 }
 
@@ -91,7 +73,7 @@ export function getLocaleForPath(siteData: SiteData | undefined, relativePath: s
 }
 
 /**
- * this merges the locales data to the main data by the route
+ * This merges the locales data to the main data by the route
  */
 export function resolveSiteDataByRoute(siteData: SiteData, relativePath: string): SiteData {
 	const localeIndex = getLocaleForPath(siteData, relativePath);
@@ -123,40 +105,31 @@ export function createTitle(siteData: SiteData, pageData: PageData): string {
 	const title = pageData.title || siteData.title;
 	const template = pageData.titleTemplate ?? siteData.titleTemplate;
 
-	if (typeof template === 'string' && template.includes(':title')) {
+	if (typeof template === 'string' && template.includes(':title'))
 		return template.replace(/:title/g, title);
-	}
 
 	const templateString = createTitleTemplate(siteData.title, template);
 
-	if (title === templateString.slice(3)) {
-		return title;
-	}
+	if (title === templateString.slice(3)) return title;
 
 	return `${title}${templateString}`;
 }
 
 function createTitleTemplate(siteTitle: string, template?: string | boolean): string {
-	if (template === false) {
-		return '';
-	}
+	if (template === false) return '';
 
-	if (template === true || template === undefined) {
-		return ` | ${siteTitle}`;
-	}
+	if (template === true || template === undefined) return ` | ${siteTitle}`;
 
-	if (siteTitle === template) {
-		return '';
-	}
+	if (siteTitle === template) return '';
 
 	return ` | ${template}`;
 }
 
-export function mergeHead(...headArrays: HeadConfig[][]): HeadConfig[] {
-	const merged: HeadConfig[] = [];
+export function mergeHead(...headArrays: Array<Array<HeadConfig>>): Array<HeadConfig> {
+	const merged: Array<HeadConfig> = [];
 	const metaKeyMap = new Map<string, number>();
 
-	for (const current of headArrays) {
+	for (const current of headArrays)
 		for (const tag of current) {
 			const [type, attrs] = tag;
 			const keyAttr = Object.entries(attrs)[0];
@@ -169,14 +142,13 @@ export function mergeHead(...headArrays: HeadConfig[][]): HeadConfig[] {
 			const key = `${keyAttr[0]}=${keyAttr[1]}`;
 			const existingIndex = metaKeyMap.get(key);
 
-			if (existingIndex != null) {
-				merged[existingIndex] = tag; // replace existing tag
-			} else {
+			if (existingIndex !== undefined)
+				merged[existingIndex] = tag; // Replace existing tag
+			else {
 				metaKeyMap.set(key, merged.length);
 				merged.push(tag);
 			}
 		}
-	}
 
 	return merged;
 }
@@ -212,15 +184,14 @@ export function treatAsHtml(filename: string): boolean {
 			import.meta.env.VITE_EXTRA_EXTENSIONS ||
 			'';
 
-		// md, html? are intentionally omitted
+		// Md, html? are intentionally omitted
 		(
-			'3g2,3gp,aac,ai,apng,au,avif,bin,bmp,cer,class,conf,crl,css,csv,dll,' +
-			'doc,eps,epub,exe,gif,gz,ics,ief,jar,jpe,jpeg,jpg,js,json,jsonld,m4a,' +
-			'man,mid,midi,mjs,mov,mp2,mp3,mp4,mpe,mpeg,mpg,mpp,oga,ogg,ogv,ogx,' +
-			'opus,otf,p10,p7c,p7m,p7s,pdf,png,ps,qt,roff,rtf,rtx,ser,svg,t,tif,' +
-			'tiff,tr,ts,tsv,ttf,txt,vtt,wav,weba,webm,webp,woff,woff2,xhtml,xml,' +
-			'yaml,yml,zip' +
-			(extraExts && typeof extraExts === 'string' ? `,${extraExts}` : '')
+			`3g2,3gp,aac,ai,apng,au,avif,bin,bmp,cer,class,conf,crl,css,csv,dll,` +
+			`doc,eps,epub,exe,gif,gz,ics,ief,jar,jpe,jpeg,jpg,js,json,jsonld,m4a,` +
+			`man,mid,midi,mjs,mov,mp2,mp3,mp4,mpe,mpeg,mpg,mpp,oga,ogg,ogv,ogx,` +
+			`opus,otf,p10,p7c,p7m,p7s,pdf,png,ps,qt,roff,rtf,rtx,ser,svg,t,tif,` +
+			`tiff,tr,ts,tsv,ttf,txt,vtt,wav,weba,webm,webp,woff,woff2,xhtml,xml,` +
+			`yaml,yml,zip${extraExts && typeof extraExts === 'string' ? `,${extraExts}` : ''}`
 		)
 			.split(',')
 			.forEach((ext) => {
@@ -230,12 +201,12 @@ export function treatAsHtml(filename: string): boolean {
 
 	const ext = filename.split('.').pop();
 
-	return ext == null || !KNOWN_EXTENSIONS.has(ext.toLowerCase());
+	return ext === undefined || !KNOWN_EXTENSIONS.has(ext.toLowerCase());
 }
 
 // https://github.com/sindresorhus/escape-string-regexp/blob/ba9a4473850cb367936417e97f1f2191b7cc67dd/index.js
 export function escapeRegExp(str: string) {
-	return str.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&').replace(/-/g, '\\x2d');
+	return str.replace(/[|\\{}()[\]^$+*?.]/g, String.raw`\$&`).replace(/-/g, String.raw`\x2d`);
 }
 
 /**
@@ -249,12 +220,15 @@ export function escapeHtml(str: string): string {
 		.replace(/&(?![\w#]+;)/g, '&amp;');
 }
 
-function resolveAdditionalConfig({ additionalConfig }: SiteData, path: string): AdditionalConfig[] {
+function resolveAdditionalConfig(
+	{ additionalConfig }: SiteData,
+	path: string,
+): Array<AdditionalConfig> {
 	if (additionalConfig === undefined) return [];
 	if (typeof additionalConfig === 'function') return additionalConfig(path) ?? [];
 
-	const configs: AdditionalConfig[] = [];
-	const segments = path.split('/').slice(0, -1); // remove file name
+	const configs: Array<AdditionalConfig> = [];
+	const segments = path.split('/').slice(0, -1); // Remove file name
 
 	while (segments.length) {
 		const key = `/${segments.join('/')}/`;
@@ -267,7 +241,7 @@ function resolveAdditionalConfig({ additionalConfig }: SiteData, path: string): 
 }
 
 // This helps users to understand which configuration files are active
-function reportConfigLayers(path: string, layers: Partial<SiteData>[]) {
+function reportConfigLayers(path: string, layers: Array<Partial<SiteData>>) {
 	const summaryTitle = `Config Layers for ${path}:`;
 
 	const summary = layers.map((c, i, arr) => {
@@ -284,7 +258,7 @@ function reportConfigLayers(path: string, layers: Partial<SiteData>[]) {
  * Returns a readonly proxy behaving like a merged object of the input objects.
  * Layers are merged in descending precedence, i.e. earlier layer is on top.
  */
-export function stackView<T extends ObjectType>(..._layers: Partial<T>[]): T {
+export function stackView<T extends ObjectType>(..._layers: Array<Partial<T>>): T {
 	const layers = _layers.filter((layer) => isObject(layer));
 	if (layers.length <= 1) return _layers[0] as T;
 
@@ -301,8 +275,11 @@ export function stackView<T extends ObjectType>(..._layers: Partial<T>[]): T {
 					.filter((v): v is NonNullable<T[string | symbol]> => v !== undefined),
 			);
 		},
-		set() {
-			throw new Error('StackView is read-only and cannot be mutated.');
+		getOwnPropertyDescriptor(_, prop) {
+			for (const layer of layers) {
+				const descriptor = Object.getOwnPropertyDescriptor(layer, prop);
+				if (descriptor) return descriptor;
+			}
 		},
 		has(_, prop) {
 			return allKeys.has(prop);
@@ -310,25 +287,22 @@ export function stackView<T extends ObjectType>(..._layers: Partial<T>[]): T {
 		ownKeys() {
 			return allKeysArray;
 		},
-		getOwnPropertyDescriptor(_, prop) {
-			for (const layer of layers) {
-				const descriptor = Object.getOwnPropertyDescriptor(layer, prop);
-				if (descriptor) return descriptor;
-			}
+		set() {
+			throw new Error('StackView is read-only and cannot be mutated.');
 		},
 	});
 }
 
-stackView.unpack = <T>(obj: T): T[] | undefined => (obj as any)?.[UnpackStackView];
+stackView.unpack = <T>(obj: T): Array<T> | undefined => (obj as any)?.[UnpackStackView];
 
 type ObjectType = Record<PropertyKey, any>;
 export function isObject(value: unknown): value is ObjectType {
 	return Object.prototype.toString.call(value) === '[object Object]';
 }
 
-const shellLangs = ['shellscript', 'shell', 'bash', 'sh', 'zsh'];
+const shellLangs = new Set(['shellscript', 'shell', 'bash', 'sh', 'zsh']);
 export function isShell(lang: string) {
-	return shellLangs.includes(lang);
+	return shellLangs.has(lang);
 }
 
 /**
@@ -338,32 +312,29 @@ export function pathToFile(path: string) {
 	let pagePath = path.replace(/\.html$/, '');
 	pagePath = decodeURIComponent(pagePath);
 	pagePath = pagePath.replace(/\/$/, '/index'); // /foo/ -> /foo/index
-	if (import.meta.env.DEV) {
-		// always force re-fetch content in dev
+	if (import.meta.env.DEV)
+		// Always force re-fetch content in dev
 		pagePath += `.md?t=${Date.now()}`;
-	} else {
-		// in production, each .md file is built into a .md.js file following
-		// the path conversion scheme.
-		// /foo/bar.html -> ./foo_bar.md
-		if (inBrowser) {
-			const base = import.meta.env.BASE_URL;
-			pagePath = `${sanitizeFileName(pagePath.slice(base.length).replace(/\//g, '_') || 'index')}.md`;
-			// client production build needs to account for page hash, which is
-			// injected directly in the page's html
-			let pageHash = __VP_HASH_MAP__[pagePath.toLowerCase()];
-			if (!pageHash) {
-				pagePath = pagePath.endsWith('_index.md')
-					? `${pagePath.slice(0, -9)}.md`
-					: `${pagePath.slice(0, -3)}_index.md`;
-				pageHash = __VP_HASH_MAP__[pagePath.toLowerCase()];
-			}
-			if (!pageHash) return null;
-			pagePath = `${base}${__ASSETS_DIR__}/${pagePath}.${pageHash}.js`;
-		} else {
-			// ssr build uses much simpler name mapping
-			pagePath = `./${sanitizeFileName(pagePath.slice(1).replace(/\//g, '_'))}.md.js`;
+	else // In production, each .md file is built into a .md.js file following
+	// The path conversion scheme.
+	// /foo/bar.html -> ./foo_bar.md
+	if (inBrowser) {
+		const base = import.meta.env.BASE_URL;
+		pagePath = `${sanitizeFileName(pagePath.slice(base.length).replace(/\//g, '_') || 'index')}.md`;
+		// Client production build needs to account for page hash, which is
+		// Injected directly in the page's html
+		let pageHash = __VP_HASH_MAP__[pagePath.toLowerCase()];
+		if (!pageHash) {
+			pagePath = pagePath.endsWith('_index.md')
+				? `${pagePath.slice(0, -9)}.md`
+				: `${pagePath.slice(0, -3)}_index.md`;
+			pageHash = __VP_HASH_MAP__[pagePath.toLowerCase()];
 		}
-	}
+		if (!pageHash) return;
+		pagePath = `${base}${__ASSETS_DIR__}/${pagePath}.${pageHash}.js`;
+	} else
+		// SSR build uses much simpler name mapping
+		pagePath = `./${sanitizeFileName(pagePath.slice(1).replace(/\//g, '_'))}.md.js`;
 
 	return pagePath;
 }

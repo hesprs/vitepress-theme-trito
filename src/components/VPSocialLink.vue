@@ -2,7 +2,7 @@
 import { computed, nextTick, onMounted, ref, useSSRContext } from 'vue';
 import type { SSGContext, TritoTheme } from '@/shared';
 
-const props = defineProps<{
+const { icon, link, ariaLabel, me } = defineProps<{
 	icon: TritoTheme.SocialLinkIcon;
 	link: string;
 	ariaLabel?: string;
@@ -18,22 +18,20 @@ onMounted(async () => {
 		span instanceof HTMLElement &&
 		span.className.startsWith('vpi-social-') &&
 		(getComputedStyle(span).maskImage || getComputedStyle(span).maskImage) === 'none'
-	) {
+	)
 		span.style.setProperty(
 			'--icon',
-			`url('https://api.iconify.design/simple-icons/${props.icon}.svg')`,
+			`url('https://api.iconify.design/simple-icons/${icon}.svg')`,
 		);
-	}
 });
 
 const svg = computed(() => {
-	if (typeof props.icon === 'object') return props.icon.svg;
-	return `<span class="vpi-social-${props.icon}"></span>`;
+	if (typeof icon === 'object') return icon.svg;
+	return `<span class="vpi-social-${icon}"></span>`;
 });
 
-if (import.meta.env.SSR) {
-	if (typeof props.icon === 'string') useSSRContext<SSGContext>()?.vpSocialIcons.add(props.icon);
-}
+if (import.meta.env.SSR)
+	if (typeof icon === 'string') useSSRContext<SSGContext>()?.vpSocialIcons.add(icon);
 </script>
 
 <template>

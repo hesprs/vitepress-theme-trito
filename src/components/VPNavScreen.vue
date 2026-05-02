@@ -7,12 +7,10 @@ import VPNavScreenMenu from './VPNavScreenMenu.vue';
 import VPNavScreenSocialLinks from './VPNavScreenSocialLinks.vue';
 import VPNavScreenTranslations from './VPNavScreenTranslations.vue';
 
-defineProps<{
-	open: boolean;
-}>();
+const { open } = defineProps<{ open: boolean }>();
 
-const screen = ref<HTMLElement | null>(null);
-const isLocked = useScrollLock(inBrowser ? document.body : null);
+const screen = ref<HTMLElement | undefined>();
+const isLocked = useScrollLock(inBrowser ? document.body : undefined);
 </script>
 
 <template>

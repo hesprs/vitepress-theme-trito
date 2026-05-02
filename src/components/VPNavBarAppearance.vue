@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { useData } from '@/composables/data';
 import { IconMoonStars, IconSun } from '@tabler/icons-vue';
 import { inject } from 'vue';
+import useData from '@/composables/data';
 import { useI18n } from '@/composables/i18n';
 import { toggleAppearanceKey } from '@/shared';
 

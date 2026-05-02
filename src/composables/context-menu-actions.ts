@@ -9,8 +9,8 @@ export function copyImage(src: string) {
 			const item = new ClipboardItem({ [blob.type]: blob });
 			await navigator.clipboard.write([item]);
 		})
-		.catch((err) => {
-			console.error('Failed to copy image: ', err);
+		.catch((error) => {
+			console.error('Failed to copy image:', error);
 		});
 }
 
@@ -26,8 +26,8 @@ export function downloadImage(src: string) {
 			document.body.removeChild(link);
 			URL.revokeObjectURL(link.href);
 		})
-		.catch((err) => {
-			console.error('Failed to download image: ', err);
+		.catch((error) => {
+			console.error('Failed to download image:', error);
 		});
 }
 

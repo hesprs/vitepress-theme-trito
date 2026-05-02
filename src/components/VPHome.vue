@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useData } from '@/composables/data';
+import useData from '@/composables/data';
 import VPHomeContent from './VPHomeContent.vue';
 import VPHomeFeatures from './VPHomeFeatures.vue';
 import VPHomeHero from './VPHomeHero.vue';

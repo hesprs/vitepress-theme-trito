@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { useWindowSize } from '@vueuse/core';
-import { useData } from 'vitepress';
+import useData from '@/composables/data';
 
 const { frontmatter } = useData();
 
 const { width: vw } = useWindowSize({
-	initialWidth: 0,
 	includeScrollbar: false,
+	initialWidth: 0,
 });
 </script>
 

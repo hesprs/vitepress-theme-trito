@@ -1,22 +1,22 @@
-export interface LocalSearchTranslations {
+export type LocalSearchTranslations = {
 	button?: ButtonTranslations;
 	modal?: ModalTranslations;
-}
+};
 
-export interface ButtonTranslations {
+export type ButtonTranslations = {
 	buttonText?: string;
 	buttonAriaLabel?: string;
-}
+};
 
-export interface ModalTranslations {
+export type ModalTranslations = {
 	displayDetails?: string;
 	resetButtonTitle?: string;
 	backButtonTitle?: string;
 	noResultsText?: string;
 	footer?: FooterTranslations;
-}
+};
 
-export interface FooterTranslations {
+export type FooterTranslations = {
 	selectText?: string;
 	selectKeyAriaLabel?: string;
 	navigateText?: string;
@@ -24,10 +24,10 @@ export interface FooterTranslations {
 	navigateDownKeyAriaLabel?: string;
 	closeText?: string;
 	closeKeyAriaLabel?: string;
-}
+};
 
-export interface PageSplitSection {
+export type PageSplitSection = {
 	anchor?: string;
-	titles: string[];
+	titles: Array<string>;
 	text: string;
-}
+};

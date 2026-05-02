@@ -1,10 +1,10 @@
-// adapted from https://stackoverflow.com/a/46432113/11613622
+// Adapted from https://stackoverflow.com/a/46432113/11613622
 
-export class LRUCache<K, V> {
-	private max: number;
-	private cache: Map<K, V>;
+export default class LRUCache<K, V> {
+	private readonly max: number;
+	private readonly cache: Map<K, V>;
 
-	constructor(max: number = 10) {
+	constructor(max = 10) {
 		this.max = max;
 		this.cache = new Map<K, V>();
 	}
@@ -12,7 +12,7 @@ export class LRUCache<K, V> {
 	get(key: K): V | undefined {
 		const item = this.cache.get(key);
 		if (item !== undefined) {
-			// refresh key
+			// Refresh key
 			this.cache.delete(key);
 			this.cache.set(key, item);
 		}
@@ -20,9 +20,9 @@ export class LRUCache<K, V> {
 	}
 
 	set(key: K, val: V): void {
-		// refresh key
+		// Refresh key
 		if (this.cache.has(key)) this.cache.delete(key);
-		// evict oldest
+		// Evict oldest
 		else if (this.cache.size === this.max) {
 			const first = this.first();
 			if (first) this.cache.delete(first);

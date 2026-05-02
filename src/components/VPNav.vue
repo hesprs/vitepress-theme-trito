@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inBrowser } from 'vitepress';
 import { computed, provide, watchEffect } from 'vue';
-import { useData } from '@/composables/data';
+import useData from '@/composables/data';
 import { navInjectionKey, useNav } from '@/composables/nav';
 import VPNavBar from './VPNavBar.vue';
 import VPNavScreen from './VPNavScreen.vue';
@@ -9,16 +9,12 @@ import VPNavScreen from './VPNavScreen.vue';
 const { isScreenOpen, closeScreen, toggleScreen } = useNav();
 const { frontmatter } = useData();
 
-const hasNavbar = computed(() => {
-	return frontmatter.value.navbar !== false;
-});
+const hasNavbar = computed(() => frontmatter.value.navbar !== false);
 
 provide(navInjectionKey, { closeScreen });
 
 watchEffect(() => {
-	if (inBrowser) {
-		document.documentElement.classList.toggle('hide-nav', !hasNavbar.value);
-	}
+	if (inBrowser) document.documentElement.classList.toggle('hide-nav', !hasNavbar.value);
 });
 </script>
 

@@ -1,7 +1,5 @@
 <script lang="ts" setup>
-defineProps<{
-	show: boolean;
-}>();
+const { show } = defineProps<{ show: boolean }>();
 </script>
 
 <template>

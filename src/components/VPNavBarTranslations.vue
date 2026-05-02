@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { IconLanguageHiragana } from '@tabler/icons-vue';
+import useData from '@/composables/data';
 import { useI18n } from '@/composables/i18n';
-import { useData } from '@/composables/data';
-import { useLangs } from '@/composables/langs';
+import useLangs from '@/composables/langs';
 import VPFlyout from './VPFlyout.vue';
 import VPMenuLink from './VPMenuLink.vue';
 

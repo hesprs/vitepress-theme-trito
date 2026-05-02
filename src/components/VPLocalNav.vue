@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { useData } from '@/composables/data';
-import { useLayout } from '@/composables/layout';
-import { useI18n } from '@/composables/i18n';
-import VPLocalNavOutlineDropdown from './VPLocalNavOutlineDropdown.vue';
-import { useSidebarControl } from '@/composables/sidebar';
 import { IconMenu2 } from '@tabler/icons-vue';
+import useData from '@/composables/data';
+import { useI18n } from '@/composables/i18n';
+import { useLayout } from '@/composables/layout';
+import { useSidebarControl } from '@/composables/sidebar';
+import VPLocalNavOutlineDropdown from './VPLocalNavOutlineDropdown.vue';
 
 const { page, title, theme } = useData();
 const { headers } = useLayout();

@@ -1,5 +1,8 @@
 <script lang="ts" setup>
+import type { SearchResult } from 'minisearch';
+import type { Ref } from 'vue';
 import localSearchIndex from '@localSearchIndex';
+import { IconArrowDown, IconArrowLeft, IconArrowUp, IconChevronRight } from '@tabler/icons-vue';
 import {
 	computedAsync,
 	onKeyStroke,
@@ -11,7 +14,7 @@ import {
 } from '@vueuse/core';
 import { useFocusTrap } from '@vueuse/integrations/useFocusTrap';
 import Mark from 'mark.js/src/vanilla.js';
-import MiniSearch, { type SearchResult } from 'minisearch';
+import MiniSearch from 'minisearch';
 import { dataSymbol, inBrowser, useRouter } from 'vitepress';
 import {
 	computed,
@@ -20,18 +23,16 @@ import {
 	nextTick,
 	onBeforeUnmount,
 	onMounted,
-	type Ref,
 	ref,
 	shallowRef,
 	watch,
 	watchEffect,
 } from 'vue';
-import { useData } from '@/composables/data';
-import { escapeRegExp, pathToFile } from '@/shared';
 import type { ModalTranslations } from '@/shared/local-search';
-import { LRUCache } from '@/support/lru';
-import { createSearchTranslate } from '@/support/translation';
-import { IconArrowDown, IconArrowLeft, IconArrowUp, IconChevronRight } from '@tabler/icons-vue';
+import useData from '@/composables/data';
+import { escapeRegExp, pathToFile } from '@/shared';
+import LRUCache from '@/support/lru';
+import createSearchTranslate from '@/support/translation';
 
 const emit = defineEmits<(e: 'close') => void>();
 
@@ -42,53 +43,49 @@ const resultsEl = shallowRef<HTMLElement>();
 
 const searchIndexData = shallowRef(localSearchIndex);
 
-// hmr
-if (import.meta.hot) {
+// Hmr
+if (import.meta.hot)
 	import.meta.hot.accept('@localSearchIndex', (m) => {
-		if (m) {
-			searchIndexData.value = m.default;
-		}
+		if (m) searchIndexData.value = m.default;
 	});
-}
 
-interface Result {
+type Result = {
 	title: string;
-	titles: string[];
+	titles: Array<string>;
 	text?: string;
-}
+};
 
 const vitePressData = useData();
 const { activate } = useFocusTrap(el, {
-	immediate: true,
 	allowOutsideClick: true,
 	clickOutsideDeactivates: true,
 	escapeDeactivates: true,
+	immediate: true,
 });
 const { localeIndex, theme } = vitePressData;
 const searchIndex = computedAsync(async () =>
 	markRaw(
 		MiniSearch.loadJSON<Result>((await searchIndexData.value[localeIndex.value]?.())?.default, {
 			fields: ['title', 'titles', 'text'],
-			storeFields: ['title', 'titles'],
 			searchOptions: {
+				boost: { text: 2, title: 4, titles: 1 },
 				fuzzy: 0.2,
 				prefix: true,
-				boost: { title: 4, text: 2, titles: 1 },
 				...(theme.value.search?.provider === 'local' &&
 					theme.value.search.options?.miniSearch?.searchOptions),
 			},
+			storeFields: ['title', 'titles'],
 			...(theme.value.search?.provider === 'local' &&
 				theme.value.search.options?.miniSearch?.options),
 		}),
 	),
 );
 
-const disableQueryPersistence = computed(() => {
-	return (
+const disableQueryPersistence = computed(
+	() =>
 		theme.value.search?.provider === 'local' &&
-		theme.value.search.options?.disableQueryPersistence === true
-	);
-});
+		theme.value.search.options?.disableQueryPersistence === true,
+);
 
 const filterText = disableQueryPersistence.value
 	? ref('')
@@ -99,12 +96,11 @@ const showDetailedList = useLocalStorage(
 	theme.value.search?.provider === 'local' && theme.value.search.options?.detailedView === true,
 );
 
-const disableDetailedView = computed(() => {
-	return (
+const disableDetailedView = computed(
+	() =>
 		theme.value.search?.provider === 'local' &&
-		theme.value.search.options?.detailedView === false
-	);
-});
+		theme.value.search.options?.detailedView === false,
+);
 
 const buttonText = computed(() => {
 	const options = theme.value.search?.options;
@@ -117,12 +113,10 @@ const buttonText = computed(() => {
 });
 
 watchEffect(() => {
-	if (disableDetailedView.value) {
-		showDetailedList.value = false;
-	}
+	if (disableDetailedView.value) showDetailedList.value = false;
 });
 
-const results: Ref<(SearchResult & Result)[]> = shallowRef([]);
+const results: Ref<Array<SearchResult & Result>> = shallowRef([]);
 
 const enableNoResults = ref(false);
 
@@ -133,17 +127,16 @@ watch(filterText, () => {
 const mark = computedAsync(async () => {
 	if (!resultsEl.value) return;
 	return markRaw(new Mark(resultsEl.value));
-}, null);
+}, undefined);
 
 const cache = new LRUCache<string, Map<string, string>>(16); // 16 files
 
 watchDebounced(
 	() => [searchIndex.value, filterText.value, showDetailedList.value] as const,
 	async ([index, filterTextValue, showDetailedListValue], old, onCleanup) => {
-		if (old?.[0] !== index) {
-			// in case of hmr
+		if (old?.[0] !== index)
+			// In case of hmr
 			cache.clear();
-		}
 
 		let canceled = false;
 		onCleanup(() => {
@@ -153,7 +146,7 @@ watchDebounced(
 		if (!index) return;
 
 		// Search
-		results.value = index.search(filterTextValue).slice(0, 16) as (SearchResult & Result)[];
+		results.value = index.search(filterTextValue).slice(0, 16) as Array<SearchResult & Result>;
 		enableNoResults.value = true;
 
 		// Highlighting
@@ -188,14 +181,14 @@ watchDebounced(
 				const div = document.createElement('div');
 				app.mount(div);
 				const headings = div.querySelectorAll('h1, h2, h3, h4, h5, h6');
-				headings.forEach((el) => {
-					const href = el.querySelector('a')?.getAttribute('href');
+				headings.forEach((element) => {
+					const href = element.querySelector('a')?.getAttribute('href');
 					const anchor = href?.startsWith('#') && href.slice(1);
 					if (!anchor) return;
 					let html = '';
-					while (el.nextElementSibling && !/^h[1-6]$/i.test(el.tagName)) {
-						el = el.nextElementSibling;
-						html += el.outerHTML;
+					while (element.nextElementSibling && !/^h[1-6]$/i.test(element.tagName)) {
+						element = element.nextElementSibling;
+						html += element.outerHTML;
 					}
 					map?.set(anchor, html);
 				});
@@ -210,9 +203,8 @@ watchDebounced(
 			const [id, anchor] = r.id.split('#');
 			const map = cache.get(id);
 			const text = map?.get(anchor) ?? '';
-			for (const term in r.match) {
-				terms.add(term);
-			}
+			for (const term in r.match) if (typeof term === 'string') terms.add(term);
+
 			return { ...r, text };
 		});
 
@@ -228,9 +220,9 @@ watchDebounced(
 		});
 
 		const excerpts = el.value?.querySelectorAll('.result .excerpt') ?? [];
-		for (const excerpt of excerpts) {
+		for (const excerpt of excerpts)
 			excerpt.querySelector('mark[data-markjs="true"]')?.scrollIntoView({ block: 'center' });
-		}
+
 		// FIXME: without this whole page scrolls to the bottom
 		resultsEl.value?.firstElementChild?.scrollIntoView({ block: 'start' });
 	},
@@ -242,8 +234,8 @@ async function fetchExcerpt(id: string) {
 	try {
 		if (!file) throw new Error(`Cannot find file for id: ${id}`);
 		return { id, mod: await import(/*@vite-ignore*/ file) };
-	} catch (e) {
-		console.error(e);
+	} catch (error) {
+		console.error(error);
 		return { id, mod: {} };
 	}
 }
@@ -251,9 +243,7 @@ async function fetchExcerpt(id: string) {
 /* Search input focus */
 
 const searchInput = ref<HTMLInputElement>();
-const disableReset = computed(() => {
-	return filterText.value?.length <= 0;
-});
+const disableReset = computed(() => filterText.value?.length <= 0);
 function focusSearchInput(select = true) {
 	searchInput.value?.focus();
 	if (select) searchInput.value?.select();
@@ -264,9 +254,7 @@ onMounted(() => {
 });
 
 function onSearchBarClick(event: PointerEvent) {
-	if (event.pointerType === 'mouse') {
-		focusSearchInput();
-	}
+	if (event.pointerType === 'mouse') focusSearchInput();
 }
 
 /* Search keyboard selection */
@@ -289,9 +277,8 @@ function scrollToSelectedResult() {
 onKeyStroke('ArrowUp', (event) => {
 	event.preventDefault();
 	selectedIndex.value--;
-	if (selectedIndex.value < 0) {
-		selectedIndex.value = results.value.length - 1;
-	}
+	if (selectedIndex.value < 0) selectedIndex.value = results.value.length - 1;
+
 	disableMouseOver.value = true;
 	scrollToSelectedResult();
 });
@@ -299,9 +286,8 @@ onKeyStroke('ArrowUp', (event) => {
 onKeyStroke('ArrowDown', (event) => {
 	event.preventDefault();
 	selectedIndex.value++;
-	if (selectedIndex.value >= results.value.length) {
-		selectedIndex.value = 0;
-	}
+	if (selectedIndex.value >= results.value.length) selectedIndex.value = 0;
+
 	disableMouseOver.value = true;
 	scrollToSelectedResult();
 });
@@ -332,19 +318,19 @@ onKeyStroke('Escape', () => {
 // Translations
 const defaultTranslations: { modal: ModalTranslations } = {
 	modal: {
-		displayDetails: 'Display detailed list',
-		resetButtonTitle: 'Reset search',
 		backButtonTitle: 'Close search',
-		noResultsText: 'No results for',
+		displayDetails: 'Display detailed list',
 		footer: {
-			selectText: 'to select',
-			selectKeyAriaLabel: 'enter',
+			closeKeyAriaLabel: 'escape',
+			closeText: 'to close',
+			navigateDownKeyAriaLabel: 'down arrow',
 			navigateText: 'to navigate',
 			navigateUpKeyAriaLabel: 'up arrow',
-			navigateDownKeyAriaLabel: 'down arrow',
-			closeText: 'to close',
-			closeKeyAriaLabel: 'escape',
+			selectKeyAriaLabel: 'enter',
+			selectText: 'to select',
 		},
+		noResultsText: 'No results for',
+		resetButtonTitle: 'Reset search',
 	},
 };
 
@@ -354,7 +340,7 @@ const translate = createSearchTranslate(defaultTranslations);
 
 onMounted(() => {
 	// Prevents going to previous site
-	window.history.pushState(null, '', null);
+	window.history.pushState(undefined, '');
 });
 
 useEventListener('popstate', (event) => {
@@ -363,7 +349,7 @@ useEventListener('popstate', (event) => {
 });
 
 /** Lock body */
-const isLocked = useScrollLock(inBrowser ? document.body : null);
+const isLocked = useScrollLock(inBrowser ? document.body : undefined);
 
 onMounted(() => {
 	nextTick(() => {
@@ -393,11 +379,10 @@ function formMarkRegex(terms: Set<string>) {
 
 function onMouseMove(e: MouseEvent) {
 	if (!disableMouseOver.value) return;
-	const el = (e.target as HTMLElement)?.closest<HTMLAnchorElement>('.result');
-	const index = Number.parseInt(el?.dataset.index as string, 10);
-	if (index >= 0 && index !== selectedIndex.value) {
-		selectedIndex.value = index;
-	}
+	const element = (e.target as HTMLElement)?.closest<HTMLAnchorElement>('.result');
+	const index = Number.parseInt(element?.dataset.index as string, 10);
+	if (index >= 0 && index !== selectedIndex.value) selectedIndex.value = index;
+
 	disableMouseOver.value = false;
 }
 </script>

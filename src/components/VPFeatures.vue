@@ -3,7 +3,7 @@ import { computed } from 'vue';
 import type { TritoTheme } from '@/shared';
 import VPFeature from './VPFeature.vue';
 
-export interface Feature {
+export type Feature = {
 	icon?: TritoTheme.FeatureIcon;
 	title: string;
 	details: string;
@@ -11,26 +11,18 @@ export interface Feature {
 	linkText?: string;
 	rel?: string;
 	target?: string;
-}
+};
 
-const props = defineProps<{
-	features: Feature[];
-}>();
+const { features } = defineProps<{ features: Array<Feature> }>();
 
 const grid = computed(() => {
-	const length = props.features.length;
+	const length = features.length;
 
-	if (!length) {
-		return;
-	} else if (length === 2) {
-		return 'grid-2';
-	} else if (length === 3) {
-		return 'grid-3';
-	} else if (length % 3 === 0) {
-		return 'grid-6';
-	} else if (length > 3) {
-		return 'grid-4';
-	}
+	if (!length) return;
+	else if (length === 2) return 'grid-2';
+	else if (length === 3) return 'grid-3';
+	else if (length % 3 === 0) return 'grid-6';
+	else if (length > 3) return 'grid-4';
 });
 </script>
 
