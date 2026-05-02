@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useData } from '@/composables/data';
-import { useLangs } from '@/composables/langs';
-import { useLayout } from '@/composables/layout';
+import useData from '@/composables/data';
+import useLangs from '@/composables/langs';
 import { normalizeLink } from '@/support/utils';
 import VPImage from './VPImage.vue';
 

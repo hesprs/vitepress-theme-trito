@@ -1,30 +1,30 @@
 <script setup lang="ts">
 import type { DefaultTheme } from 'vitepress/theme';
+import { IconChevronRight } from '@tabler/icons-vue';
 import { computed } from 'vue';
 import { useSidebarItemControl } from '@/composables/sidebar';
 import VPLink from './VPLink.vue';
-import { IconChevronRight } from '@tabler/icons-vue';
 
-const props = defineProps<{
+const { item, depth } = defineProps<{
 	item: DefaultTheme.SidebarItem;
 	depth: number;
 }>();
 
 const { collapsed, collapsible, isLink, isActiveLink, hasActiveLink, hasChildren, toggle } =
-	useSidebarItemControl(computed(() => props.item));
+	useSidebarItemControl(computed(() => item));
 
 const sectionTag = computed(() => (hasChildren.value ? 'section' : `div`));
 
 const linkTag = computed(() => (isLink.value ? 'a' : 'div'));
 
-const textTag = computed(() => {
-	return !hasChildren.value ? 'p' : props.depth + 2 === 7 ? 'p' : `h${props.depth + 2}`;
-});
+const textTag = computed(() =>
+	!hasChildren.value ? 'p' : depth + 2 === 7 ? 'p' : `h${depth + 2}`,
+);
 
 const itemRole = computed(() => (isLink.value ? undefined : 'button'));
 
 const classes = computed(() => [
-	[`level-${props.depth}`],
+	[`level-${depth}`],
 	{ collapsible: collapsible.value },
 	{ collapsed: collapsed.value },
 	{ 'is-link': isLink.value },
@@ -34,11 +34,11 @@ const classes = computed(() => [
 
 function onItemInteraction(e: MouseEvent | Event) {
 	if ('key' in e && e.key !== 'Enter') return;
-	if (!props.item.link) toggle();
+	if (!item.link) toggle();
 }
 
 function onCaretClick() {
-	if (props.item.link) toggle();
+	if (item.link) toggle();
 }
 </script>
 
@@ -66,7 +66,7 @@ function onCaretClick() {
 			<component v-else :is="textTag" class="text" v-html="item.text" />
 
 			<div
-				v-if="item.collapsed != null && item.items && item.items.length"
+				v-if="item.collapsed !== undefined && item.items && item.items.length"
 				class="caret"
 				role="button"
 				aria-label="toggle section"

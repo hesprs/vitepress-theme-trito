@@ -1,14 +1,12 @@
-import { nextTick, provide, type Ref } from 'vue';
+import type { Ref } from 'vue';
+import { nextTick, provide } from 'vue';
 import { toggleAppearanceKey } from '@/shared';
 
-const enableTransitions = () => {
-	return (
-		'startViewTransition' in document &&
-		window.matchMedia('(prefers-reduced-motion: no-preference)').matches
-	);
-};
+const enableTransitions = () =>
+	'startViewTransition' in document &&
+	window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
 
-export default function (isDark: Ref<boolean>) {
+export default function registerThemeToggle(isDark: Ref<boolean>) {
 	provide(toggleAppearanceKey, async (coords: { clientX: number; clientY: number }) =>
 		toggleAppearance(coords, isDark),
 	);

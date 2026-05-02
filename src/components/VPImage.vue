@@ -2,7 +2,7 @@
 import { withBase } from 'vitepress';
 import type { TritoTheme } from '@/shared';
 
-defineProps<{
+const { image, alt } = defineProps<{
 	image: TritoTheme.ThemeableImage;
 	alt?: string;
 }>();

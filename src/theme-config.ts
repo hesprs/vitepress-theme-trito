@@ -5,8 +5,8 @@ import type { DocSearchProps } from '@/shared/docsearch';
 import type { Header, PageData } from '@/shared/index';
 import type { LocalSearchTranslations } from '@/shared/local-search';
 
-export namespace TritoTheme {
-	export interface Config {
+namespace TritoTheme {
+	export type Config = {
 		/**
 		 * The logo file of the site.
 		 *
@@ -42,7 +42,7 @@ export namespace TritoTheme {
 		/**
 		 * The nav items.
 		 */
-		nav?: NavItem[];
+		nav?: Array<NavItem>;
 
 		/**
 		 * The sidebar items.
@@ -94,7 +94,7 @@ export namespace TritoTheme {
 		 * The social links to be displayed at the end of the nav bar. Perfect for
 		 * placing links to social services such as GitHub, Twitter, Facebook, etc.
 		 */
-		socialLinks?: SocialLink[];
+		socialLinks?: Array<SocialLink>;
 
 		/**
 		 * The footer configuration.
@@ -125,18 +125,18 @@ export namespace TritoTheme {
 		 * @default '/' or '/<locale>/' depending on `i18nRouting`
 		 */
 		notFoundLink?: string;
-	}
+	};
 
-	// nav -----------------------------------------------------------------------
+	// Nav -----------------------------------------------------------------------
 
 	export type NavItem = NavItemComponent | NavItemWithLink | NavItemWithChildren;
 
-	export interface NavItemComponent {
+	export type NavItemComponent = {
 		component: string;
 		props?: Record<string, any>;
-	}
+	};
 
-	export interface NavItemWithLink {
+	export type NavItemWithLink = {
 		text: string;
 		link: string | ((payload: PageData) => string);
 		items?: never;
@@ -149,31 +149,32 @@ export namespace TritoTheme {
 		rel?: string;
 		target?: string;
 		noIcon?: boolean;
-	}
+	};
 
-	export interface NavItemChildren {
+	export type NavItemChildren = {
 		text?: string;
-		items: NavItemWithLink[];
-	}
+		items: Array<NavItemWithLink>;
+	};
 
-	export interface NavItemWithChildren {
+	export type NavItemWithChildren = {
 		text?: string;
-		items: (NavItemComponent | NavItemChildren | NavItemWithLink)[];
+		items: Array<NavItemComponent | NavItemChildren | NavItemWithLink>;
 
 		/**
 		 * `activeMatch` is expected to be a regex string. We can't use actual
 		 * RegExp object here because it isn't serializable
 		 */
 		activeMatch?: string;
-	}
+	};
 
-	// sidebar -------------------------------------------------------------------
+	// Sidebar -------------------------------------------------------------------
 
-	export type Sidebar = SidebarItem[] | SidebarMulti;
+	export type Sidebar = Array<SidebarItem> | SidebarMulti;
 
-	export interface SidebarMulti {
-		[path: string]: SidebarItem[] | { items: SidebarItem[]; base: string };
-	}
+	export type SidebarMulti = Record<
+		string,
+		Array<SidebarItem> | { items: Array<SidebarItem>; base: string }
+	>;
 
 	export type SidebarItem = {
 		/**
@@ -189,7 +190,7 @@ export namespace TritoTheme {
 		/**
 		 * The children of the item.
 		 */
-		items?: SidebarItem[];
+		items?: Array<SidebarItem>;
 
 		/**
 		 * If not specified, group is not collapsible.
@@ -214,7 +215,7 @@ export namespace TritoTheme {
 		target?: string;
 	};
 
-	// image ---------------------------------------------------------------------
+	// Image ---------------------------------------------------------------------
 
 	export type ThemeableImage =
 		| string
@@ -239,9 +240,9 @@ export namespace TritoTheme {
 				wrap?: boolean;
 		  };
 
-	// prev-next -----------------------------------------------------------------
+	// Prev-next -----------------------------------------------------------------
 
-	export interface DocFooter {
+	export type DocFooter = {
 		/**
 		 * Previous page button, set to `false` to disable.
 		 */
@@ -251,49 +252,49 @@ export namespace TritoTheme {
 		 * Next page button, set to `false` to disable.
 		 */
 		next?: boolean;
-	}
+	};
 
-	// social link ---------------------------------------------------------------
+	// Social link ---------------------------------------------------------------
 
-	export interface SocialLink {
+	export type SocialLink = {
 		icon: SocialLinkIcon;
 		link: string;
 		ariaLabel?: string;
-	}
+	};
 
 	export type SocialLinkIcon = string | { svg: string };
 
-	// footer --------------------------------------------------------------------
+	// Footer --------------------------------------------------------------------
 
-	export interface Footer {
+	export type Footer = {
 		message?: string;
 		copyright?: string;
-	}
+	};
 
-	// team ----------------------------------------------------------------------
+	// Team ----------------------------------------------------------------------
 
-	export interface TeamMember {
+	export type TeamMember = {
 		avatar: string;
 		name: string;
 		title?: string;
 		org?: string;
 		orgLink?: string;
 		desc?: string;
-		links?: SocialLink[];
+		links?: Array<SocialLink>;
 		sponsor?: string;
 		actionText?: string;
-	}
+	};
 
-	// outline -------------------------------------------------------------------
+	// Outline -------------------------------------------------------------------
 
 	export type OutlineItem = Omit<Header, 'slug' | 'children'> & {
 		element: HTMLHeadElement;
-		children?: OutlineItem[];
+		children?: Array<OutlineItem>;
 	};
 
-	// local search --------------------------------------------------------------
+	// Local search --------------------------------------------------------------
 
-	export interface LocalSearchOptions {
+	export type LocalSearchOptions = {
 		/**
 		 * If `true`, the detailed view will be enabled by default.
 		 * If `false`, the detailed view will be disabled.
@@ -312,9 +313,9 @@ export namespace TritoTheme {
 		locales?: Record<string, Partial<Omit<LocalSearchOptions, 'locales'>>>;
 
 		miniSearch?: MiniSearchOptions;
-	}
+	};
 
-	interface MiniSearchOptions {
+	type MiniSearchOptions = {
 		/**
 		 * @see https://lucaong.github.io/minisearch/types/MiniSearch.Options.html
 		 */
@@ -323,15 +324,17 @@ export namespace TritoTheme {
 		 * @see https://lucaong.github.io/minisearch/types/MiniSearch.SearchOptions.html
 		 */
 		searchOptions?: _MiniSearchOptions['searchOptions'];
-	}
+	};
 
-	// algolia -------------------------------------------------------------------
+	// Algolia -------------------------------------------------------------------
 
 	/**
 	 * Algolia search options. Partially copied from
 	 * `@docsearch/react/dist/esm/DocSearch.d.ts`
 	 */
-	export interface AlgoliaSearchOptions extends DocSearchProps {
+	export type AlgoliaSearchOptions = {
 		locales?: Record<string, Partial<DocSearchProps>>;
-	}
+	} & DocSearchProps;
 }
+
+export type { TritoTheme as default };

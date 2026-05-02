@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useNavigatorLanguage } from '@vueuse/core';
 import { computed, onMounted, shallowRef, useTemplateRef, watchEffect } from 'vue';
-import { useData } from '@/composables/data';
+import useData from '@/composables/data';
 import { useI18n } from '@/composables/i18n';
 
 const { theme, page, lang: pageLang } = useData();
@@ -14,8 +14,8 @@ const isoDatetime = computed(() => date.value.toISOString());
 const datetime = shallowRef('');
 const i18n = useI18n();
 
-// set time on mounted hook to avoid hydration mismatch due to
-// potential differences in timezones of the server and clients
+// Set time on mounted hook to avoid hydration mismatch due to
+// Potential differences in timezones of the server and clients
 onMounted(() => {
 	watchEffect(() => {
 		const lang = theme.value.lastUpdated?.forceLocale ? pageLang.value : browserLang.value;
@@ -28,11 +28,8 @@ onMounted(() => {
 			},
 		).format(date.value);
 
-		if (lang && pageLang.value !== lang) {
-			timeRef.value?.setAttribute('lang', lang);
-		} else {
-			timeRef.value?.removeAttribute('lang');
-		}
+		if (lang && pageLang.value !== lang) timeRef.value?.setAttribute('lang', lang);
+		else timeRef.value?.removeAttribute('lang');
 	});
 });
 </script>

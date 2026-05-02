@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { TritoTheme } from '@/shared';
 
-defineProps<{
-	headers: TritoTheme.OutlineItem[];
+const { headers, root } = defineProps<{
+	headers: Array<TritoTheme.OutlineItem>;
 	root?: boolean;
 }>();
 </script>

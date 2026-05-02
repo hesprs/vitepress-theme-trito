@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import { IconArrowRight } from '@tabler/icons-vue';
 import type { TritoTheme } from '@/shared';
 import VPImage from './VPImage.vue';
 import VPLink from './VPLink.vue';
-import { IconArrowRight } from '@tabler/icons-vue';
 
-defineProps<{
+const { icon, title, details, link, linkText, rel, target } = defineProps<{
 	icon?: TritoTheme.FeatureIcon;
 	title: string;
 	details?: string;

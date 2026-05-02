@@ -2,9 +2,9 @@
 import type { TritoTheme } from '@/shared';
 import VPNavScreenMenuGroupLink from './VPNavScreenMenuGroupLink.vue';
 
-defineProps<{
+const { text, items } = defineProps<{
 	text?: string;
-	items: TritoTheme.NavItemWithLink[];
+	items: Array<TritoTheme.NavItemWithLink>;
 }>();
 </script>
 

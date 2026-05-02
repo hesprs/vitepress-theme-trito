@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import type { Ref } from 'vue';
 import { IconMenu2, IconChevronDown } from '@tabler/icons-vue';
-import { watch, ref, useTemplateRef, onMounted, type Ref } from 'vue';
 import { useElementSize } from '@vueuse/core';
-import { useData } from '@/composables/data';
+import { watch, ref, useTemplateRef } from 'vue';
+import useData from '@/composables/data';
 import { useI18n } from '@/composables/i18n';
 import { useLayout } from '@/composables/layout';
 import VPSidebarGroup from './VPSidebarGroup.vue';
@@ -24,10 +25,8 @@ watch(collapsed, () => {
 });
 
 function toggle(e: PointerEvent) {
-	if (expand.value?.contains(e.target as Node)) {
-		if (!collapsed.value) collapsed.value = true;
-		else collapsed.value = false;
-	} else if (collapsed.value) collapsed.value = false;
+	if (expand.value?.contains(e.target as Node)) collapsed.value = !collapsed.value;
+	else if (collapsed.value) collapsed.value = false;
 }
 </script>
 

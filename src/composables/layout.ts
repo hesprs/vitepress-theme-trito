@@ -1,31 +1,23 @@
+import type { ComputedRef, InjectionKey, Ref, ShallowRef } from 'vue';
 import { useElementSize, useWindowScroll, useWindowSize } from '@vueuse/core';
-import { onContentUpdated } from 'vitepress';
-import { inBrowser } from 'vitepress';
-import {
-	type ComputedRef,
-	computed,
-	type InjectionKey,
-	ref,
-	shallowReadonly,
-	shallowRef,
-	watch,
-	type Ref,
-	type ShallowRef,
-} from 'vue';
+import { onContentUpdated, inBrowser } from 'vitepress';
+import { computed, ref, shallowReadonly, shallowRef, watch } from 'vue';
 import type { TritoTheme } from '@/shared';
 import { getSidebar, getSidebarGroups } from '@/support/sidebar';
-import { useData } from './data';
+import useData from './data';
 import { getHeaders } from './outline';
 
-const headers = shallowRef<TritoTheme.OutlineItem[]>([]);
-const sidebar = shallowRef<TritoTheme.SidebarItem[]>([]);
+const headers = shallowRef<Array<TritoTheme.OutlineItem>>([]);
+const sidebar = shallowRef<Array<TritoTheme.SidebarItem>>([]);
 let footerHeight: Ref<number> | undefined = undefined;
 let contentHeight: Ref<number> | undefined = undefined;
 const maxAsideHeightOffset = ref(0);
 const showTitle = ref(false);
 const { y } = useWindowScroll();
 const { height: windowHeight } = useWindowSize();
-const { height: scrollHeight } = inBrowser ? useElementSize(document.body) : useElementSize(ref());
+const { height: scrollHeight } = inBrowser
+	? useElementSize(document.body)
+	: useElementSize(ref<HTMLElement>());
 const navSpace = inBrowser
 	? parseInt(getCSSVariable('--vp-nav-height', '0px')) +
 		parseInt(getCSSVariable('--vp-nav-top', '0px'))
@@ -34,49 +26,45 @@ const navSpace = inBrowser
 export function useLayout() {
 	const { frontmatter, theme } = useData();
 
-	const isHome = computed(() => {
-		return !!(frontmatter.value.isHome ?? frontmatter.value.layout === 'home');
-	});
+	const isHome = computed(() =>
+		Boolean(frontmatter.value.isHome ?? frontmatter.value.layout === 'home'),
+	);
 
 	const hasAside = computed(() => {
 		if (isHome.value) return false;
-		if (frontmatter.value.aside != null) return !!frontmatter.value.aside;
+		if (frontmatter.value.aside) return Boolean(frontmatter.value.aside);
 		return theme.value.aside !== false;
 	});
 
-	const hasSidebar = computed(() => {
-		return frontmatter.value.sidebar !== false && sidebar.value.length > 0;
-	});
+	const hasSidebar = computed(
+		() => frontmatter.value.sidebar !== false && sidebar.value.length > 0,
+	);
 
-	const hasOutline = computed(() => {
-		return frontmatter.value.outline !== false && headers.value.length > 0;
-	});
+	const hasOutline = computed(
+		() => frontmatter.value.outline !== false && headers.value.length > 0,
+	);
 
-	const sidebarGroups = computed(() => {
-		return hasSidebar.value ? getSidebarGroups(sidebar.value) : [];
-	});
+	const sidebarGroups = computed(() => (hasSidebar.value ? getSidebarGroups(sidebar.value) : []));
 
 	const leftAside = computed(() => {
 		if (!hasAside.value) return false;
-		return frontmatter.value.aside == null
+		return !frontmatter.value.aside
 			? theme.value.aside === 'left'
 			: frontmatter.value.aside === 'left';
 	});
 
-	const hasLocalNav = computed(() => {
-		return headers.value.length > 0;
-	});
+	const hasLocalNav = computed(() => headers.value.length > 0);
 
 	return {
 		hasAside,
-		leftAside,
-		headers: shallowReadonly(headers),
 		hasLocalNav,
+		hasOutline,
 		hasSidebar,
+		headers: shallowReadonly(headers),
+		leftAside,
+		maxAsideHeightOffset,
 		showTitle,
 		sidebarGroups,
-		maxAsideHeightOffset,
-		hasOutline,
 	};
 }
 
@@ -87,11 +75,10 @@ export function registerWatchers() {
 		() => [page.value.relativePath, theme.value.sidebar] as const,
 		([relativePath, sidebarConfig]) => {
 			const newSidebar = sidebarConfig ? getSidebar(sidebarConfig, relativePath) : [];
-			if (JSON.stringify(newSidebar) !== JSON.stringify(sidebar.value)) {
+			if (JSON.stringify(newSidebar) !== JSON.stringify(sidebar.value))
 				sidebar.value = newSidebar;
-			}
 		},
-		{ immediate: true, deep: true, flush: 'sync' },
+		{ deep: true, flush: 'sync', immediate: true },
 	);
 
 	onContentUpdated(() => {
@@ -105,13 +92,13 @@ export function registerWatchers() {
 
 function calcOffset() {
 	if (!contentHeight || !footerHeight) return;
-	if (contentHeight.value + navSpace + footerHeight.value + 72 <= windowHeight.value)
-		maxAsideHeightOffset.value = footerHeight.value + 8;
-	else
-		maxAsideHeightOffset.value = Math.max(
-			0,
-			footerHeight.value + 8 - (scrollHeight.value - y.value - windowHeight.value),
-		);
+	maxAsideHeightOffset.value =
+		contentHeight.value + navSpace + footerHeight.value + 72 <= windowHeight.value
+			? footerHeight.value + 8
+			: Math.max(
+					0,
+					footerHeight.value + 8 - (scrollHeight.value - y.value - windowHeight.value),
+				);
 }
 
 export function registerFooter(footer: ShallowRef<HTMLElement | null>) {
@@ -132,9 +119,9 @@ export function registerContent(footer: ShallowRef<HTMLElement | null>) {
 	watch(contentHeight, calcOffset);
 }
 
-export interface LayoutInfo {
+export type LayoutInfo = {
 	heroImageSlotExists: ComputedRef<boolean>;
-}
+};
 
 export const layoutInfoInjectionKey: InjectionKey<LayoutInfo> = Symbol('layout-info');
 

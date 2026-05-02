@@ -113,6 +113,7 @@
 </template>
 
 <script lang="ts" setup>
+import type { Reactive } from 'vue';
 import {
 	IconAppWindow,
 	IconArrowBarToUp,
@@ -128,16 +129,7 @@ import {
 	IconSun,
 } from '@tabler/icons-vue';
 import { useRouter } from 'vitepress';
-import {
-	inject,
-	nextTick,
-	onBeforeUnmount,
-	onMounted,
-	type Reactive,
-	reactive,
-	ref,
-	useTemplateRef,
-} from 'vue';
+import { inject, nextTick, onBeforeUnmount, onMounted, reactive, ref, useTemplateRef } from 'vue';
 import {
 	back,
 	copyImage,
@@ -148,26 +140,26 @@ import {
 	refresh,
 	scrollToTop,
 } from '@/composables/context-menu-actions';
-import { useData } from '@/composables/data';
+import useData from '@/composables/data';
 import { useI18n } from '@/composables/i18n';
 import { toggleAppearanceKey } from '@/shared';
 
-interface LinkSelection {
+type LinkSelection = {
 	type: 'link';
 	data: HTMLLinkElement;
-}
-interface ImageSelection {
+};
+type ImageSelection = {
 	type: 'image';
 	data: HTMLImageElement;
-}
-interface TextSelection {
+};
+type TextSelection = {
 	type: 'text';
 	data: string;
-}
-interface NormalSelection {
+};
+type NormalSelection = {
 	type: 'normal';
-	data: null;
-}
+	data: undefined;
+};
 type selection = LinkSelection | ImageSelection | TextSelection | NormalSelection;
 
 const { isDark, theme } = useData();
@@ -181,7 +173,6 @@ const toggleAppearance = inject(toggleAppearanceKey);
 
 const selection = reactive({
 	type: 'normal',
-	data: null,
 }) as Reactive<selection>;
 
 const openRightMenu = (e: PointerEvent) => {
@@ -199,18 +190,16 @@ const openRightMenu = (e: PointerEvent) => {
 			let correctX = e.clientX;
 			let correctY = e.clientY;
 			const marginWidth = 20;
-			if (correctX + menuWidth > screenWidth - marginWidth) {
+			if (correctX + menuWidth > screenWidth - marginWidth)
 				correctX = screenWidth - menuWidth - marginWidth;
-			}
-			if (correctY + menuHeight > screenHeight - marginWidth) {
+
+			if (correctY + menuHeight > screenHeight - marginWidth)
 				correctY = screenHeight - menuHeight - marginWidth;
-			}
-			if (correctX < marginWidth) {
-				correctX = marginWidth;
-			}
-			if (correctY < marginWidth) {
-				correctY = marginWidth;
-			}
+
+			if (correctX < marginWidth) correctX = marginWidth;
+
+			if (correctY < marginWidth) correctY = marginWidth;
+
 			rightMenuX.value = correctX;
 			rightMenuY.value = correctY;
 		};
@@ -225,7 +214,7 @@ const closeRightMenu = (e: Event) => {
 	rightMenuX.value = 0;
 	rightMenuY.value = 0;
 	selection.type = 'normal';
-	selection.data = null;
+	selection.data = undefined;
 };
 
 const checkClickType = (target: HTMLElement) => {
@@ -235,18 +224,20 @@ const checkClickType = (target: HTMLElement) => {
 		| string
 		| HTMLImageElement
 		| HTMLLinkElement
-		| null;
+		| undefined;
 	switch (target.tagName) {
-		case 'A':
+		case 'A': {
 			selection.type = 'link';
 			break;
-		case 'IMG':
+		}
+		case 'IMG': {
 			selection.type = 'image';
 			break;
-		default:
-			if (select.length > 0) selection.type = 'text';
-			else selection.type = 'normal';
+		}
+		default: {
+			selection.type = select.length > 0 ? 'text' : 'normal';
 			break;
+		}
 	}
 };
 

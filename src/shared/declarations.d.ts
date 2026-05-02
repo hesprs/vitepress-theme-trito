@@ -34,3 +34,5 @@ declare module 'mark.js/src/vanilla.js' {
 	const mark: typeof Mark;
 	export default mark;
 }
+
+declare module '@docsearch/css';

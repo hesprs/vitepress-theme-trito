@@ -1,7 +1,5 @@
 <script lang="ts" setup>
-defineProps<{
-	active: boolean;
-}>();
+const { active } = defineProps<{ active: boolean }>();
 
 defineEmits<(e: 'click') => void>();
 </script>

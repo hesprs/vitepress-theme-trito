@@ -1,7 +1,7 @@
 import { computed } from 'vue';
-import { useData } from './data';
+import useData from './data';
 
-export function usePrevNext() {
+export default function usePrevNext() {
 	const { theme, frontmatter } = useData();
 
 	return computed(() => {
@@ -14,33 +14,33 @@ export function usePrevNext() {
 			frontmatter.value.next === false;
 
 		return {
-			prev: hidePrev
-				? undefined
-				: {
-						text:
-							typeof frontmatter.value.prev === 'string'
-								? frontmatter.value.prev
-								: typeof frontmatter.value.prev === 'object'
-									? frontmatter.value.prev.text
-									: undefined,
-						link:
-							typeof frontmatter.value.prev === 'object'
-								? frontmatter.value.prev.link
-								: undefined,
-					},
 			next: hideNext
 				? undefined
 				: {
+						link:
+							typeof frontmatter.value.next === 'object'
+								? frontmatter.value.next.link
+								: undefined,
 						text:
 							typeof frontmatter.value.next === 'string'
 								? frontmatter.value.next
 								: typeof frontmatter.value.next === 'object'
 									? frontmatter.value.next.text
 									: undefined,
+					},
+			prev: hidePrev
+				? undefined
+				: {
 						link:
-							typeof frontmatter.value.next === 'object'
-								? frontmatter.value.next.link
+							typeof frontmatter.value.prev === 'object'
+								? frontmatter.value.prev.link
 								: undefined,
+						text:
+							typeof frontmatter.value.prev === 'string'
+								? frontmatter.value.prev
+								: typeof frontmatter.value.prev === 'object'
+									? frontmatter.value.prev.text
+									: undefined,
 					},
 		} as {
 			prev?: { text?: string; link?: string };

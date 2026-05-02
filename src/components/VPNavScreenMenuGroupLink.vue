@@ -1,27 +1,22 @@
 <script lang="ts" setup>
 import { computed, inject } from 'vue';
-import { useData } from '@/composables/data';
-import { type NavExposedMethods, navInjectionKey } from '@/composables/nav';
+import type { NavExposedMethods } from '@/composables/nav';
 import type { TritoTheme } from '@/shared';
+import useData from '@/composables/data';
+import { navInjectionKey } from '@/composables/nav';
 import { isActive } from '@/shared';
 import VPLink from './VPLink.vue';
 
-const props = defineProps<{
+const { item } = defineProps<{
 	item: TritoTheme.NavItemWithLink;
 }>();
 
 const { page } = useData();
 
-const href = computed(() =>
-	typeof props.item.link === 'function' ? props.item.link(page.value) : props.item.link,
-);
+const href = computed(() => (typeof item.link === 'function' ? item.link(page.value) : item.link));
 
 const isActiveLink = computed(() =>
-	isActive(
-		page.value.relativePath,
-		props.item.activeMatch || href.value,
-		!!props.item.activeMatch,
-	),
+	isActive(page.value.relativePath, item.activeMatch || href.value, Boolean(item.activeMatch)),
 );
 
 const { closeScreen } = inject(navInjectionKey) as NavExposedMethods;

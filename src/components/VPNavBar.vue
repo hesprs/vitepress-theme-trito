@@ -10,9 +10,7 @@ import VPNavBarSearch from './VPNavBarSearch.vue';
 import VPNavBarTitle from './VPNavBarTitle.vue';
 import VPNavBarTranslations from './VPNavBarTranslations.vue';
 
-const props = defineProps<{
-	isScreenOpen: boolean;
-}>();
+const { isScreenOpen } = defineProps<{ isScreenOpen: boolean }>();
 
 defineEmits<(e: 'toggle-screen') => void>();
 
@@ -23,9 +21,9 @@ const classes = ref<Record<string, boolean>>({});
 
 watchPostEffect(() => {
 	classes.value = {
-		top: y.value <= 1,
-		'screen-open': props.isScreenOpen,
+		'screen-open': isScreenOpen,
 		'show-title': showTitle.value,
+		top: y.value <= 1,
 	};
 });
 </script>

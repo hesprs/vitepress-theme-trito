@@ -1,21 +1,18 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { useData } from '@/composables/data';
 import type { TritoTheme } from '@/shared';
+import useData from '@/composables/data';
 import { isActive } from '@/shared';
 import VPFlyout from './VPFlyout.vue';
 
-const props = defineProps<{
-	item: TritoTheme.NavItemWithChildren;
-}>();
+const { item } = defineProps<{ item: TritoTheme.NavItemWithChildren }>();
 
 const { page } = useData();
 
 const isActiveGroup = computed(() => {
-	if (props.item.activeMatch) {
-		return isActive(page.value.relativePath, props.item.activeMatch, true);
-	}
-	return isChildActive(props.item);
+	if (item.activeMatch) return isActive(page.value.relativePath, item.activeMatch, true);
+
+	return isChildActive(item);
 });
 
 function isChildActive(navItem: TritoTheme.NavItem): boolean {
@@ -26,7 +23,7 @@ function isChildActive(navItem: TritoTheme.NavItem): boolean {
 		return isActive(
 			page.value.relativePath,
 			navItem.activeMatch || href,
-			!!navItem.activeMatch,
+			Boolean(navItem.activeMatch),
 		);
 	}
 

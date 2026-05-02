@@ -1,4 +1,5 @@
 import type { TritoTheme } from '@';
-import { useData as useData$ } from 'vitepress';
+import { useData as _useData } from 'vitepress';
 
-export const useData: typeof useData$<TritoTheme.Config> = useData$;
+const useData: typeof _useData<TritoTheme.Config> = _useData;
+export default useData;

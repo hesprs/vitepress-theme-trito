@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { IconVocabulary, IconChevronDown } from '@tabler/icons-vue';
+import { useElementSize } from '@vueuse/core';
 import { ref, useTemplateRef, watch } from 'vue';
+import useData from '@/composables/data';
 import { useI18n } from '@/composables/i18n';
-import { useData } from '@/composables/data';
 import { useLayout } from '@/composables/layout';
 import { useActiveAnchor } from '@/composables/outline';
 import VPDocOutlineItem from './VPDocOutlineItem.vue';
-import { useElementSize } from '@vueuse/core';
 
 const outline = useTemplateRef('outline');
 const marker = useTemplateRef('marker');
@@ -24,10 +24,8 @@ watch(collapsed, () => {
 });
 
 function toggle(e: PointerEvent) {
-	if (expand.value?.contains(e.target as Node)) {
-		if (!collapsed.value) collapsed.value = true;
-		else collapsed.value = false;
-	} else if (collapsed.value) collapsed.value = false;
+	if (expand.value?.contains(e.target as Node)) collapsed.value = !collapsed.value;
+	else if (collapsed.value) collapsed.value = false;
 }
 </script>
 

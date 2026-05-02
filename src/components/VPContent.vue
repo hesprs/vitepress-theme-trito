@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useData } from '@/composables/data';
+import useData from '@/composables/data';
 import NotFound from '../NotFound.vue';
 import VPDoc from './VPDoc.vue';
 import VPHome from './VPHome.vue';

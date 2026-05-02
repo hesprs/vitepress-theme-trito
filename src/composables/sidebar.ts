@@ -1,22 +1,14 @@
 import type { DefaultTheme } from 'vitepress/theme';
-import {
-	computed,
-	onMounted,
-	onUnmounted,
-	ref,
-	watch,
-	watchEffect,
-	watchPostEffect,
-	type ComputedRef,
-} from 'vue';
+import type { ComputedRef } from 'vue';
+import { computed, onMounted, onUnmounted, ref, watch, watchEffect, watchPostEffect } from 'vue';
 import { isActive } from '@/shared';
 import { hasActiveLink as containsActiveLink } from '../support/sidebar';
-import { useData } from './data';
+import useData from './data';
 
 const isOpen = ref(false);
 
 /**
- * a11y: cache the element that opened the Sidebar (the menu button) then
+ * A11y: cache the element that opened the Sidebar (the menu button) then
  * focus that button again when Menu is closed with Escape key.
  */
 export function useCloseSidebarOnEscape(close: () => void) {
@@ -57,9 +49,9 @@ export function useSidebarControl() {
 	}
 
 	return {
+		close,
 		isOpen,
 		open,
-		close,
 		toggle,
 	};
 }
@@ -69,13 +61,9 @@ export function useSidebarItemControl(item: ComputedRef<DefaultTheme.SidebarItem
 
 	const collapsed = ref(false);
 
-	const collapsible = computed(() => {
-		return item.value.collapsed != null;
-	});
+	const collapsible = computed(() => item.value.collapsed !== undefined);
 
-	const isLink = computed(() => {
-		return !!item.value.link;
-	});
+	const isLink = computed(() => Boolean(item.value.link));
 
 	const isActiveLink = ref(false);
 	const updateIsActiveLink = () => {
@@ -86,42 +74,34 @@ export function useSidebarItemControl(item: ComputedRef<DefaultTheme.SidebarItem
 	onMounted(updateIsActiveLink);
 
 	const hasActiveLink = computed(() => {
-		if (isActiveLink.value) {
-			return true;
-		}
+		if (isActiveLink.value) return true;
 
 		return item.value.items
 			? containsActiveLink(page.value.relativePath, item.value.items)
 			: false;
 	});
 
-	const hasChildren = computed(() => {
-		return !!(item.value.items && item.value.items.length);
-	});
+	const hasChildren = computed(() => Boolean(item.value.items?.length));
 
 	watchEffect(() => {
-		collapsed.value = !!(collapsible.value && item.value.collapsed);
+		collapsed.value = Boolean(collapsible.value && item.value.collapsed);
 	});
 
 	watchPostEffect(() => {
-		if (isActiveLink.value || hasActiveLink.value) {
-			collapsed.value = false;
-		}
+		if (isActiveLink.value || hasActiveLink.value) collapsed.value = false;
 	});
 
 	function toggle() {
-		if (collapsible.value) {
-			collapsed.value = !collapsed.value;
-		}
+		if (collapsible.value) collapsed.value = !collapsed.value;
 	}
 
 	return {
 		collapsed,
 		collapsible,
-		isLink,
-		isActiveLink,
 		hasActiveLink,
 		hasChildren,
+		isActiveLink,
+		isLink,
 		toggle,
 	};
 }

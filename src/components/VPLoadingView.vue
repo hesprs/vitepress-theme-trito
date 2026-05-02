@@ -16,10 +16,10 @@
 </template>
 
 <script lang="ts" setup>
-import { useRouteChange } from '@/composables/route-change';
 import { onBeforeUnmount, ref } from 'vue';
-import { useData } from '@/composables/data';
+import useData from '@/composables/data';
 import { useI18n } from '@/composables/i18n';
+import { useRouteChange } from '@/composables/route-change';
 import VPImage from './VPImage.vue';
 
 const { onAfterRouteChange, onBeforeRouteChange } = useRouteChange();
@@ -40,7 +40,7 @@ onAfterRouteChange(() => {
 
 const show = ref(false);
 const showTip = ref(false);
-let showTimeOut: null | NodeJS.Timeout = null;
+let showTimeOut: undefined | NodeJS.Timeout;
 
 function clear() {
 	if (showTimeOut) clearTimeout(showTimeOut);

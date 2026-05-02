@@ -1,9 +1,8 @@
 // oxlint-disable typescript/no-explicit-any
-// types shared between server and client
+// Types shared between server and client
 import type { UseDarkOptions } from '@vueuse/core';
 import type { SSRContext } from 'vue/server-renderer';
-
-export type { TritoTheme } from '@/theme-config';
+export type { default as TritoTheme } from '@/theme-config';
 
 export type Awaitable<T> = T | PromiseLike<T>;
 
@@ -20,27 +19,27 @@ type DeepPartial<T> =
 			: { [P in keyof T]?: DeepPartial<T[P]> }
 		: T;
 
-export interface PageData {
+export type PageData = {
 	relativePath: string;
 	/**
-	 * differs from relativePath in case of path rewrites
+	 * Differs from relativePath in case of path rewrites
 	 * empty string if the page is virtual (e.g. 404 page)
 	 */
 	filePath: string;
 	title: string;
 	titleTemplate?: string | boolean;
 	description: string;
-	headers: Header[];
+	headers: Array<Header>;
 	frontmatter: Record<string, any>;
 	params?: Record<string, any>;
 	isNotFound?: boolean;
 	lastUpdated?: number;
-}
+};
 
 /**
  * SFC block extracted from markdown
  */
-export interface SfcBlock {
+export type SfcBlock = {
 	/**
 	 * The type of the block
 	 */
@@ -61,39 +60,39 @@ export interface SfcBlock {
 	 * The close-tag
 	 */
 	tagClose: string;
-}
+};
 
-export interface MarkdownSfcBlocks {
+export type MarkdownSfcBlocks = {
 	/**
 	 * The `<template>` block
 	 */
-	template: SfcBlock | null;
+	template?: SfcBlock;
 	/**
 	 * The common `<script>` block
 	 */
-	script: SfcBlock | null;
+	script?: SfcBlock;
 	/**
 	 * The `<script setup>` block
 	 */
-	scriptSetup: SfcBlock | null;
+	scriptSetup?: SfcBlock;
 	/**
 	 * All `<script>` blocks.
 	 *
 	 * By default, SFC only allows one `<script>` block and one `<script setup>` block.
 	 * However, some tools may support different types of `<script>`s, so we keep all of them here.
 	 */
-	scripts: SfcBlock[];
+	scripts: Array<SfcBlock>;
 	/**
 	 * All `<style>` blocks.
 	 */
-	styles: SfcBlock[];
+	styles: Array<SfcBlock>;
 	/**
 	 * All custom blocks.
 	 */
-	customBlocks: SfcBlock[];
-}
+	customBlocks: Array<SfcBlock>;
+};
 
-export interface Header {
+export type Header = {
 	/**
 	 * The level of the header
 	 *
@@ -119,10 +118,10 @@ export interface Header {
 	/**
 	 * The children of the header
 	 */
-	children: Header[];
-}
+	children: Array<Header>;
+};
 
-export interface SiteData<ThemeConfig = any> {
+export type SiteData<ThemeConfig = any> = {
 	base: string;
 	cleanUrls?: boolean;
 	lang: string;
@@ -130,7 +129,7 @@ export interface SiteData<ThemeConfig = any> {
 	title: string;
 	titleTemplate?: string | boolean;
 	description: string;
-	head: HeadConfig[];
+	head: Array<HeadConfig>;
 	appearance:
 		| boolean
 		| 'dark'
@@ -138,7 +137,11 @@ export interface SiteData<ThemeConfig = any> {
 		| 'force-auto'
 		| (Omit<UseDarkOptions, 'initialValue'> & { initialValue?: 'dark' });
 	themeConfig: ThemeConfig;
-	scrollOffset: number | string | string[] | { selector: string | string[]; padding: number };
+	scrollOffset:
+		| number
+		| string
+		| Array<string>
+		| { selector: string | Array<string>; padding: number };
 	locales: LocaleConfig<ThemeConfig>;
 	localeIndex?: string;
 	contentProps?: Record<string, any>;
@@ -146,31 +149,31 @@ export interface SiteData<ThemeConfig = any> {
 		prefetchLinks: boolean;
 	};
 	additionalConfig?: AdditionalConfigDict<ThemeConfig> | AdditionalConfigLoader<ThemeConfig>;
-}
+};
 
 export type HeadConfig =
 	| [string, Record<string, string>]
 	| [string, Record<string, string>, string];
 
-export interface PageDataPayload {
+export type PageDataPayload = {
 	path: string;
 	pageData: PageData;
-}
+};
 
-export interface SSGContext extends SSRContext {
+export type SSGContext = {
 	content: string;
 	vpSocialIcons: Set<string>;
-}
+} & SSRContext;
 
-export interface LocaleSpecificConfig<ThemeConfig = any> {
+export type LocaleSpecificConfig<ThemeConfig = any> = {
 	lang?: string;
 	dir?: string;
 	title?: string;
 	titleTemplate?: string | boolean;
 	description?: string;
-	head?: HeadConfig[];
+	head?: Array<HeadConfig>;
 	themeConfig?: DeepPartial<ThemeConfig>;
-}
+};
 
 export type LocaleConfig<ThemeConfig = any> = Record<
 	string,
@@ -183,11 +186,11 @@ export type AdditionalConfigDict<ThemeConfig = any> = Record<string, AdditionalC
 
 export type AdditionalConfigLoader<ThemeConfig = any> = (
 	relativePath: string,
-) => AdditionalConfig<ThemeConfig>[] | undefined;
+) => Array<AdditionalConfig<ThemeConfig>> | undefined;
 
 // Manually declaring all properties as rollup-plugin-dts
-// is unable to merge augmented module declarations
-export interface MarkdownEnv {
+// Is unable to merge augmented module declarations
+export type MarkdownEnv = {
 	/**
 	 * The raw Markdown content without frontmatter
 	 */
@@ -206,7 +209,7 @@ export interface MarkdownEnv {
 	/**
 	 * The headers that extracted by `@mdit-vue/plugin-headers`
 	 */
-	headers?: Header[];
+	headers?: Array<Header>;
 	/**
 	 * SFC blocks that extracted by `@mdit-vue/plugin-sfc`
 	 */
@@ -218,8 +221,8 @@ export interface MarkdownEnv {
 	path: string;
 	relativePath: string;
 	cleanUrls: boolean;
-	links?: string[];
-	includes?: string[];
+	links?: Array<string>;
+	includes?: Array<string>;
 	realPath?: string;
 	localeIndex?: string;
-}
+};

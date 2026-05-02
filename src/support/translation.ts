@@ -1,10 +1,10 @@
 // oxlint-disable typescript/no-explicit-any
-import { useData } from '@/composables/data';
+import useData from '@/composables/data';
 
 /**
  * @param themeObject Can be an object with `translations` and `locales` properties
  */
-export function createSearchTranslate(
+export default function createSearchTranslate(
 	defaultTranslations: Record<string, any>,
 ): (key: string) => string {
 	const { localeIndex, theme } = useData();
@@ -15,39 +15,32 @@ export function createSearchTranslate(
 
 		const isObject = themeObject && typeof themeObject === 'object';
 		const locales =
-			(isObject && themeObject.locales?.[localeIndex.value]?.translations) || null;
-		const translations = (isObject && themeObject.translations) || null;
+			(isObject && themeObject.locales?.[localeIndex.value]?.translations) || undefined;
+		const translations = (isObject && themeObject.translations) || undefined;
 
-		let localeResult: Record<string, any> | null = locales;
-		let translationResult: Record<string, any> | null = translations;
-		let defaultResult: Record<string, any> | null = defaultTranslations;
+		let localeResult: Record<string, any> | undefined = locales;
+		let translationResult: Record<string, any> | undefined = translations;
+		let defaultResult: Record<string, any> | undefined = defaultTranslations;
 
 		// oxlint-disable-next-line typescript/no-non-null-assertion
 		const lastKey = keyPath.pop()!;
 		for (const k of keyPath) {
-			let fallbackResult: Record<string, any> | null = null;
+			let fallbackResult: Record<string, any> | undefined;
 			const foundInFallback: any = defaultResult?.[k];
-			if (foundInFallback) {
-				fallbackResult = defaultResult = foundInFallback;
-			}
+			if (foundInFallback) fallbackResult = defaultResult = foundInFallback;
+
 			const foundInTranslation: any = translationResult?.[k];
-			if (foundInTranslation) {
-				fallbackResult = translationResult = foundInTranslation;
-			}
+			if (foundInTranslation) fallbackResult = translationResult = foundInTranslation;
+
 			const foundInLocale: any = localeResult?.[k];
-			if (foundInLocale) {
-				fallbackResult = localeResult = foundInLocale;
-			}
+			if (foundInLocale) fallbackResult = localeResult = foundInLocale;
+
 			// Put fallback into unresolved results
-			if (!foundInFallback) {
-				defaultResult = fallbackResult;
-			}
-			if (!foundInTranslation) {
-				translationResult = fallbackResult;
-			}
-			if (!foundInLocale) {
-				localeResult = fallbackResult;
-			}
+			if (!foundInFallback) defaultResult = fallbackResult;
+
+			if (!foundInTranslation) translationResult = fallbackResult;
+
+			if (!foundInLocale) localeResult = fallbackResult;
 		}
 		return (
 			localeResult?.[lastKey] ??

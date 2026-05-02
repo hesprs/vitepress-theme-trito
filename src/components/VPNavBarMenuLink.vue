@@ -1,26 +1,18 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { useData } from '@/composables/data';
 import type { TritoTheme } from '@/shared';
+import useData from '@/composables/data';
 import { isActive } from '@/shared';
 import VPLink from './VPLink.vue';
 
-const props = defineProps<{
-	item: TritoTheme.NavItemWithLink;
-}>();
+const { item } = defineProps<{ item: TritoTheme.NavItemWithLink }>();
 
 const { page } = useData();
 
-const href = computed(() =>
-	typeof props.item.link === 'function' ? props.item.link(page.value) : props.item.link,
-);
+const href = computed(() => (typeof item.link === 'function' ? item.link(page.value) : item.link));
 
 const isActiveLink = computed(() =>
-	isActive(
-		page.value.relativePath,
-		props.item.activeMatch || href.value,
-		!!props.item.activeMatch,
-	),
+	isActive(page.value.relativePath, item.activeMatch || href.value, Boolean(item.activeMatch)),
 );
 </script>
 

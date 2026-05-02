@@ -1,4 +1,4 @@
-export interface DocSearchProps {
+export type DocSearchProps = {
 	appId: string;
 	apiKey: string;
 	indexName: string;
@@ -9,101 +9,101 @@ export interface DocSearchProps {
 	insights?: boolean;
 	translations?: DocSearchTranslations;
 	askAi?: DocSearchAskAi | string;
-}
+};
 
-export interface SearchOptions {
+export type SearchOptions = {
 	query?: string;
 	similarQuery?: string;
-	facetFilters?: string | string[];
-	optionalFilters?: string | string[];
-	numericFilters?: string | string[];
-	tagFilters?: string | string[];
+	facetFilters?: string | Array<string>;
+	optionalFilters?: string | Array<string>;
+	numericFilters?: string | Array<string>;
+	tagFilters?: string | Array<string>;
 	sumOrFiltersScores?: boolean;
 	filters?: string;
 	page?: number;
 	hitsPerPage?: number;
 	offset?: number;
 	length?: number;
-	attributesToHighlight?: string[];
-	attributesToSnippet?: string[];
-	attributesToRetrieve?: string[];
+	attributesToHighlight?: Array<string>;
+	attributesToSnippet?: Array<string>;
+	attributesToRetrieve?: Array<string>;
 	highlightPreTag?: string;
 	highlightPostTag?: string;
 	snippetEllipsisText?: string;
 	restrictHighlightAndSnippetArrays?: boolean;
-	facets?: string[];
+	facets?: Array<string>;
 	maxValuesPerFacet?: number;
 	facetingAfterDistinct?: boolean;
 	minWordSizefor1Typo?: number;
 	minWordSizefor2Typos?: number;
 	allowTyposOnNumericTokens?: boolean;
-	disableTypoToleranceOnAttributes?: string[];
+	disableTypoToleranceOnAttributes?: Array<string>;
 	queryType?: 'prefixLast' | 'prefixAll' | 'prefixNone';
 	removeWordsIfNoResults?: 'none' | 'lastWords' | 'firstWords' | 'allOptional';
 	advancedSyntax?: boolean;
-	advancedSyntaxFeatures?: ('exactPhrase' | 'excludeWords')[];
-	optionalWords?: string | string[];
-	disableExactOnAttributes?: string[];
+	advancedSyntaxFeatures?: Array<'exactPhrase' | 'excludeWords'>;
+	optionalWords?: string | Array<string>;
+	disableExactOnAttributes?: Array<string>;
 	exactOnSingleWordQuery?: 'attribute' | 'none' | 'word';
-	alternativesAsExact?: ('ignorePlurals' | 'singleWordSynonym' | 'multiWordsSynonym')[];
+	alternativesAsExact?: Array<'ignorePlurals' | 'singleWordSynonym' | 'multiWordsSynonym'>;
 	enableRules?: boolean;
-	ruleContexts?: string[];
+	ruleContexts?: Array<string>;
 	distinct?: boolean | number;
 	analytics?: boolean;
-	analyticsTags?: string[];
+	analyticsTags?: Array<string>;
 	synonyms?: boolean;
 	replaceSynonymsInHighlight?: boolean;
 	minProximity?: number;
-	responseFields?: string[];
+	responseFields?: Array<string>;
 	maxFacetHits?: number;
 	percentileComputation?: boolean;
 	clickAnalytics?: boolean;
 	personalizationImpact?: number;
 	enablePersonalization?: boolean;
-	restrictSearchableAttributes?: string[];
+	restrictSearchableAttributes?: Array<string>;
 	sortFacetValuesBy?: 'count' | 'alpha';
 	typoTolerance?: boolean | 'min' | 'strict';
 	aroundLatLng?: string;
 	aroundLatLngViaIP?: boolean;
 	aroundRadius?: number | 'all';
-	aroundPrecision?: number | { from: number; value: number }[];
+	aroundPrecision?: number | Array<{ from: number; value: number }>;
 	minimumAroundRadius?: number;
-	insideBoundingBox?: number[][];
-	insidePolygon?: number[][];
-	ignorePlurals?: boolean | string[];
-	removeStopWords?: boolean | string[];
-	naturalLanguages?: string[];
+	insideBoundingBox?: Array<Array<number>>;
+	insidePolygon?: Array<Array<number>>;
+	ignorePlurals?: boolean | Array<string>;
+	removeStopWords?: boolean | Array<string>;
+	naturalLanguages?: Array<string>;
 	getRankingInfo?: boolean;
 	userToken?: string;
 	enableABTest?: boolean;
 	decompoundQuery?: boolean;
 	relevancyStrictness?: number;
-}
+};
 
-export interface DocSearchTranslations {
+export type DocSearchTranslations = {
 	button?: ButtonTranslations;
 	modal?: ModalTranslations;
-}
+};
 
-export interface ButtonTranslations {
+export type ButtonTranslations = {
 	buttonText?: string;
 	buttonAriaLabel?: string;
-}
+};
 
-export interface ModalTranslations extends ScreenStateTranslations {
+export type ModalTranslations = {
 	searchBox?: SearchBoxTranslations;
 	footer?: FooterTranslations;
-}
+} & ScreenStateTranslations;
 
-export interface ScreenStateTranslations {
+export type ScreenStateTranslations = {
 	errorScreen?: ErrorScreenTranslations;
 	startScreen?: StartScreenTranslations;
 	resultsScreen?: ResultsScreenTranslations;
 	noResultsScreen?: NoResultsScreenTranslations;
 	askAiScreen?: AskAiScreenTranslations;
-}
+};
 
-export interface SearchBoxTranslations {
+export type SearchBoxTranslations = {
 	clearButtonTitle?: string;
 	clearButtonAriaLabel?: string;
 	closeButtonText?: string;
@@ -114,9 +114,9 @@ export interface SearchBoxTranslations {
 	placeholderTextAskAiStreaming?: string;
 	backToKeywordSearchButtonText?: string;
 	backToKeywordSearchButtonAriaLabel?: string;
-}
+};
 
-export interface FooterTranslations {
+export type FooterTranslations = {
 	selectText?: string;
 	submitQuestionText?: string;
 	selectKeyAriaLabel?: string;
@@ -127,14 +127,14 @@ export interface FooterTranslations {
 	closeText?: string;
 	closeKeyAriaLabel?: string;
 	poweredByText?: string;
-}
+};
 
-export interface ErrorScreenTranslations {
+export type ErrorScreenTranslations = {
 	titleText?: string;
 	helpText?: string;
-}
+};
 
-export interface StartScreenTranslations {
+export type StartScreenTranslations = {
 	recentSearchesTitle?: string;
 	noRecentSearchesText?: string;
 	saveRecentSearchButtonTitle?: string;
@@ -143,20 +143,20 @@ export interface StartScreenTranslations {
 	removeFavoriteSearchButtonTitle?: string;
 	recentConversationsTitle?: string;
 	removeRecentConversationButtonTitle?: string;
-}
+};
 
-export interface ResultsScreenTranslations {
+export type ResultsScreenTranslations = {
 	askAiPlaceholder?: string;
-}
+};
 
-export interface NoResultsScreenTranslations {
+export type NoResultsScreenTranslations = {
 	noResultsText?: string;
 	suggestedQueryText?: string;
 	reportMissingResultsText?: string;
 	reportMissingResultsLinkText?: string;
-}
+};
 
-export interface AskAiScreenTranslations {
+export type AskAiScreenTranslations = {
 	disclaimerText?: string;
 	relatedSourcesText?: string;
 	thinkingText?: string;
@@ -170,9 +170,9 @@ export interface AskAiScreenTranslations {
 	duringToolCallText?: string;
 	afterToolCallText?: string;
 	aggregatedToolCallText?: string;
-}
+};
 
-export interface DocSearchAskAi {
+export type DocSearchAskAi = {
 	/**
 	 * The index name to use for the ask AI feature. Your assistant will search this index for relevant documents.
 	 * If not provided, the index name will be used.
@@ -191,11 +191,11 @@ export interface DocSearchAskAi {
 	/**
 	 * The assistant ID to use for the ask AI feature.
 	 */
-	assistantId: string | null;
+	assistantId?: string;
 	/**
 	 * The search parameters to use for the ask AI feature.
 	 */
 	searchParameters?: {
 		facetFilters?: SearchOptions['facetFilters'];
 	};
-}
+};

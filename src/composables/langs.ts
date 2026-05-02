@@ -1,8 +1,8 @@
 import { computed } from 'vue';
 import { ensureStartingSlash } from '@/support/utils';
-import { useData } from './data';
+import useData from './data';
 
-export function useLangs({ correspondingLink = false } = {}) {
+export default function useLangs({ correspondingLink = false } = {}) {
 	const { site, localeIndex, page, theme, hash } = useData();
 	const currentLang = computed(() => ({
 		label: site.value.locales[localeIndex.value]?.label,
@@ -16,7 +16,8 @@ export function useLangs({ correspondingLink = false } = {}) {
 			currentLang.value.label === value.label
 				? []
 				: {
-						text: value.label,
+						dir: value.dir,
+						lang: value.lang,
 						link:
 							normalizeLink(
 								value.link || (key === 'root' ? '/' : `/${key}/`),
@@ -24,13 +25,12 @@ export function useLangs({ correspondingLink = false } = {}) {
 								page.value.relativePath.slice(currentLang.value.link.length - 1),
 								!site.value.cleanUrls,
 							) + hash.value,
-						lang: value.lang,
-						dir: value.dir,
+						text: value.label,
 					},
 		),
 	);
 
-	return { localeLinks, currentLang };
+	return { currentLang, localeLinks };
 }
 
 function normalizeLink(link: string, addPath: boolean, path: string, addExt: boolean) {

@@ -3,15 +3,13 @@ import { IconArrowBarToUp, IconChevronLeft } from '@tabler/icons-vue';
 import { onKeyStroke } from '@vueuse/core';
 import { onContentUpdated } from 'vitepress';
 import { nextTick, ref, watch } from 'vue';
-import { scrollToTop as toTop } from '@/composables/context-menu-actions';
-import { useI18n } from '@/composables/i18n';
-import { useData } from '@/composables/data';
 import type { TritoTheme } from '@/shared';
+import { scrollToTop as toTop } from '@/composables/context-menu-actions';
+import useData from '@/composables/data';
+import { useI18n } from '@/composables/i18n';
 import VPDocOutlineItem from './VPDocOutlineItem.vue';
 
-const props = defineProps<{
-	headers: TritoTheme.OutlineItem[];
-}>();
+const { headers } = defineProps<{ headers: Array<TritoTheme.OutlineItem> }>();
 
 const open = ref(false);
 const main = ref<HTMLDivElement>();
@@ -20,9 +18,7 @@ const i18n = useI18n();
 const { theme } = useData();
 
 function closeOnClickOutside(e: Event) {
-	if (!main.value?.contains(e.target as Node)) {
-		open.value = false;
-	}
+	if (!main.value?.contains(e.target as Node)) open.value = false;
 }
 
 watch(open, (value) => {
@@ -47,10 +43,9 @@ function toggle() {
 
 function onItemClick(e: Event) {
 	if ((e.target as HTMLElement).classList.contains('outline-link')) {
-		// disable animation on hash navigation when page jumps
-		if (items.value) {
-			items.value.style.transition = 'none';
-		}
+		// Disable animation on hash navigation when page jumps
+		if (items.value) items.value.style.transition = 'none';
+
 		nextTick(() => {
 			open.value = false;
 		});
