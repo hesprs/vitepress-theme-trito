@@ -12,7 +12,7 @@ type Props = {
 	target?: string;
 	rel?: string;
 };
-const { tag, size = 'medium', theme = 'brand', text, href, target, rel } = defineProps<Props>();
+const { tag, size = 'medium', theme = 'brand', href } = defineProps<Props>();
 
 const isExternal = computed(() => href && EXTERNAL_URL_RE.test(href));
 

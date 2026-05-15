@@ -9,7 +9,7 @@ import useData from '@/composables/data';
 import { useI18n } from '@/composables/i18n';
 import VPDocOutlineItem from './VPDocOutlineItem.vue';
 
-const { headers } = defineProps<{ headers: Array<TritoTheme.OutlineItem> }>();
+defineProps<{ headers: Array<TritoTheme.OutlineItem> }>();
 
 const open = ref(false);
 const main = ref<HTMLDivElement>();

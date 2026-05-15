@@ -4,7 +4,7 @@ import { onMounted, onUnmounted, ref, useTemplateRef, watch } from 'vue';
 import type { TritoTheme } from '@/shared';
 import VPMenu from './VPMenu.vue';
 
-const { icon, button, label, items, noChevron } = defineProps<{
+defineProps<{
 	icon?: string;
 	button?: string;
 	label?: string;

@@ -4,7 +4,7 @@ import type { TritoTheme } from '@/shared';
 import VPImage from './VPImage.vue';
 import VPLink from './VPLink.vue';
 
-const { icon, title, details, link, linkText, rel, target } = defineProps<{
+defineProps<{
 	icon?: TritoTheme.FeatureIcon;
 	title: string;
 	details?: string;

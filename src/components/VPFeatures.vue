@@ -18,11 +18,12 @@ const { features } = defineProps<{ features: Array<Feature> }>();
 const grid = computed(() => {
 	const length = features.length;
 
-	if (!length) return;
+	if (!length) return undefined;
 	else if (length === 2) return 'grid-2';
 	else if (length === 3) return 'grid-3';
 	else if (length % 3 === 0) return 'grid-6';
 	else if (length > 3) return 'grid-4';
+	return undefined;
 });
 </script>
 

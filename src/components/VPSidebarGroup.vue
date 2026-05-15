@@ -3,7 +3,7 @@ import { onBeforeUnmount, onMounted, ref } from 'vue';
 import type { TritoTheme } from '@/shared';
 import VPSidebarItem from './VPSidebarItem.vue';
 
-const { items } = defineProps<{ items: Array<TritoTheme.SidebarItem> }>();
+defineProps<{ items: Array<TritoTheme.SidebarItem> }>();
 
 const disableTransition = ref(true);
 
