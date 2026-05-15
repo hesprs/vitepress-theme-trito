@@ -3,7 +3,7 @@ import type { TritoTheme } from '@/shared';
 import VPMenuGroup from './VPMenuGroup.vue';
 import VPMenuLink from './VPMenuLink.vue';
 
-const { items } = defineProps<{
+defineProps<{
 	items?: Array<T>;
 }>();
 </script>

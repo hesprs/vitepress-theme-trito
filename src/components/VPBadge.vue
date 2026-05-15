@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { text, type = 'tip' } = defineProps<{
+const { type = 'tip' } = defineProps<{
 	text?: string;
 	type?: 'info' | 'tip' | 'warning' | 'danger';
 }>();

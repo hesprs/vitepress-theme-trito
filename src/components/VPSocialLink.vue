@@ -2,7 +2,7 @@
 import { computed, nextTick, onMounted, ref, useSSRContext } from 'vue';
 import type { SSGContext, TritoTheme } from '@/shared';
 
-const { icon, link, ariaLabel, me } = defineProps<{
+const { icon } = defineProps<{
 	icon: TritoTheme.SocialLinkIcon;
 	link: string;
 	ariaLabel?: string;

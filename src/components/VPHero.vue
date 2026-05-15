@@ -14,7 +14,7 @@ export type HeroAction = {
 	rel?: string;
 };
 
-const { name, text, tagline, actions } = defineProps<{
+defineProps<{
 	name?: string;
 	text?: string;
 	tagline?: string;

@@ -3,7 +3,7 @@ import { computed, ref } from 'vue';
 import VPNavScreenMenuGroupLink from './VPNavScreenMenuGroupLink.vue';
 import VPNavScreenMenuGroupSection from './VPNavScreenMenuGroupSection.vue';
 
-const { text, items } = defineProps<{
+const { text } = defineProps<{
 	text: string;
 	// oxlint-disable-next-line typescript/no-explicit-any
 	items: Array<any>;

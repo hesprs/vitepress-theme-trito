@@ -2,7 +2,7 @@
 import type { TritoTheme } from '@/shared';
 import VPSocialLink from './VPSocialLink.vue';
 
-const { links, me = true } = defineProps<{
+defineProps<{
 	links: Array<TritoTheme.SocialLink>;
 	me?: boolean;
 }>();
