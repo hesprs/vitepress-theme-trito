@@ -54,15 +54,15 @@
 	},
 	"devDependencies": {
 		"@types/node": "^25.8.0",
-		"oxfmt": "^0.50.0",
+		"oxfmt": "^0.53.0",
 		"oxlint": "^1.65.0",
-		"oxlint-tsgolint": "^0.22.1",
+		"oxlint-tsgolint": "^0.23.0",
 		"sass": "^1.99.0",
 		"tsc-alias": "^1.8.17",
 		"typescript": "^6.0.3",
 		"unbuild": "^3.6.1",
 		"vite": "^8.0.13",
-		"vue-sfc-transformer": "^0.1.17",
+		"vue-sfc-transformer": "^0.2.3",
 		"vue-tsc": "^3.2.9"
 	},
 	"packageManager": "pnpm@10.29.2"
