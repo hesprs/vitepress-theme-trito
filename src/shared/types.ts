@@ -2,6 +2,7 @@
 // Types shared between server and client
 import type { UseDarkOptions } from '@vueuse/core';
 import type { SSRContext } from 'vue/server-renderer';
+
 export type { default as TritoTheme } from '@/theme-config';
 
 export type Awaitable<T> = T | PromiseLike<T>;

@@ -42,9 +42,6 @@ export default function usePrevNext() {
 									? frontmatter.value.prev.text
 									: undefined,
 					},
-		} as {
-			prev?: { text?: string; link?: string };
-			next?: { text?: string; link?: string };
 		};
 	});
 }

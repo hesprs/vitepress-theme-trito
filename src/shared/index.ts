@@ -32,7 +32,7 @@ const UnpackStackView = Symbol('stack-view:unpack');
 
 const HASH_RE = /#.*$/;
 const HASH_OR_QUERY_RE = /[?#].*$/;
-const INDEX_OR_EXT_RE = /(?:(^|\/)index)?\.(?:md|html)$/;
+const INDEX_OR_EXT_RE = /(?:(?<pathPrefix>^|\/)index)?\.(?:md|html)$/;
 
 export const notFoundPageData: PageData = {
 	description: 'Not Found',
@@ -167,7 +167,7 @@ export function sanitizeFileName(name: string): string {
 		name
 			.slice(driveLetter.length)
 			.replace(INVALID_CHAR_REGEX, '_')
-			.replace(/(^|\/)_+(?=[^/]*$)/, '$1')
+			.replace(/(?<pathPrefix>^|\/)_+(?=[^/]*$)/, '$<pathPrefix>')
 	);
 }
 

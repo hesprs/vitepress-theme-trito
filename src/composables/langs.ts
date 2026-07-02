@@ -37,7 +37,9 @@ function normalizeLink(link: string, addPath: boolean, path: string, addExt: boo
 	return addPath
 		? link.replace(/\/$/, '') +
 				ensureStartingSlash(
-					path.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, addExt ? '.html' : ''),
+					path
+						.replace(/(?<pathPrefix>^|\/)index\.md$/, '$<pathPrefix>')
+						.replace(/\.md$/, addExt ? '.html' : ''),
 				)
 		: link;
 }
