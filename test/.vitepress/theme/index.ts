@@ -1,2 +1,1 @@
-import Theme from '@';
-export default Theme;
+export { default } from '@';

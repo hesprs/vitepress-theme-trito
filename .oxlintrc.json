@@ -55,7 +55,7 @@
 					"snakeCase": false,
 					"pascalCase": true
 				},
-				"ignore": "VP*"
+				"ignore": ["VP*"]
 			}
 		],
 		"unicorn/consistent-function-scoping": "off",
@@ -76,7 +76,8 @@
 		],
 		"unicorn/number-literal-case": "off",
 		"eslint/no-multi-assign": "off",
-		"eslint/no-duplicate-imports": ["warn", { "allowSeparateTypeImports": true }]
+		"eslint/no-duplicate-imports": ["warn", { "allowSeparateTypeImports": true }],
+		"vue/require-default-prop": "off"
 	},
 	"env": {
 		"builtin": true,

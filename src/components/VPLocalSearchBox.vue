@@ -268,7 +268,7 @@ watch(results, (r) => {
 });
 
 function scrollToSelectedResult() {
-	nextTick(() => {
+	nextTick().then(() => {
 		const selectedEl = document.querySelector('.result.selected');
 		selectedEl?.scrollIntoView({ block: 'nearest' });
 	});
@@ -352,7 +352,7 @@ useEventListener('popstate', (event) => {
 const isLocked = useScrollLock(inBrowser ? document.body : undefined);
 
 onMounted(() => {
-	nextTick(() => {
+	nextTick().then(() => {
 		isLocked.value = true;
 		nextTick().then(() => activate());
 	});

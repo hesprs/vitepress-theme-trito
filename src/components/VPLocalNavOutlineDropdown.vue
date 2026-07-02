@@ -46,7 +46,7 @@ function onItemClick(e: Event) {
 		// Disable animation on hash navigation when page jumps
 		if (items.value) items.value.style.transition = 'none';
 
-		nextTick(() => {
+		nextTick().then(() => {
 			open.value = false;
 		});
 	}
