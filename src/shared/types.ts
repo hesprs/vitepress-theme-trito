@@ -138,11 +138,6 @@ export type SiteData<ThemeConfig = any> = {
 		| 'force-auto'
 		| (Omit<UseDarkOptions, 'initialValue'> & { initialValue?: 'dark' });
 	themeConfig: ThemeConfig;
-	scrollOffset:
-		| number
-		| string
-		| Array<string>
-		| { selector: string | Array<string>; padding: number };
 	locales: LocaleConfig<ThemeConfig>;
 	localeIndex?: string;
 	contentProps?: Record<string, any>;

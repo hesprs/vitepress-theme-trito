@@ -1,5 +1,4 @@
 import type { Ref } from 'vue';
-import { getScrollOffset } from 'vitepress';
 import { onMounted, onUnmounted } from 'vue';
 import type { TritoTheme } from '@/shared';
 import { throttleAndDebounce } from '@/support/utils';
@@ -94,6 +93,7 @@ export function useActiveAnchor(
 		const headers = resolvedHeaders
 			.map(({ element, link }) => ({
 				link,
+				scrollMarginTop: Number.parseFloat(getComputedStyle(element).scrollMarginTop) || 0,
 				top: getAbsoluteTop(element),
 			}))
 			.filter(({ top }) => !Number.isNaN(top))
@@ -119,9 +119,8 @@ export function useActiveAnchor(
 
 		// Find the last header above the top of viewport
 		let activeLink: string | undefined;
-		for (const { link, top } of headers) {
-			if (top > scrollY + getScrollOffset() + 4) break;
-
+		for (const { link, top, scrollMarginTop } of headers) {
+			if (top > scrollY + scrollMarginTop + 4) break;
 			activeLink = link;
 		}
 		activateLink(activeLink);
