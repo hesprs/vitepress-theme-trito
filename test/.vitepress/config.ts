@@ -29,7 +29,8 @@ export default defineConfig<ThemeConfig>({
 	markdown: {
 		image: { lazyLoading: true },
 	},
-	srcDir: p('..'),
+	outDir: p('dist'),
+	srcDir: p('.'),
 	themeConfig: {
 		aside: 'left',
 		footer: {
@@ -103,9 +104,9 @@ export default defineConfig<ThemeConfig>({
 	},
 	title: 'Trito',
 	vite: {
-		publicDir: p('../public'),
+		publicDir: p('public'),
 		resolve: {
-			alias: { '@': p('../../src/') },
+			alias: { '@': p('../src/') },
 		},
 	},
 });
