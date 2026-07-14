@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useTemplateRef } from 'vue';
+import { onMounted, useTemplateRef } from 'vue';
 import useData from '@/composables/data';
 import { registerFooter } from '@/composables/layout';
 import VPFooterSocialLinks from './VPFooterSocialLinks.vue';
 
 const { theme, frontmatter } = useData();
 const footer = useTemplateRef('footer');
-registerFooter(footer);
+onMounted(() => registerFooter(footer.value));
 </script>
 
 <template>

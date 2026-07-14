@@ -1,7 +1,7 @@
-import type { ComputedRef, InjectionKey, Ref, ShallowRef } from 'vue';
-import { useElementSize, useWindowScroll, useWindowSize } from '@vueuse/core';
-import { onContentUpdated, inBrowser } from 'vitepress';
-import { computed, ref, shallowReadonly, shallowRef, watch } from 'vue';
+import type { ComputedRef, InjectionKey } from 'vue';
+import { useWindowScroll } from '@vueuse/core';
+import { onContentUpdated } from 'vitepress';
+import { computed, shallowReadonly, shallowRef, watch } from 'vue';
 import type { TritoTheme } from '@/shared';
 import { getSidebar, getSidebarGroups } from '@/support/sidebar';
 import useData from './data';
@@ -9,19 +9,8 @@ import { getHeaders } from './outline';
 
 const headers = shallowRef<Array<TritoTheme.OutlineItem>>([]);
 const sidebar = shallowRef<Array<TritoTheme.SidebarItem>>([]);
-let footerHeight: Ref<number> | undefined = undefined;
-let contentHeight: Ref<number> | undefined = undefined;
-const maxAsideHeightOffset = ref(0);
-const showTitle = ref(false);
-const { y } = useWindowScroll();
-const { height: windowHeight } = useWindowSize();
-const { height: scrollHeight } = inBrowser
-	? useElementSize(document.body)
-	: useElementSize(ref<HTMLElement>());
-const navSpace = inBrowser
-	? parseInt(getCSSVariable('--vp-nav-height', '0px')) +
-		parseInt(getCSSVariable('--vp-nav-top', '0px'))
-	: 0;
+const activeFooter = shallowRef<HTMLElement | undefined>();
+const activeContent = shallowRef<HTMLElement | undefined>();
 
 export function useLayout() {
 	const { frontmatter, theme } = useData();
@@ -53,6 +42,8 @@ export function useLayout() {
 			: frontmatter.value.aside === 'left';
 	});
 
+	const { y } = useWindowScroll();
+	const showTitle = computed(() => y.value >= 200);
 	const hasLocalNav = computed(() => headers.value.length > 0);
 
 	return {
@@ -62,7 +53,6 @@ export function useLayout() {
 		hasSidebar,
 		headers: shallowReadonly(headers),
 		leftAside,
-		maxAsideHeightOffset,
 		showTitle,
 		sidebarGroups,
 	};
@@ -84,39 +74,14 @@ export function registerWatchers() {
 	onContentUpdated(() => {
 		headers.value = getHeaders(frontmatter.value.outline ?? theme.value.outline);
 	});
-
-	watch(y, () => (showTitle.value = y.value >= 200));
-
-	watch([y, windowHeight, scrollHeight], calcOffset);
 }
 
-function calcOffset() {
-	if (!contentHeight || !footerHeight) return;
-	maxAsideHeightOffset.value =
-		contentHeight.value + navSpace + footerHeight.value + 72 <= windowHeight.value
-			? footerHeight.value + 8
-			: Math.max(
-					0,
-					footerHeight.value + 8 - (scrollHeight.value - y.value - windowHeight.value),
-				);
+export function registerFooter(footer: HTMLElement | null) {
+	if (footer) activeFooter.value = footer;
 }
 
-export function registerFooter(footer: ShallowRef<HTMLElement | null>) {
-	footerHeight = useElementSize(
-		footer,
-		{ height: 50, width: 1000 },
-		{ box: 'border-box' },
-	).height;
-	watch(footerHeight, calcOffset);
-}
-
-export function registerContent(footer: ShallowRef<HTMLElement | null>) {
-	contentHeight = useElementSize(
-		footer,
-		{ height: 200, width: 500 },
-		{ box: 'border-box' },
-	).height;
-	watch(contentHeight, calcOffset);
+export function registerContent(content: HTMLElement | null) {
+	if (content) activeContent.value = content;
 }
 
 export type LayoutInfo = {
@@ -124,9 +89,3 @@ export type LayoutInfo = {
 };
 
 export const layoutInfoInjectionKey: InjectionKey<LayoutInfo> = Symbol('layout-info');
-
-function getCSSVariable(name: string, fallback: string) {
-	const style = window.getComputedStyle(document.documentElement);
-	const value = style.getPropertyValue(name);
-	return value.trim() ?? fallback;
-}

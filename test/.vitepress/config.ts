@@ -1,16 +1,12 @@
 // oxlint-disable import/no-nodejs-modules
-import { dirname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { dirname, resolve } from 'path';
+import { fileURLToPath } from 'url';
 import { defineConfig } from 'vitepress';
-// oxlint-disable import/no-nodejs-modules
 import type { ThemeConfig } from '../../src';
 
-export function createP(url: string) {
-	const fileName = fileURLToPath(url);
-	const dirName = dirname(fileName);
-	return (path: string) => resolve(dirName, path);
+function p(path: string) {
+	return resolve(dirname(fileURLToPath(import.meta.url)), '..', path);
 }
-const p = createP(import.meta.url);
 
 export default defineConfig<ThemeConfig>({
 	cleanUrls: true,

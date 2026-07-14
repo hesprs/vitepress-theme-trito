@@ -1,59 +1,57 @@
 <script setup lang="ts">
 import { useRoute } from 'vitepress';
-import { computed, useTemplateRef } from 'vue';
+import { computed, onMounted, useTemplateRef } from 'vue';
 import useData from '@/composables/data';
 import { registerContent, useLayout } from '@/composables/layout';
 import VPDocAsideOutline from './VPDocAsideOutline.vue';
 import VPDocAsideSidebar from './VPDocAsideSidebar.vue';
 import VPDocFooter from './VPDocFooter.vue';
 
-const { theme, frontmatter } = useData();
+const { theme, frontmatter, page } = useData();
 const route = useRoute();
-const { hasAside, leftAside, maxAsideHeightOffset } = useLayout();
 const pageName = computed(() => route.path.replace(/[./]+/g, '_').replace(/_html$/, ''));
 const content = useTemplateRef('content');
-registerContent(content);
+const { hasAside, leftAside } = useLayout();
+
+onMounted(() => registerContent(content.value));
 </script>
 
 <template>
 	<div class="VPDoc" :class="{ 'has-aside': hasAside }">
 		<slot name="doc-top" />
-		<div
-			v-if="hasAside"
-			class="aside-container"
-			:class="{ 'left-aside': leftAside }"
-			:style="{ '--aside-offset': `${maxAsideHeightOffset}px` }"
-		>
-			<slot name="aside-top" />
+		<div class="doc-container">
+			<div v-if="hasAside" class="aside-container" :class="{ 'left-aside': leftAside }">
+				<slot name="aside-top" />
 
-			<VPDocAsideSidebar />
-			<slot name="aside-outline-before" />
-			<VPDocAsideOutline />
-			<slot name="aside-outline-after" />
+				<VPDocAsideSidebar />
+				<slot name="aside-outline-before" />
+				<VPDocAsideOutline />
+				<slot name="aside-outline-after" />
 
-			<slot name="aside-bottom" />
-		</div>
-
-		<main class="content">
-			<slot name="content-before" />
-			<div class="content-container s-card" ref="content">
-				<slot name="doc-before" />
-				<Content
-					:class="{
-						'vp-doc': !frontmatter.unstyled,
-						[pageName]: pageName,
-						'external-link-icon-enabled': theme.externalLinkIcon,
-					}"
-				/>
-				<VPDocFooter>
-					<template #doc-footer-before>
-						<slot name="doc-footer-before" />
-					</template>
-				</VPDocFooter>
-				<slot name="doc-after" />
+				<slot name="aside-bottom" />
 			</div>
-			<slot name="content-after" />
-		</main>
+
+			<main class="content">
+				<slot name="content-before" />
+				<div class="content-container s-card" ref="content">
+					<slot name="doc-before" />
+					<Content
+						:class="{
+							'vp-doc': !frontmatter.unstyled,
+							[pageName]: pageName,
+							'external-link-icon-enabled': theme.externalLinkIcon,
+						}"
+					/>
+					<VPDocFooter>
+						<template #doc-footer-before>
+							<slot name="doc-footer-before" />
+						</template>
+					</VPDocFooter>
+					<slot name="doc-after" />
+				</div>
+				<slot name="content-after" />
+			</main>
+		</div>
 		<slot name="doc-bottom" />
 	</div>
 </template>
@@ -65,11 +63,14 @@ registerContent(content);
 	width: 100%;
 	position: relative;
 	@media (min-width: 960px) {
-		display: flex;
-		justify-content: center;
 		width: calc(100% - 64px);
 		max-width: 1260px;
 	}
+}
+
+.doc-container {
+	width: 100%;
+	display: flex;
 }
 
 .content {
@@ -94,15 +95,8 @@ registerContent(content);
 	@media (min-width: 960px) {
 		display: flex;
 	}
-	--aside-top: calc(
-		var(--vp-nav-space) + var(--vp-layout-top-height, 0px) + var(--vp-doc-top-height, 0px) +
-			32px
-	);
-	--aside-height: calc(100vh - var(--aside-top) - 32px - var(--aside-offset));
-	position: sticky;
-	top: var(--aside-top);
 	scrollbar-width: none;
-	height: var(--aside-height);
+	flex: 1;
 	flex-direction: column;
 	gap: 32px;
 	&.left-aside {

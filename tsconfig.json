@@ -21,20 +21,5 @@
 			"@": ["./src"]
 		}
 	},
-	"include": [
-		"test/**/*",
-		"test/.vitepress/**/*",
-		"src/**/*",
-		"build.config.ts",
-		"buildTransform.ts"
-	],
-	"exclude": ["node_modules", "dist"],
-	"tsc-alias": {
-		"fileExtensions": {
-			"inputGlob": "{js,jsx,mjs,ts,tsx,vue}",
-			"outputCheck": ["js", "json", "jsx", "mjs", "ts", "tsx", "vue"]
-		},
-		"resolveFullPaths": true,
-		"resolveFullExtension": ".js"
-	}
+	"include": ["test/.vitepress/**/*", "src/**/*", "tsdown.config.ts"]
 }
