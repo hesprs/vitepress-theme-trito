@@ -28,4 +28,4 @@ jobs:
         run: bun run build
 
       - name: Publish to npm
-        run: bun publish
+        run: bunx npm@latest publish
