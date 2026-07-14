@@ -75,6 +75,12 @@ function toggle(e: PointerEvent) {
 		flex: 0;
 		height: 56px;
 	}
+	--aside-top: calc(
+		var(--vp-nav-space) + var(--vp-layout-top-height, 0px) + var(--vp-doc-top-height, 0px) +
+			32px
+	);
+	position: sticky;
+	top: var(--aside-top);
 }
 
 .content {
