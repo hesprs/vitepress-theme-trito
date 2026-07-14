@@ -54,7 +54,7 @@
 	},
 	"devDependencies": {
 		"@tsdown/css": "^0.22.7",
-		"oxfmt": "^0.57.0",
+		"oxfmt": "^0.59.0",
 		"oxlint": "^1.72.0",
 		"oxlint-tsgolint": "^0.24.0",
 		"tsdown": "^0.22.7",
