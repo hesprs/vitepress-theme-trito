@@ -2,7 +2,7 @@
 import { useRoute } from 'vitepress';
 import { computed, onMounted, useTemplateRef } from 'vue';
 import useData from '@/composables/data';
-import { registerContent, useLayout } from '@/composables/layout';
+import { useLayout } from '@/composables/layout';
 import VPDocAsideOutline from './VPDocAsideOutline.vue';
 import VPDocAsideSidebar from './VPDocAsideSidebar.vue';
 import VPDocFooter from './VPDocFooter.vue';
@@ -12,8 +12,6 @@ const route = useRoute();
 const pageName = computed(() => route.path.replace(/[./]+/g, '_').replace(/_html$/, ''));
 const content = useTemplateRef('content');
 const { hasAside, leftAside } = useLayout();
-
-onMounted(() => registerContent(content.value));
 </script>
 
 <template>

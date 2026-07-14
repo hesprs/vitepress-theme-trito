@@ -9,8 +9,6 @@ import { getHeaders } from './outline';
 
 const headers = shallowRef<Array<TritoTheme.OutlineItem>>([]);
 const sidebar = shallowRef<Array<TritoTheme.SidebarItem>>([]);
-const activeFooter = shallowRef<HTMLElement | undefined>();
-const activeContent = shallowRef<HTMLElement | undefined>();
 
 export function useLayout() {
 	const { frontmatter, theme } = useData();
@@ -74,14 +72,6 @@ export function registerWatchers() {
 	onContentUpdated(() => {
 		headers.value = getHeaders(frontmatter.value.outline ?? theme.value.outline);
 	});
-}
-
-export function registerFooter(footer: HTMLElement | null) {
-	if (footer) activeFooter.value = footer;
-}
-
-export function registerContent(content: HTMLElement | null) {
-	if (content) activeContent.value = content;
 }
 
 export type LayoutInfo = {
