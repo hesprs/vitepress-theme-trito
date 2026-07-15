@@ -40,13 +40,21 @@ const showFooter = computed(
 
 		<nav v-if="control.prev?.link || control.next?.link" class="prev-next" aria-label="Pager">
 			<div class="pager">
-				<VPLink v-if="control.prev?.link" class="pager-link prev" :href="control.prev.link">
+				<VPLink
+					v-if="control.prev?.link"
+					class="pager-link s-card concave hover"
+					:href="control.prev.link"
+				>
 					<span class="desc">{{ theme.i18n?.prev ?? i18n.prev }}</span>
 					<span class="title" v-html="control.prev.text"></span>
 				</VPLink>
 			</div>
 			<div class="pager">
-				<VPLink v-if="control.next?.link" class="pager-link next" :href="control.next.link">
+				<VPLink
+					v-if="control.next?.link"
+					class="pager-link next s-card concave hover"
+					:href="control.next.link"
+				>
 					<span class="desc">{{ theme.i18n?.next ?? i18n.next }}</span>
 					<span class="title" v-html="control.next.text"></span>
 				</VPLink>
@@ -93,10 +101,9 @@ const showFooter = computed(
 }
 
 .prev-next {
-	border-top: 1px solid var(--vp-c-divider);
-	padding-top: 24px;
+	padding-bottom: 16px;
 	display: grid;
-	grid-row-gap: 8px;
+	grid-row-gap: 12px;
 }
 
 @media (min-width: 640px) {
@@ -108,16 +115,7 @@ const showFooter = computed(
 
 .pager-link {
 	display: block;
-	border: 1px solid var(--vp-c-divider);
-	border-radius: 8px;
 	padding: 11px 16px 13px;
-	width: 100%;
-	height: 100%;
-	transition: border-color 0.25s;
-}
-
-.pager-link:hover {
-	border-color: var(--vp-c-brand-1);
 }
 
 .pager-link.next {
