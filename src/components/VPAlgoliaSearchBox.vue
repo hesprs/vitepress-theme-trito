@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type { DocSearchProps } from '@docsearch/js';
-import docsearch from '@docsearch/js';
+import docsearch from '@docsearch/js/docsearch';
 import { useRouter } from 'vitepress';
 import { nextTick, onMounted, watch } from 'vue';
 import type { TritoTheme } from '@/shared';
@@ -15,49 +14,27 @@ watch(localeIndex, update);
 
 async function update() {
 	await nextTick();
-	const options = {
-		...algolia,
-		...algolia.locales?.[localeIndex.value],
-	};
-	const rawFacetFilters = options.searchParameters?.facetFilters ?? [];
-	const facetFilters = [
-		...(Array.isArray(rawFacetFilters) ? rawFacetFilters : [rawFacetFilters]).filter(
-			(f) => !f.startsWith('lang:'),
-		),
-		`lang:${lang.value}`,
-	];
-	// Rebuild the askAi prop as an object:
-	// If the askAi prop is a string, treat it as the assistantId and use
-	// The default indexName, apiKey and appId from the main options.
-	// If the askAi prop is an object, spread its explicit values.
-	const askAiProp = options.askAi;
-	const isAskAiString = typeof askAiProp === 'string';
-	const askAi = askAiProp
-		? {
-				apiKey: isAskAiString ? options.apiKey : askAiProp.apiKey,
-				appId: isAskAiString ? options.appId : askAiProp.appId,
-				assistantId: isAskAiString ? askAiProp : askAiProp.assistantId,
-				indexName: isAskAiString ? options.indexName : askAiProp.indexName,
-				// Re-use the merged facetFilters from the search parameters so that
-				// Ask AI uses the same language filtering as the regular search.
-				searchParameters: facetFilters.length ? { facetFilters } : undefined,
-			}
-		: undefined;
+	const { locales, ...options } = { ...algolia, ...algolia.locales?.[localeIndex.value] };
 
-	initialize({
+	docsearch({
 		...options,
-		askAi,
-		searchParameters: {
-			...options.searchParameters,
-			facetFilters,
-		},
-	});
-}
-
-function initialize(userOptions: TritoTheme.AlgoliaSearchOptions) {
-	const options = {
-		...userOptions,
 		container: '#docsearch',
+		indices: options.indices.map((index) => {
+			const { name, searchParameters } = typeof index === 'string' ? { name: index } : index;
+			const raw = searchParameters?.facetFilters ?? [];
+			return {
+				name,
+				searchParameters: {
+					...searchParameters,
+					facetFilters: [
+						...(Array.isArray(raw) ? raw : [raw]).filter(
+							(f) => !(typeof f === 'string' && f.startsWith('lang:')),
+						),
+						`lang:${lang.value}`,
+					],
+				},
+			};
+		}),
 
 		navigator: {
 			navigate(item: { itemUrl: string }) {
@@ -65,15 +42,13 @@ function initialize(userOptions: TritoTheme.AlgoliaSearchOptions) {
 			},
 		},
 
-		transformItems(items: Array<{ url: string }>) {
+		transformItems(items) {
 			return items.map((item) => ({
 				...item,
 				url: getRelativePath(item.url),
 			}));
 		},
-	};
-
-	docsearch(options as DocSearchProps);
+	});
 }
 
 function getRelativePath(url: string) {

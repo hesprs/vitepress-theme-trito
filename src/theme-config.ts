@@ -1,8 +1,8 @@
+// oxlint-disable typescript/no-explicit-any
+import type { DocSearchProps } from '@docsearch/js/docsearch';
 import type { Options as _MiniSearchOptions } from 'minisearch';
 import type { Route, VitePressData } from 'vitepress';
 import type { i18nTranslations } from '@/composables/i18n';
-// oxlint-disable typescript/no-explicit-any
-import type { DocSearchProps } from '@/shared/docsearch';
 import type { Header, PageData } from '@/shared/index';
 import type { LocalSearchTranslations } from '@/shared/local-search';
 
@@ -340,12 +340,11 @@ namespace TritoTheme {
 	// Algolia -------------------------------------------------------------------
 
 	/**
-	 * Algolia search options. Partially copied from
-	 * `@docsearch/react/dist/esm/DocSearch.d.ts`
+	 * Algolia search options.
 	 */
-	export type AlgoliaSearchOptions = {
-		locales?: Record<string, Partial<DocSearchProps>>;
-	} & DocSearchProps;
+	export type AlgoliaSearchOptions = Omit<DocSearchProps, 'container'> & {
+		locales?: Record<string, Partial<Omit<DocSearchProps, 'container'>>>;
+	};
 }
 
 export type { TritoTheme as default };
