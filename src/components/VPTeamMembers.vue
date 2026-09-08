@@ -9,7 +9,6 @@ type Props = {
 };
 
 const { size = 'medium', members } = defineProps<Props>();
-
 const classes = computed(() => [size, `count-${members.length}`]);
 </script>
 

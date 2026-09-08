@@ -22,7 +22,6 @@ defineProps<{
 }>();
 
 const { theme } = useData();
-
 const { heroImageSlotExists } = inject(layoutInfoInjectionKey) as LayoutInfo;
 </script>
 

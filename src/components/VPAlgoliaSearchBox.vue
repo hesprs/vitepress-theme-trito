@@ -7,7 +7,6 @@ import type { TritoTheme } from '@/shared';
 import useData from '@/composables/data';
 
 const { algolia } = defineProps<{ algolia: TritoTheme.AlgoliaSearchOptions }>();
-
 const router = useRouter();
 const { site, localeIndex, lang } = useData();
 
@@ -27,14 +26,12 @@ async function update() {
 		),
 		`lang:${lang.value}`,
 	];
-
 	// Rebuild the askAi prop as an object:
 	// If the askAi prop is a string, treat it as the assistantId and use
 	// The default indexName, apiKey and appId from the main options.
 	// If the askAi prop is an object, spread its explicit values.
 	const askAiProp = options.askAi;
 	const isAskAiString = typeof askAiProp === 'string';
-
 	const askAi = askAiProp
 		? {
 				apiKey: isAskAiString ? options.apiKey : askAiProp.apiKey,

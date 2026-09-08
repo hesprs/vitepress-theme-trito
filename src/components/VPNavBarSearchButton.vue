@@ -10,7 +10,6 @@ const defaultTranslations: { button: ButtonTranslations } = {
 		buttonText: 'Search',
 	},
 };
-
 const translate = createSearchTranslate(defaultTranslations);
 </script>
 

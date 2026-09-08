@@ -20,7 +20,6 @@ export type {
 	PageData,
 	PageDataPayload,
 	SiteData,
-	SSGContext,
 	TritoTheme,
 } from './types';
 
@@ -29,7 +28,6 @@ export const APPEARANCE_KEY = 'vitepress-theme-appearance';
 
 export const VP_SOURCE_KEY = '[VP_SOURCE]';
 const UnpackStackView = Symbol('stack-view:unpack');
-
 const HASH_RE = /#.*$/;
 const HASH_OR_QUERY_RE = /[?#].*$/;
 const INDEX_OR_EXT_RE = /(?:(?<pathPrefix>^|\/)index)?\.(?:md|html)$/;
@@ -142,8 +140,7 @@ export function mergeHead(...headArrays: Array<Array<HeadConfig>>): Array<HeadCo
 			const key = `${keyAttr[0]}=${keyAttr[1]}`;
 			const existingIndex = metaKeyMap.get(key);
 
-			if (existingIndex !== undefined)
-				merged[existingIndex] = tag; // Replace existing tag
+			if (existingIndex !== undefined) merged[existingIndex] = tag; // Replace existing tag
 			else {
 				metaKeyMap.set(key, merged.length);
 				merged.push(tag);
@@ -243,7 +240,6 @@ function resolveAdditionalConfig(
 // This helps users to understand which configuration files are active
 function reportConfigLayers(path: string, layers: Array<Partial<SiteData>>) {
 	const summaryTitle = `Config Layers for ${path}:`;
-
 	const summary = layers.map((c, i, arr) => {
 		const n = i + 1;
 		if (n === arr.length) return `${n}. .vitepress/config (root)`;

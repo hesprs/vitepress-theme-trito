@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { useScrollLock } from '@vueuse/core';
-import { inBrowser } from 'vitepress';
 import { ref, useTemplateRef } from 'vue';
+import useBodyScrollLock from '@/composables/scroll-lock';
 import VPNavScreenAppearance from './VPNavScreenAppearance.vue';
 import VPNavScreenMenu from './VPNavScreenMenu.vue';
 import VPNavScreenSocialLinks from './VPNavScreenSocialLinks.vue';
 import VPNavScreenTranslations from './VPNavScreenTranslations.vue';
 
 defineProps<{ open: boolean }>();
-const isLocked = useScrollLock(inBrowser ? document.body : undefined);
+const isLocked = useBodyScrollLock();
 </script>
 
 <template>

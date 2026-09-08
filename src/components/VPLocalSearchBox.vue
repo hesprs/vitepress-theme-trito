@@ -8,14 +8,13 @@ import {
 	onKeyStroke,
 	useEventListener,
 	useLocalStorage,
-	useScrollLock,
 	useSessionStorage,
 	watchDebounced,
 } from '@vueuse/core';
 import { useFocusTrap } from '@vueuse/integrations/useFocusTrap';
 import Mark from 'mark.js/src/vanilla.js';
 import MiniSearch from 'minisearch';
-import { dataSymbol, inBrowser, useRouter } from 'vitepress';
+import { dataSymbol, useRouter } from 'vitepress';
 import {
 	computed,
 	createApp,
@@ -30,15 +29,14 @@ import {
 } from 'vue';
 import type { ModalTranslations } from '@/shared/local-search';
 import useData from '@/composables/data';
+import useBodyScrollLock from '@/composables/scroll-lock';
 import { escapeRegExp, pathToFile } from '@/shared';
 import LRUCache from '@/support/lru';
 import createSearchTranslate from '@/support/translation';
 
 const emit = defineEmits<(e: 'close') => void>();
-
 const el = shallowRef<HTMLElement>();
 const resultsEl = shallowRef<HTMLElement>();
-
 /* Search */
 
 const searchIndexData = shallowRef(localSearchIndex);
@@ -80,28 +78,23 @@ const searchIndex = computedAsync(async () =>
 		}),
 	),
 );
-
 const disableQueryPersistence = computed(
 	() =>
 		theme.value.search?.provider === 'local' &&
 		theme.value.search.options?.disableQueryPersistence === true,
 );
-
 const filterText = disableQueryPersistence.value
 	? ref('')
 	: useSessionStorage('vitepress:local-search-filter', '');
-
 const showDetailedList = useLocalStorage(
 	'vitepress:local-search-detailed-list',
 	theme.value.search?.provider === 'local' && theme.value.search.options?.detailedView === true,
 );
-
 const disableDetailedView = computed(
 	() =>
 		theme.value.search?.provider === 'local' &&
 		theme.value.search.options?.detailedView === false,
 );
-
 const buttonText = computed(() => {
 	const options = theme.value.search?.options;
 
@@ -117,7 +110,6 @@ watchEffect(() => {
 });
 
 const results: Ref<Array<SearchResult & Result>> = shallowRef([]);
-
 const enableNoResults = ref(false);
 
 watch(filterText, () => {
@@ -128,7 +120,6 @@ const mark = computedAsync(async () => {
 	if (!resultsEl.value) return;
 	return markRaw(new Mark(resultsEl.value));
 }, undefined);
-
 const cache = new LRUCache<string, Map<string, string>>(16); // 16 files
 
 watchDebounced(
@@ -333,7 +324,6 @@ const defaultTranslations: { modal: ModalTranslations } = {
 		resetButtonTitle: 'Reset search',
 	},
 };
-
 const translate = createSearchTranslate(defaultTranslations);
 
 // Back
@@ -349,7 +339,7 @@ useEventListener('popstate', (event) => {
 });
 
 /** Lock body */
-const isLocked = useScrollLock(inBrowser ? document.body : undefined);
+const isLocked = useBodyScrollLock();
 
 onMounted(() => {
 	nextTick().then(() => {

@@ -6,9 +6,7 @@ import { isActive } from '@/shared';
 import VPFlyout from './VPFlyout.vue';
 
 const { item } = defineProps<{ item: TritoTheme.NavItemWithChildren }>();
-
 const { page } = useData();
-
 const isActiveGroup = computed(() => {
 	if (item.activeMatch) return isActive(page.value.relativePath, item.activeMatch, true);
 

@@ -35,7 +35,6 @@ export function normalizeLink(url: string): string {
 		return url;
 
 	const { site } = useData();
-
 	const normalizedPath =
 		pathname.endsWith('/') || pathname.endsWith('.html')
 			? url

@@ -19,7 +19,8 @@
 		"paths": {
 			"@/*": ["./src/*"],
 			"@": ["./src"]
-		}
+		},
+		"types": ["bun"]
 	},
 	"include": ["test/.vitepress/**/*", "src/**/*", "tsdown.config.ts"]
 }

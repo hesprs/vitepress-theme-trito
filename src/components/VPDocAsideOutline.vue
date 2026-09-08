@@ -36,10 +36,9 @@ function toggle(e: PointerEvent) {
 		v-if="hasLocalNav"
 		:class="{
 			'card-enhance': collapsed,
-			hover: collapsed,
 			collapse: collapsed,
 		}"
-		:style="{ maxHeight: `calc(${contentHeight}px + 62px)` }"
+		:style="{ '--card-max-height': `calc(${contentHeight}px + 62px)` }"
 		ref="outline"
 		@click="toggle"
 	>
@@ -65,15 +64,17 @@ function toggle(e: PointerEvent) {
 .VPDocAsideOutline {
 	padding-left: 1rem;
 	padding-bottom: 0.5rem;
-	overflow-y: scroll;
-	overscroll-behavior: contain;
 	min-height: 56px;
-	flex: 1;
+	overflow: hidden;
+	max-height: var(--card-max-height);
+	transition:
+		max-height 0.4s,
+		outline-color 0.3s,
+		box-shadow 0.3s,
+		background 0.3s;
 	&.collapse {
-		overflow: hidden;
 		cursor: pointer;
-		flex: 0;
-		height: 56px;
+		max-height: 56px;
 	}
 	--aside-top: calc(
 		var(--vp-nav-space) + var(--vp-layout-top-height, 0px) + var(--vp-doc-top-height, 0px) +
@@ -144,7 +145,7 @@ function toggle(e: PointerEvent) {
 	transition:
 		background-color 0.25s,
 		padding 0.25s;
-	.VPDocAsideOutline:not(.collapse) &:hover {
+	&:hover {
 		background-color: var(--vp-c-brand-soft);
 		color: var(--vp-c-brand-1);
 		padding: 0 8px;

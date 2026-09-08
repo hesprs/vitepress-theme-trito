@@ -170,11 +170,9 @@ const rightMenuY = ref(0);
 const rightMenuRef = useTemplateRef('rightMenuRef');
 const rightMenuShow = ref(false);
 const toggleAppearance = inject(toggleAppearanceKey);
-
 const selection = reactive({
 	type: 'normal',
 }) as Reactive<selection>;
-
 const openRightMenu = (e: PointerEvent) => {
 	if (e.ctrlKey || window.innerWidth < 768) return true;
 	e.preventDefault();
@@ -207,7 +205,6 @@ const openRightMenu = (e: PointerEvent) => {
 		nextTick().then(calculateMenuPosition);
 	});
 };
-
 const closeRightMenu = (e: Event) => {
 	e?.preventDefault();
 	rightMenuShow.value = false;
@@ -216,7 +213,6 @@ const closeRightMenu = (e: Event) => {
 	selection.type = 'normal';
 	selection.data = undefined;
 };
-
 const checkClickType = (target: HTMLElement) => {
 	if (!target?.tagName) return false;
 	const select = window.getSelection()?.toString() || '';

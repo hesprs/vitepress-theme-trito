@@ -1,18 +1,17 @@
 <script lang="ts" setup>
-import { useScrollLock, useWindowSize } from '@vueuse/core';
-import { inBrowser } from 'vitepress';
+import { useWindowSize } from '@vueuse/core';
 import { ref, watch, useTemplateRef, computed } from 'vue';
 import { useLayout } from '@/composables/layout';
+import useBodyScrollLock from '@/composables/scroll-lock';
 import { useSidebarControl } from '@/composables/sidebar';
 import VPSidebarGroup from './VPSidebarGroup.vue';
 
 const { sidebarGroups, hasSidebar } = useLayout();
 const { isOpen } = useSidebarControl();
 const { width } = useWindowSize();
-
 // A11y: focus Nav element when menu has opened
 const navEl = useTemplateRef('navEl');
-const isLocked = useScrollLock(inBrowser ? document.body : undefined);
+const isLocked = useBodyScrollLock();
 
 watch(isOpen, () => {
 	if (isOpen.value) {

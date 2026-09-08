@@ -3,7 +3,6 @@ import { useWindowSize } from '@vueuse/core';
 import useData from '@/composables/data';
 
 const { frontmatter } = useData();
-
 const { width: vw } = useWindowSize({
 	includeScrollbar: false,
 	initialWidth: 0,

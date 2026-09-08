@@ -7,7 +7,6 @@ import { toggleAppearanceKey } from '@/shared';
 
 const { site, isDark, theme } = useData();
 const i18n = useI18n();
-
 const toggleAppearance = inject(toggleAppearanceKey, async () => {
 	isDark.value = !isDark.value;
 });

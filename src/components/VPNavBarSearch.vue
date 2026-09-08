@@ -9,22 +9,17 @@ import VPNavBarSearchButton from './VPNavBarSearchButton.vue';
 const VPLocalSearchBox = __VP_LOCAL_SEARCH__
 	? defineAsyncComponent(() => import('./VPLocalSearchBox.vue'))
 	: () => {};
-
 const VPAlgoliaSearchBox = __ALGOLIA__
 	? defineAsyncComponent(() => import('./VPAlgoliaSearchBox.vue'))
 	: () => {};
-
 const { theme } = useData();
-
 // To avoid loading the docsearch js upfront (which is more than 1/3 of the
 // Payload), we delay initializing it until the user has actually clicked or
 // Hit the hotkey to invoke it.
 const loaded = ref(false);
 const actuallyLoaded = ref(false);
-
 const preconnect = () => {
 	const id = 'VPAlgoliaPreconnect';
-
 	const rIC = window.requestIdleCallback || setTimeout;
 	rIC(() => {
 		const preconnectLink = document.createElement('link');

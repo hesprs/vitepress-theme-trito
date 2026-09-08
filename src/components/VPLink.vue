@@ -16,7 +16,6 @@ const {
 	target?: string;
 	rel?: string;
 }>();
-
 const tag = computed(() => _tag ?? (href ? 'a' : 'span'));
 const isExternal = computed(() => (href && EXTERNAL_URL_RE.test(href)) || target === '_blank');
 </script>

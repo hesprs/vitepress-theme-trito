@@ -6,9 +6,7 @@ import { useI18n } from '@/composables/i18n';
 
 const { theme, page, lang: pageLang } = useData();
 const { language: browserLang } = useNavigatorLanguage();
-
 const timeRef = useTemplateRef('timeRef');
-
 const date = computed(() => new Date(page.value.lastUpdated as number));
 const isoDatetime = computed(() => date.value.toISOString());
 const datetime = shallowRef('');

@@ -1,49 +1,31 @@
 <script lang="ts" setup>
-import { computed, nextTick, onMounted, ref, useSSRContext } from 'vue';
-import type { SSGContext, TritoTheme } from '@/shared';
+import { computed } from 'vue';
+import type { TritoTheme } from '@/shared';
+import { isExternal } from '@/shared';
+import VPIcon from './VPIcon.vue';
 
-const { icon } = defineProps<{
+const { icon, link } = defineProps<{
 	icon: TritoTheme.SocialLinkIcon;
 	link: string;
 	ariaLabel?: string;
+	target?: string;
 	me: boolean;
 }>();
-
-const el = ref<HTMLAnchorElement>();
-
-onMounted(async () => {
-	await nextTick();
-	const span = el.value?.children[0];
-	if (
-		span instanceof HTMLElement &&
-		span.className.startsWith('vpi-social-') &&
-		(getComputedStyle(span).maskImage || getComputedStyle(span).maskImage) === 'none'
-	)
-		span.style.setProperty(
-			'--icon',
-			`url('https://api.iconify.design/simple-icons/${icon}.svg')`,
-		);
-});
-
-const svg = computed(() => {
-	if (typeof icon === 'object') return icon.svg;
-	return `<span class="vpi-social-${icon}"></span>`;
-});
-
-if (import.meta.env.SSR)
-	if (typeof icon === 'string') useSSRContext<SSGContext>()?.vpSocialIcons.add(icon);
+const qualifiedIcon = computed(() =>
+	typeof icon === 'string' && !icon.includes(':') ? `simple-icons:${icon}` : icon,
+);
 </script>
 
 <template>
 	<a
-		ref="el"
 		class="VPSocialLink no-icon"
 		:href="link"
 		:aria-label="ariaLabel ?? (typeof icon === 'string' ? icon : '')"
-		target="_blank"
+		:target="target ?? (isExternal(link) ? '_blank' : undefined)"
 		:rel="me ? 'me noopener' : 'noopener'"
-		v-html="svg"
-	></a>
+	>
+		<VPIcon :icon="qualifiedIcon" />
+	</a>
 </template>
 
 <style lang="scss" scoped>
@@ -55,6 +37,7 @@ if (import.meta.env.SSR)
 	height: 36px;
 	color: var(--vp-c-text-2);
 	transition: color 0.5s;
+
 	&::before {
 		display: none;
 	}
@@ -65,10 +48,13 @@ if (import.meta.env.SSR)
 	transition: color 0.25s;
 }
 
-.VPSocialLink > :deep(svg),
-.VPSocialLink > :deep([class^='vpi-social-']) {
+.VPSocialLink > :deep(span) {
+	display: flex;
 	width: 20px;
 	height: 20px;
+}
+
+.VPSocialLink :deep(svg) {
 	fill: currentColor;
 }
 </style>

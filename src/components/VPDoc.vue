@@ -7,10 +7,9 @@ import VPDocAsideOutline from './VPDocAsideOutline.vue';
 import VPDocAsideSidebar from './VPDocAsideSidebar.vue';
 import VPDocFooter from './VPDocFooter.vue';
 
-const { theme, frontmatter, page } = useData();
+const { theme, frontmatter } = useData();
 const route = useRoute();
 const pageName = computed(() => route.path.replace(/[./]+/g, '_').replace(/_html$/, ''));
-const content = useTemplateRef('content');
 const { hasAside, leftAside } = useLayout();
 </script>
 

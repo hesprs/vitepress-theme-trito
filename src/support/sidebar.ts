@@ -6,6 +6,8 @@ export type SidebarLink = {
 	text: string;
 	link: string;
 	docFooterText?: string;
+	rel?: string;
+	target?: string;
 };
 
 type SidebarItem = DefaultTheme.SidebarItem;
@@ -28,8 +30,7 @@ export function getSidebar(
 	const directory = Object.keys(_sidebar)
 		.sort((a, b) => b.split('/').length - a.split('/').length)
 		.find((dir) => path.startsWith(ensureStartingSlash(dir)));
-
-	const sidebar = directory ? _sidebar[directory] : [];
+	const sidebar = directory ? (_sidebar[directory] ?? []) : [];
 	return Array.isArray(sidebar) ? addBase(sidebar) : addBase(sidebar.items, sidebar.base);
 }
 
@@ -62,6 +63,8 @@ export function getFlatSideBarLinks(sidebar: Array<SidebarItem>): Array<SidebarL
 				links.push({
 					docFooterText: item.docFooterText,
 					link: item.link,
+					rel: item.rel,
+					target: item.target,
 					text: item.text,
 				});
 
