@@ -6,14 +6,12 @@ import { isActive } from '../shared';
 import VPLink from './VPLink.vue';
 
 const { item } = defineProps<{ item: T }>();
-
 const { page } = useData();
-
 const href = computed(() => (typeof item.link === 'function' ? item.link(page.value) : item.link));
-
 const isActiveLink = computed(() =>
 	isActive(page.value.relativePath, item.activeMatch || href.value, Boolean(item.activeMatch)),
 );
+const isCurrentLink = computed(() => isActive(page.value.relativePath, href.value));
 
 defineOptions({ inheritAttrs: false });
 </script>
@@ -23,6 +21,7 @@ defineOptions({ inheritAttrs: false });
 		<VPLink
 			v-bind="$attrs"
 			:class="{ active: isActiveLink }"
+			:aria-current="isCurrentLink ? 'page' : undefined"
 			:href
 			:target="item.target"
 			:rel="item.rel"

@@ -1,4 +1,5 @@
 import type { Options as _MiniSearchOptions } from 'minisearch';
+import type { Route, VitePressData } from 'vitepress';
 import type { i18nTranslations } from '@/composables/i18n';
 // oxlint-disable typescript/no-explicit-any
 import type { DocSearchProps } from '@/shared/docsearch';
@@ -110,7 +111,7 @@ namespace TritoTheme {
 		 *
 		 * @default true
 		 */
-		i18nRouting?: boolean;
+		i18nRouting?: boolean | I18nRouting;
 
 		/**
 		 * Show external link icon in Markdown links.
@@ -263,6 +264,16 @@ namespace TritoTheme {
 	};
 
 	export type SocialLinkIcon = string | { svg: string };
+
+	/**
+	 * Fully controls locale-switch link resolution. The current query and
+	 * hash are not carried over in this case.
+	 */
+	export type I18nRouting = (
+		data: VitePressData<Config>,
+		route: Route,
+		targetLocale: string,
+	) => string;
 
 	// Footer --------------------------------------------------------------------
 

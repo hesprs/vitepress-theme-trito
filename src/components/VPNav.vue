@@ -8,7 +8,6 @@ import VPNavScreen from './VPNavScreen.vue';
 
 const { isScreenOpen, closeScreen, toggleScreen } = useNav();
 const { frontmatter } = useData();
-
 const hasNavbar = computed(() => frontmatter.value.navbar !== false);
 
 provide(navInjectionKey, { closeScreen });

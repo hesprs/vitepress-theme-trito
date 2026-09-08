@@ -13,9 +13,7 @@ type Props = {
 	rel?: string;
 };
 const { tag, size = 'medium', theme = 'brand', href } = defineProps<Props>();
-
 const isExternal = computed(() => href && EXTERNAL_URL_RE.test(href));
-
 const component = computed(() => tag || (href ? 'a' : 'button'));
 </script>
 

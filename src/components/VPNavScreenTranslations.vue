@@ -4,7 +4,7 @@ import { ref } from 'vue';
 import useLangs from '@/composables/langs';
 import VPLink from './VPLink.vue';
 
-const { localeLinks, currentLang } = useLangs({ correspondingLink: true });
+const { localeLinks, currentLang } = useLangs({ linkToCorrespondingPage: true });
 const isOpen = ref(false);
 
 function toggle() {
@@ -26,7 +26,14 @@ function toggle() {
 
 		<ul class="list">
 			<li v-for="locale in localeLinks" :key="locale.link" class="item">
-				<VPLink class="link" :href="locale.link" :lang="locale.lang" :dir="locale.dir">
+				<VPLink
+					class="link"
+					:href="locale.link"
+					:lang="locale.lang"
+					:hreflang="locale.lang"
+					rel="alternate"
+					:dir="locale.dir"
+				>
 					{{ locale.text }}
 				</VPLink>
 			</li>

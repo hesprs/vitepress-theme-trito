@@ -1,7 +1,6 @@
 // oxlint-disable typescript/no-explicit-any
 // Types shared between server and client
 import type { UseDarkOptions } from '@vueuse/core';
-import type { SSRContext } from 'vue/server-renderer';
 
 export type { default as TritoTheme } from '@/theme-config';
 
@@ -155,11 +154,6 @@ export type PageDataPayload = {
 	path: string;
 	pageData: PageData;
 };
-
-export type SSGContext = {
-	content: string;
-	vpSocialIcons: Set<string>;
-} & SSRContext;
 
 export type LocaleSpecificConfig<ThemeConfig = any> = {
 	lang?: string;

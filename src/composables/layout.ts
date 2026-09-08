@@ -12,34 +12,27 @@ const sidebar = shallowRef<Array<TritoTheme.SidebarItem>>([]);
 
 export function useLayout() {
 	const { frontmatter, theme } = useData();
-
 	const isHome = computed(() =>
 		Boolean(frontmatter.value.isHome ?? frontmatter.value.layout === 'home'),
 	);
-
 	const hasAside = computed(() => {
 		if (isHome.value) return false;
 		if (frontmatter.value.aside) return Boolean(frontmatter.value.aside);
 		return theme.value.aside !== false;
 	});
-
 	const hasSidebar = computed(
 		() => frontmatter.value.sidebar !== false && sidebar.value.length > 0,
 	);
-
 	const hasOutline = computed(
 		() => frontmatter.value.outline !== false && headers.value.length > 0,
 	);
-
 	const sidebarGroups = computed(() => (hasSidebar.value ? getSidebarGroups(sidebar.value) : []));
-
 	const leftAside = computed(() => {
 		if (!hasAside.value) return false;
 		return !frontmatter.value.aside
 			? theme.value.aside === 'left'
 			: frontmatter.value.aside === 'left';
 	});
-
 	const { y } = useWindowScroll();
 	const showTitle = computed(() => y.value >= 200);
 	const hasLocalNav = computed(() => headers.value.length > 0);

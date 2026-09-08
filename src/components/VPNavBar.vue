@@ -16,7 +16,6 @@ defineEmits<(e: 'toggle-screen') => void>();
 
 const { y } = useWindowScroll();
 const { showTitle } = useLayout();
-
 const classes = ref<Record<string, boolean>>({});
 
 watchPostEffect(() => {

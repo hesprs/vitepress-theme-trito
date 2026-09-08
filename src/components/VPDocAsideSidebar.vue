@@ -36,10 +36,9 @@ function toggle(e: PointerEvent) {
 		class="VPDocAsideSidebar s-card"
 		:class="{
 			'card-enhance': collapsed,
-			hover: collapsed,
 			collapse: collapsed,
 		}"
-		:style="{ maxHeight: `${contentHeight + 62}px` }"
+		:style="{ '--card-max-height': `${contentHeight + 62}px` }"
 		v-if="hasSidebar"
 		@click="toggle"
 		ref="sidebar"
@@ -64,15 +63,17 @@ function toggle(e: PointerEvent) {
 <style lang="scss" scoped>
 .VPDocAsideSidebar {
 	padding-left: 1rem;
-	overflow-y: scroll;
-	overscroll-behavior: contain;
 	min-height: 56px;
-	flex: 1;
+	overflow: hidden;
+	max-height: var(--card-max-height);
+	transition:
+		max-height 0.4s,
+		outline-color 0.3s,
+		box-shadow 0.3s,
+		background 0.3s;
 	&.collapse {
-		overflow: hidden;
 		cursor: pointer;
-		flex: 0;
-		height: 56px;
+		max-height: 56px;
 	}
 }
 
@@ -104,7 +105,7 @@ function toggle(e: PointerEvent) {
 	transition:
 		background-color 0.25s,
 		padding 0.25s;
-	.VPDocAsideSidebar:not(.collapse) &:hover {
+	&:hover {
 		background-color: var(--vp-c-brand-soft);
 		color: var(--vp-c-brand-1);
 		padding: 0 8px;

@@ -27,7 +27,7 @@ export default defineConfig<ThemeConfig>({
 		},
 	},
 	markdown: {
-		image: { lazyLoading: true },
+		image: { lazyLoad: true },
 	},
 	outDir: p('dist'),
 	srcDir: p('.'),

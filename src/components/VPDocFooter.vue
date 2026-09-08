@@ -10,10 +10,8 @@ import VPLink from './VPLink.vue';
 
 const { theme, page, frontmatter } = useData();
 const i18n = useI18n();
-
 const editLink = useEditLink();
 const control = usePrevNext();
-
 const hasEditLink = computed(() => theme.value.editLink && frontmatter.value.editLink !== false);
 const hasLastUpdated = computed(() => page.value.lastUpdated);
 const showFooter = computed(
@@ -44,6 +42,8 @@ const showFooter = computed(
 					v-if="control.prev?.link"
 					class="pager-link s-card concave hover"
 					:href="control.prev.link"
+					:rel="control.prev.rel"
+					:target="control.prev.target"
 				>
 					<span class="desc">{{ theme.i18n?.prev ?? i18n.prev }}</span>
 					<span class="title" v-html="control.prev.text"></span>
@@ -54,6 +54,8 @@ const showFooter = computed(
 					v-if="control.next?.link"
 					class="pager-link next s-card concave hover"
 					:href="control.next.link"
+					:rel="control.next.rel"
+					:target="control.next.target"
 				>
 					<span class="desc">{{ theme.i18n?.next ?? i18n.next }}</span>
 					<span class="title" v-html="control.next.text"></span>

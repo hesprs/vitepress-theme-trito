@@ -18,11 +18,9 @@ export default function usePrevNext() {
 		const index = links.findIndex((link) => isActive(page.value.relativePath, link.link));
 		const prev = links[index - 1];
 		const next = links[index + 1];
-
 		const hidePrev =
 			(theme.value.docFooter?.prev === false && !frontmatter.value.prev) ||
 			frontmatter.value.prev === false;
-
 		const hideNext =
 			(theme.value.docFooter?.next === false && !frontmatter.value.next) ||
 			frontmatter.value.next === false;
@@ -35,6 +33,14 @@ export default function usePrevNext() {
 							typeof frontmatter.value.next === 'object'
 								? (frontmatter.value.next.link ?? next?.link)
 								: next?.link,
+						rel:
+							typeof frontmatter.value.next === 'object'
+								? (frontmatter.value.next.rel ?? next?.rel)
+								: next?.rel,
+						target:
+							typeof frontmatter.value.next === 'object'
+								? (frontmatter.value.next.target ?? next?.target)
+								: next?.target,
 						text:
 							typeof frontmatter.value.next === 'string'
 								? frontmatter.value.next
@@ -51,6 +57,14 @@ export default function usePrevNext() {
 							typeof frontmatter.value.prev === 'object'
 								? (frontmatter.value.prev.link ?? prev?.link)
 								: prev?.link,
+						rel:
+							typeof frontmatter.value.prev === 'object'
+								? (frontmatter.value.prev.rel ?? prev?.rel)
+								: prev?.rel,
+						target:
+							typeof frontmatter.value.prev === 'object'
+								? (frontmatter.value.prev.target ?? prev?.target)
+								: prev?.target,
 						text:
 							typeof frontmatter.value.prev === 'string'
 								? frontmatter.value.prev

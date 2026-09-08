@@ -1,5 +1,6 @@
 import type { DefaultTheme } from 'vitepress/theme';
 import type { ComputedRef } from 'vue';
+import { useRoute } from 'vitepress';
 import { computed, onMounted, onUnmounted, ref, watch, watchEffect, watchPostEffect } from 'vue';
 import { isActive } from '@/shared';
 import { hasActiveLink as containsActiveLink } from '../support/sidebar';
@@ -57,20 +58,17 @@ export function useSidebarControl() {
 }
 
 export function useSidebarItemControl(item: ComputedRef<DefaultTheme.SidebarItem>) {
-	const { page, hash } = useData();
-
+	const route = useRoute();
+	const { page } = useData();
 	const collapsed = ref(false);
-
 	const collapsible = computed(() => item.value.collapsed !== undefined);
-
 	const isLink = computed(() => Boolean(item.value.link));
-
 	const isActiveLink = ref(false);
 	const updateIsActiveLink = () => {
 		isActiveLink.value = isActive(page.value.relativePath, item.value.link);
 	};
 
-	watch([page, item, hash], updateIsActiveLink);
+	watch([page, item, route], updateIsActiveLink);
 	onMounted(updateIsActiveLink);
 
 	const hasActiveLink = computed(() => {
@@ -80,7 +78,6 @@ export function useSidebarItemControl(item: ComputedRef<DefaultTheme.SidebarItem
 			? containsActiveLink(page.value.relativePath, item.value.items)
 			: false;
 	});
-
 	const hasChildren = computed(() => Boolean(item.value.items?.length));
 
 	watchEffect(() => {

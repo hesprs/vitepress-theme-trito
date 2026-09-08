@@ -16,7 +16,6 @@ const open = ref(false);
 const menuLeft = ref(0);
 const flyout = useTemplateRef('flyout');
 const buttonRef = useTemplateRef('buttonRef');
-
 const handleClickOutside = (e: PointerEvent) => {
 	if (open.value && !flyout.value?.contains(e.target as Node)) open.value = false;
 };

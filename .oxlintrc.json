@@ -77,7 +77,8 @@
 		"unicorn/number-literal-case": "off",
 		"eslint/no-multi-assign": "off",
 		"eslint/no-duplicate-imports": ["warn", { "allowSeparateTypeImports": true }],
-		"vue/require-default-prop": "off"
+		"vue/require-default-prop": "off",
+		"eslint/one-var": ["warn", "never"]
 	},
 	"env": {
 		"builtin": true,

@@ -9,20 +9,14 @@ const { item, depth } = defineProps<{
 	item: DefaultTheme.SidebarItem;
 	depth: number;
 }>();
-
 const { collapsed, collapsible, isLink, isActiveLink, hasActiveLink, hasChildren, toggle } =
 	useSidebarItemControl(computed(() => item));
-
 const sectionTag = computed(() => (hasChildren.value ? 'section' : `div`));
-
 const linkTag = computed(() => (isLink.value ? 'a' : 'div'));
-
 const textTag = computed(() =>
 	!hasChildren.value ? 'p' : depth + 2 === 7 ? 'p' : `h${depth + 2}`,
 );
-
 const itemRole = computed(() => (isLink.value ? undefined : 'button'));
-
 const classes = computed(() => [
 	[`level-${depth}`],
 	{ collapsible: collapsible.value },

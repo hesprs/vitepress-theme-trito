@@ -12,7 +12,6 @@ export default function createSearchTranslate(
 	function translate(key: string): string {
 		const keyPath = key.split('.');
 		const themeObject = theme.value.search?.options;
-
 		const isObject = themeObject && typeof themeObject === 'object';
 		const locales =
 			(isObject && themeObject.locales?.[localeIndex.value]?.translations) || undefined;

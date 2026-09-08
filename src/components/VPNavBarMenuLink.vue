@@ -6,11 +6,8 @@ import { isActive } from '@/shared';
 import VPLink from './VPLink.vue';
 
 const { item } = defineProps<{ item: TritoTheme.NavItemWithLink }>();
-
 const { page } = useData();
-
 const href = computed(() => (typeof item.link === 'function' ? item.link(page.value) : item.link));
-
 const isActiveLink = computed(() =>
 	isActive(page.value.relativePath, item.activeMatch || href.value, Boolean(item.activeMatch)),
 );

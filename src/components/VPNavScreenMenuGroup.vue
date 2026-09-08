@@ -8,9 +8,7 @@ const { text } = defineProps<{
 	// oxlint-disable-next-line typescript/no-explicit-any
 	items: Array<any>;
 }>();
-
 const isOpen = ref(false);
-
 const groupId = computed(() => `NavScreenGroup-${text.replace(' ', '-').toLowerCase()}`);
 
 function toggle() {

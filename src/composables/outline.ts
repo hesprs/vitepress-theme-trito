@@ -1,23 +1,22 @@
 import type { Ref } from 'vue';
-import { onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, onUpdated } from 'vue';
 import type { TritoTheme } from '@/shared';
 import { throttleAndDebounce } from '@/support/utils';
 import useAside from './aside';
 
 const ignoreRE = /\b(?:VPBadge|header-anchor|footnote-ref|ignore-header)\b/;
-
 // Cached list of anchor elements from resolveHeaders
 const resolvedHeaders: Array<{ element: HTMLHeadElement; link: string }> = [];
 
 export function getHeaders(range: TritoTheme.Config['outline']): Array<TritoTheme.OutlineItem> {
 	const headers = [
 		...document.querySelectorAll(`
-.VPDoc :not(.canvas-viewer) > h1,
-.VPDoc :not(.canvas-viewer) > h2,
-.VPDoc :not(.canvas-viewer) > h3,
-.VPDoc :not(.canvas-viewer) > h4,
-.VPDoc :not(.canvas-viewer) > h5,
-.VPDoc :not(.canvas-viewer) > h6`),
+.vp-doc > div > h1,
+.vp-doc > div > h2,
+.vp-doc > div > h3,
+.vp-doc > div > h4,
+.vp-doc > div > h5,
+.vp-doc > div > h6`),
 	]
 		.filter((el) => el.id && el.hasChildNodes())
 		.map((el) => {
@@ -51,7 +50,6 @@ export function resolveHeaders(
 	if (range === false) return [];
 
 	const levelsRange = range || 2;
-
 	const [high, low]: [number, number] =
 		typeof levelsRange === 'number'
 			? [levelsRange, levelsRange]
@@ -67,28 +65,47 @@ export function useActiveAnchor(
 	marker: Ref<HTMLElement | null>,
 ) {
 	const { isAsideEnabled } = useAside();
-
 	const onScroll = throttleAndDebounce(setActiveLink, 100);
 
 	let prevActiveLink: HTMLAnchorElement | undefined;
+	let ignoreScrollOnce = false;
 
 	onMounted(() => {
 		requestAnimationFrame(setActiveLink);
 		window.addEventListener('scroll', onScroll);
+		container.value?.addEventListener('click', onClick);
+	});
+
+	onUpdated(() => {
+		activateLink(location.hash);
 	});
 
 	onUnmounted(() => {
 		window.removeEventListener('scroll', onScroll);
+		container.value?.removeEventListener('click', onClick);
 	});
+
+	function onClick(e: MouseEvent) {
+		if (!isAsideEnabled.value) return;
+
+		const hash = e.target instanceof Element ? e.target.closest('a')?.hash : undefined;
+		if (hash) {
+			ignoreScrollOnce = true;
+			activateLink(hash);
+		}
+	}
 
 	function setActiveLink() {
 		if (!isAsideEnabled.value) return;
+		if (ignoreScrollOnce) {
+			ignoreScrollOnce = false;
+			return;
+		}
 
 		const scrollY = window.scrollY;
 		const innerHeight = window.innerHeight;
 		const offsetHeight = document.body.offsetHeight;
 		const isBottom = Math.abs(scrollY + innerHeight - offsetHeight) < 1;
-
 		// ResolvedHeaders may be repositioned, hidden or fix positioned
 		const headers = resolvedHeaders
 			.map(({ element, link }) => ({
@@ -128,13 +145,16 @@ export function useActiveAnchor(
 
 	function activateLink(hash?: string) {
 		if (!container.value || !marker.value) return;
-		if (prevActiveLink) prevActiveLink.classList.remove('active');
 
-		prevActiveLink = !hash
+		const activeLink = !hash
 			? undefined
-			: (container.value.querySelector(`a[href="${decodeURIComponent(hash)}"]`) ?? undefined);
+			: (container.value.querySelector<HTMLAnchorElement>(
+					`a[href$="${decodeURIComponent(hash)}"]`,
+				) ?? undefined);
+		if (activeLink === prevActiveLink) return;
 
-		const activeLink = prevActiveLink;
+		prevActiveLink?.classList.remove('active');
+		prevActiveLink = activeLink;
 
 		if (activeLink) {
 			activeLink.classList.add('active');

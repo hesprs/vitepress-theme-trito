@@ -14,7 +14,6 @@ export type Feature = {
 };
 
 const { features } = defineProps<{ features: Array<Feature> }>();
-
 const grid = computed(() => {
 	const length = features.length;
 
