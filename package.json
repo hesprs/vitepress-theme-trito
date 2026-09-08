@@ -42,8 +42,8 @@
 		"preview": "vitepress preview test"
 	},
 	"dependencies": {
-		"@docsearch/css": "^4.7.0",
-		"@docsearch/js": "^4.7.0",
+		"@docsearch/css": "^5.0.5",
+		"@docsearch/js": "^5.0.5",
 		"@tabler/icons-vue": "^3.46.0",
 		"@vueuse/core": "^14.4.0",
 		"@vueuse/integrations": "^14.4.0",
@@ -53,14 +53,14 @@
 		"vue": "^3.5.42"
 	},
 	"devDependencies": {
-		"@tsdown/css": "^0.22.14",
+		"@tsdown/css": "^0.23.0",
 		"@types/bun": "^1.4.2",
 		"oxfmt": "^0.67.0",
 		"oxlint": "^1.82.0",
 		"oxlint-tsgolint": "^7.0.2001",
 		"sass-embedded": "^1.104.0",
-		"tsdown": "^0.22.14",
-		"typescript": "^6.0.3",
+		"tsdown": "^0.23.0",
+		"typescript": "^7.0.2",
 		"unplugin-vue": "^7.2.0",
 		"vite": "^8.2.2",
 		"vue-tsc": "^3.3.11"
