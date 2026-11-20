@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import type { TritoTheme } from '@/shared';
 
-defineProps<{
-	headers: Array<TritoTheme.OutlineItem>;
-	root?: boolean;
-}>();
+defineProps<{ headers: Array<TritoTheme.OutlineItem>; root?: boolean }>();
 </script>
 
 <template>

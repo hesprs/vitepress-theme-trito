@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import useData from '@/composables/data';
 import VPHero from './VPHero.vue';
+import useData from '@/composables/data';
 
 const { frontmatter: fm } = useData();
 </script>

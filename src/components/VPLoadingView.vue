@@ -16,11 +16,11 @@
 </template>
 
 <script lang="ts" setup>
-import { onBeforeUnmount, ref } from 'vue';
+import VPImage from './VPImage.vue';
 import useData from '@/composables/data';
 import { useI18n } from '@/composables/i18n';
 import { useRouteChange } from '@/composables/route-change';
-import VPImage from './VPImage.vue';
+import { onBeforeUnmount, ref } from 'vue';
 
 const { onAfterRouteChange, onBeforeRouteChange } = useRouteChange();
 const { theme } = useData();

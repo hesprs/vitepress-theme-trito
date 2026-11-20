@@ -1,11 +1,8 @@
 <script lang="ts" setup>
-import type { TritoTheme } from '@/shared';
 import VPNavScreenMenuGroupLink from './VPNavScreenMenuGroupLink.vue';
+import type { TritoTheme } from '@/shared';
 
-defineProps<{
-	text?: string;
-	items: Array<TritoTheme.NavItemWithLink>;
-}>();
+defineProps<{ text?: string; items: Array<TritoTheme.NavItemWithLink> }>();
 </script>
 
 <template>

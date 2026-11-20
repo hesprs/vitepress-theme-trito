@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { IconVocabulary, IconChevronDown } from '@tabler/icons-vue';
-import { useElementSize } from '@vueuse/core';
-import { ref, useTemplateRef, watch } from 'vue';
+import VPDocOutlineItem from './VPDocOutlineItem.vue';
 import useData from '@/composables/data';
 import { useI18n } from '@/composables/i18n';
 import { useLayout } from '@/composables/layout';
 import { useActiveAnchor } from '@/composables/outline';
-import VPDocOutlineItem from './VPDocOutlineItem.vue';
+import { IconVocabulary, IconChevronDown } from '@tabler/icons-vue';
+import { useElementSize } from '@vueuse/core';
+import { ref, useTemplateRef, watch } from 'vue';
 
 const outline = useTemplateRef('outline');
 const marker = useTemplateRef('marker');
@@ -34,10 +34,7 @@ function toggle(e: PointerEvent) {
 		aria-labelledby="doc-outline-aria-label"
 		class="VPDocAsideOutline s-card"
 		v-if="hasLocalNav"
-		:class="{
-			'card-enhance': collapsed,
-			collapse: collapsed,
-		}"
+		:class="{ 'card-enhance': collapsed, collapse: collapsed }"
 		:style="{ '--card-max-height': `calc(${contentHeight}px + 62px)` }"
 		ref="outline"
 		@click="toggle"

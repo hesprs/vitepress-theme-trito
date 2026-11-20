@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import useData from '@/composables/data';
-import { useLayout } from '@/composables/layout';
 import VPNavBarMenuGroup from './VPNavBarMenuGroup.vue';
 import VPNavBarMenuLink from './VPNavBarMenuLink.vue';
+import useData from '@/composables/data';
+import { useLayout } from '@/composables/layout';
 
 const { showTitle } = useLayout();
 const { theme, page, title } = useData();

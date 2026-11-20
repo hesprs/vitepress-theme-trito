@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import useData from '@/composables/data';
 import docsearch from '@docsearch/js/docsearch';
 import { useRouter } from 'vitepress';
 import { nextTick, onMounted, watch } from 'vue';
 import type { TritoTheme } from '@/shared';
-import useData from '@/composables/data';
 
 const { algolia } = defineProps<{ algolia: TritoTheme.AlgoliaSearchOptions }>();
 const router = useRouter();
@@ -43,10 +43,7 @@ async function update() {
 		},
 
 		transformItems(items) {
-			return items.map((item) => ({
-				...item,
-				url: getRelativePath(item.url),
-			}));
+			return items.map((item) => ({ ...item, url: getRelativePath(item.url) }));
 		},
 	});
 }

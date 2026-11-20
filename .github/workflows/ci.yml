@@ -30,7 +30,7 @@ jobs:
         run: bun check
 
       - name: Run test build
-        run: bun run build
+        run: bun compile
 
       - name: Run test website build
         run: bun build:test

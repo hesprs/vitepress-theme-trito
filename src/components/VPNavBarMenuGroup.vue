@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
-import type { TritoTheme } from '@/shared';
+import VPFlyout from './VPFlyout.vue';
 import useData from '@/composables/data';
 import { isActive } from '@/shared';
-import VPFlyout from './VPFlyout.vue';
+import { computed } from 'vue';
+import type { TritoTheme } from '@/shared';
 
 const { item } = defineProps<{ item: TritoTheme.NavItemWithChildren }>();
 const { page } = useData();

@@ -1,8 +1,8 @@
-import type { Ref } from 'vue';
+import useAside from './aside';
+import { throttleAndDebounce } from '@/support/utils';
 import { onMounted, onUnmounted, onUpdated } from 'vue';
 import type { TritoTheme } from '@/shared';
-import { throttleAndDebounce } from '@/support/utils';
-import useAside from './aside';
+import type { Ref } from 'vue';
 
 const ignoreRE = /\b(?:VPBadge|header-anchor|footnote-ref|ignore-header)\b/;
 // Cached list of anchor elements from resolveHeaders

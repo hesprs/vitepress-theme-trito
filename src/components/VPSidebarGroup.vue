@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import VPSidebarItem from './VPSidebarItem.vue';
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import type { TritoTheme } from '@/shared';
-import VPSidebarItem from './VPSidebarItem.vue';
 
 defineProps<{ items: Array<TritoTheme.SidebarItem> }>();
 

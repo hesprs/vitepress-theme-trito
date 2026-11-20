@@ -1,16 +1,16 @@
-import type { DefaultTheme } from 'vitepress/theme';
-import type { ComputedRef } from 'vue';
-import { useRoute } from 'vitepress';
-import { computed, onMounted, onUnmounted, ref, watch, watchEffect, watchPostEffect } from 'vue';
-import { isActive } from '@/shared';
 import { hasActiveLink as containsActiveLink } from '../support/sidebar';
 import useData from './data';
+import { isActive } from '@/shared';
+import { useRoute } from 'vitepress';
+import { computed, onMounted, onUnmounted, ref, watch, watchEffect, watchPostEffect } from 'vue';
+import type { DefaultTheme } from 'vitepress/theme';
+import type { ComputedRef } from 'vue';
 
 const isOpen = ref(false);
 
 /**
- * A11y: cache the element that opened the Sidebar (the menu button) then
- * focus that button again when Menu is closed with Escape key.
+ * A11y: cache the element that opened the Sidebar (the menu button) then focus that button again
+ * when Menu is closed with Escape key.
  */
 export function useCloseSidebarOnEscape(close: () => void) {
 	let triggerElement: HTMLButtonElement | undefined;
@@ -49,12 +49,7 @@ export function useSidebarControl() {
 		else open();
 	}
 
-	return {
-		close,
-		isOpen,
-		open,
-		toggle,
-	};
+	return { close, isOpen, open, toggle };
 }
 
 export function useSidebarItemControl(item: ComputedRef<DefaultTheme.SidebarItem>) {
@@ -92,13 +87,5 @@ export function useSidebarItemControl(item: ComputedRef<DefaultTheme.SidebarItem
 		if (collapsible.value) collapsed.value = !collapsed.value;
 	}
 
-	return {
-		collapsed,
-		collapsible,
-		hasActiveLink,
-		hasChildren,
-		isActiveLink,
-		isLink,
-		toggle,
-	};
+	return { collapsed, collapsible, hasActiveLink, hasChildren, isActiveLink, isLink, toggle };
 }

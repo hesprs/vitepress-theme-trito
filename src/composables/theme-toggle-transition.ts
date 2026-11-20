@@ -1,6 +1,6 @@
-import type { Ref } from 'vue';
-import { nextTick, provide } from 'vue';
 import { toggleAppearanceKey } from '@/shared';
+import { nextTick, provide } from 'vue';
+import type { Ref } from 'vue';
 
 const enableTransitions = () =>
 	'startViewTransition' in document &&

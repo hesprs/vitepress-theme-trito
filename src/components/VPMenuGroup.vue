@@ -8,13 +8,10 @@
 			| TritoTheme.NavItemWithLink
 	"
 >
-import type { TritoTheme } from '@/shared';
 import VPMenuLink from './VPMenuLink.vue';
+import type { TritoTheme } from '@/shared';
 
-defineProps<{
-	text?: string;
-	items: T[];
-}>();
+defineProps<{ text?: string; items: T[] }>();
 </script>
 
 <template>

@@ -1,7 +1,7 @@
-import type { InjectionKey } from 'vue';
 import { inBrowser } from 'vitepress';
 // oxlint-disable typescript/no-explicit-any
 import type { AdditionalConfig, HeadConfig, PageData, SiteData } from './types';
+import type { InjectionKey } from 'vue';
 
 export const toggleAppearanceKey: InjectionKey<
 	(coords: { clientX: number; clientY: number }) => Promise<void>
@@ -70,9 +70,7 @@ export function getLocaleForPath(siteData: SiteData | undefined, relativePath: s
 	);
 }
 
-/**
- * This merges the locales data to the main data by the route
- */
+/** This merges the locales data to the main data by the route */
 export function resolveSiteDataByRoute(siteData: SiteData, relativePath: string): SiteData {
 	const localeIndex = getLocaleForPath(siteData, relativePath);
 	const { ...localeConfig } = siteData.locales[localeIndex] ?? {};
@@ -96,9 +94,7 @@ export function resolveSiteDataByRoute(siteData: SiteData, relativePath: string)
 	return stackView<SiteData>(topLayer, ...additionalConfigs, localeConfig, siteData);
 }
 
-/**
- * Create the page title string based on config.
- */
+/** Create the page title string based on config. */
 export function createTitle(siteData: SiteData, pageData: PageData): string {
 	const title = pageData.title || siteData.title;
 	const template = pageData.titleTemplate ?? siteData.titleTemplate;
@@ -206,9 +202,7 @@ export function escapeRegExp(str: string) {
 	return str.replace(/[|\\{}()[\]^$+*?.]/g, String.raw`\$&`).replace(/-/g, String.raw`\x2d`);
 }
 
-/**
- * @internal
- */
+/** @internal */
 export function escapeHtml(str: string): string {
 	return str
 		.replace(/</g, '&lt;')
@@ -250,9 +244,9 @@ function reportConfigLayers(path: string, layers: Array<Partial<SiteData>>) {
 }
 
 /**
- * Creates a deep, merged view of multiple objects without mutating originals.
- * Returns a readonly proxy behaving like a merged object of the input objects.
- * Layers are merged in descending precedence, i.e. earlier layer is on top.
+ * Creates a deep, merged view of multiple objects without mutating originals. Returns a readonly
+ * proxy behaving like a merged object of the input objects. Layers are merged in descending
+ * precedence, i.e. earlier layer is on top.
  */
 export function stackView<T extends ObjectType>(..._layers: Array<Partial<T>>): T {
 	const layers = _layers.filter((layer) => isObject(layer));
@@ -301,9 +295,7 @@ export function isShell(lang: string) {
 	return shellLangs.has(lang);
 }
 
-/**
- * Converts a url path to the corresponding js chunk filename.
- */
+/** Converts a url path to the corresponding js chunk filename. */
 export function pathToFile(path: string) {
 	let pagePath = path.replace(/\.html$/, '');
 	pagePath = decodeURIComponent(pagePath);

@@ -1,36 +1,33 @@
 // oxlint-disable typescript/no-explicit-any
-import type { DocSearchProps } from '@docsearch/js/docsearch';
-import type { Options as _MiniSearchOptions } from 'minisearch';
-import type { Route, VitePressData } from 'vitepress';
 import type { i18nTranslations } from '@/composables/i18n';
 import type { Header, PageData } from '@/shared/index';
 import type { LocalSearchTranslations } from '@/shared/local-search';
+import type { DocSearchProps } from '@docsearch/js/docsearch';
+import type { Options as _MiniSearchOptions } from 'minisearch';
+import type { Route, VitePressData } from 'vitepress';
 
 namespace TritoTheme {
 	export type Config = {
 		/**
 		 * The logo file of the site.
 		 *
-		 * @example '/logo.svg'
+		 * @example
+		 * 	'/logo.svg';
 		 */
 		logo?: ThemeableImage;
 
 		/**
 		 * The detailed logo file of the site.
 		 *
-		 * @example '/logo.svg'
+		 * @example
+		 * 	'/logo.svg';
 		 */
 		logoLarge?: ThemeableImage;
 
-		/**
-		 * Overrides the link of the site logo.
-		 */
+		/** Overrides the link of the site logo. */
 		logoLink?: string | { link?: string; rel?: string; target?: string };
 
-		/**
-		 * Custom site title in navbar. If the value is undefined,
-		 * `config.title` will be used.
-		 */
+		/** Custom site title in navbar. If the value is undefined, `config.title` will be used. */
 		siteTitle?: string | false;
 
 		/**
@@ -40,20 +37,15 @@ namespace TritoTheme {
 		 */
 		outline?: number | [number, number] | 'deep' | false;
 
-		/**
-		 * The nav items.
-		 */
+		/** The nav items. */
 		nav?: Array<NavItem>;
 
-		/**
-		 * The sidebar items.
-		 */
+		/** The sidebar items. */
 		sidebar?: Sidebar;
 
 		/**
-		 * Set to `false` to prevent rendering of aside container.
-		 * Set to `true` to render the aside to the right.
-		 * Set to `left` to render the aside to the left.
+		 * Set to `false` to prevent rendering of aside container. Set to `true` to render the aside
+		 * to the right. Set to `left` to render the aside to the left.
 		 *
 		 * @default true
 		 */
@@ -61,45 +53,44 @@ namespace TritoTheme {
 
 		/**
 		 * Translations of the text pieces used in UI.
+		 *
 		 * @see https://github.com/hesprs/vitepress-theme-trito/blob/main/src/composables/i18n.ts
 		 * Where the keys are locale codes (e.g. 'en', 'de'), and values are the translation objects.
 		 */
 		i18n?: Partial<typeof i18nTranslations.en>;
 
 		/**
-		 * Info for the edit link. If it's undefined, the edit link feature will
-		 * be disabled.
+		 * Info for the edit link. If it's undefined, the edit link feature will be disabled.
 		 *
 		 * Pattern for edit link:
 		 *
-		 * @example 'https://github.com/vuejs/vitepress/edit/main/docs/:path'
-		 * @example ({ filePath }) => { ... }
+		 * @example
+		 * 	'https://github.com/vuejs/vitepress/edit/main/docs/:path';
+		 *
+		 * @example
+		 * 	({ filePath }) => { ... }
 		 */
 		editLink?: string | ((payload: PageData) => string);
 
 		/**
 		 * Set options for last updated time formatting.
-		 * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#using_options
 		 *
 		 * @default
 		 * { dateStyle: 'short', timeStyle: 'short' }
+		 * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#using_options
 		 */
 		lastUpdated?: Intl.DateTimeFormatOptions & { forceLocale?: boolean };
 
-		/**
-		 * Set custom prev/next labels.
-		 */
+		/** Set custom prev/next labels. */
 		docFooter?: DocFooter;
 
 		/**
-		 * The social links to be displayed at the end of the nav bar. Perfect for
-		 * placing links to social services such as GitHub, Twitter, Facebook, etc.
+		 * The social links to be displayed at the end of the nav bar. Perfect for placing links to
+		 * social services such as GitHub, Twitter, Facebook, etc.
 		 */
 		socialLinks?: Array<SocialLink>;
 
-		/**
-		 * The footer configuration.
-		 */
+		/** The footer configuration. */
 		footer?: Footer;
 
 		search?:
@@ -132,10 +123,7 @@ namespace TritoTheme {
 
 	export type NavItem = NavItemComponent | NavItemWithLink | NavItemWithChildren;
 
-	export type NavItemComponent = {
-		component: string;
-		props?: Record<string, any>;
-	};
+	export type NavItemComponent = { component: string; props?: Record<string, any> };
 
 	export type NavItemWithLink = {
 		text: string;
@@ -143,8 +131,8 @@ namespace TritoTheme {
 		items?: never;
 
 		/**
-		 * `activeMatch` is expected to be a regex string. We can't use actual
-		 * RegExp object here because it isn't serializable
+		 * `activeMatch` is expected to be a regex string. We can't use actual RegExp object here
+		 * because it isn't serializable
 		 */
 		activeMatch?: string;
 		rel?: string;
@@ -152,18 +140,15 @@ namespace TritoTheme {
 		noIcon?: boolean;
 	};
 
-	export type NavItemChildren = {
-		text?: string;
-		items: Array<NavItemWithLink>;
-	};
+	export type NavItemChildren = { text?: string; items: Array<NavItemWithLink> };
 
 	export type NavItemWithChildren = {
 		text?: string;
 		items: Array<NavItemComponent | NavItemChildren | NavItemWithLink>;
 
 		/**
-		 * `activeMatch` is expected to be a regex string. We can't use actual
-		 * RegExp object here because it isn't serializable
+		 * `activeMatch` is expected to be a regex string. We can't use actual RegExp object here
+		 * because it isn't serializable
 		 */
 		activeMatch?: string;
 	};
@@ -178,19 +163,13 @@ namespace TritoTheme {
 	>;
 
 	export type SidebarItem = {
-		/**
-		 * The text label of the item.
-		 */
+		/** The text label of the item. */
 		text?: string;
 
-		/**
-		 * The link of the item.
-		 */
+		/** The link of the item. */
 		link?: string;
 
-		/**
-		 * The children of the item.
-		 */
+		/** The children of the item. */
 		items?: Array<SidebarItem>;
 
 		/**
@@ -202,14 +181,10 @@ namespace TritoTheme {
 		 */
 		collapsed?: boolean;
 
-		/**
-		 * Base path for the children items.
-		 */
+		/** Base path for the children items. */
 		base?: string;
 
-		/**
-		 * Customize text that appears on the footer of previous/next page.
-		 */
+		/** Customize text that appears on the footer of previous/next page. */
 		docFooterText?: string;
 
 		rel?: string;
@@ -225,13 +200,7 @@ namespace TritoTheme {
 
 	export type FeatureIcon =
 		| string
-		| {
-				src: string;
-				alt?: string;
-				width?: string;
-				height?: string;
-				wrap?: boolean;
-		  }
+		| { src: string; alt?: string; width?: string; height?: string; wrap?: boolean }
 		| {
 				light: string;
 				dark: string;
@@ -244,30 +213,22 @@ namespace TritoTheme {
 	// Prev-next -----------------------------------------------------------------
 
 	export type DocFooter = {
-		/**
-		 * Previous page button, set to `false` to disable.
-		 */
+		/** Previous page button, set to `false` to disable. */
 		prev?: boolean;
 
-		/**
-		 * Next page button, set to `false` to disable.
-		 */
+		/** Next page button, set to `false` to disable. */
 		next?: boolean;
 	};
 
 	// Social link ---------------------------------------------------------------
 
-	export type SocialLink = {
-		icon: SocialLinkIcon;
-		link: string;
-		ariaLabel?: string;
-	};
+	export type SocialLink = { icon: SocialLinkIcon; link: string; ariaLabel?: string };
 
 	export type SocialLinkIcon = string | { svg: string };
 
 	/**
-	 * Fully controls locale-switch link resolution. The current query and
-	 * hash are not carried over in this case.
+	 * Fully controls locale-switch link resolution. The current query and hash are not carried over
+	 * in this case.
 	 */
 	export type I18nRouting = (
 		data: VitePressData<Config>,
@@ -277,10 +238,7 @@ namespace TritoTheme {
 
 	// Footer --------------------------------------------------------------------
 
-	export type Footer = {
-		message?: string;
-		copyright?: string;
-	};
+	export type Footer = { message?: string; copyright?: string };
 
 	// Team ----------------------------------------------------------------------
 
@@ -307,17 +265,15 @@ namespace TritoTheme {
 
 	export type LocalSearchOptions = {
 		/**
-		 * If `true`, the detailed view will be enabled by default.
-		 * If `false`, the detailed view will be disabled.
-		 * If `'auto'`, the detailed view will be disabled by default, but can be enabled by the user.
+		 * If `true`, the detailed view will be enabled by default. If `false`, the detailed view
+		 * will be disabled. If `'auto'`, the detailed view will be disabled by default, but can be
+		 * enabled by the user.
 		 *
 		 * @default 'auto'
 		 */
 		detailedView?: boolean | 'auto';
 
-		/**
-		 * @default false
-		 */
+		/** @default false */
 		disableQueryPersistence?: boolean;
 
 		translations?: LocalSearchTranslations;
@@ -327,21 +283,15 @@ namespace TritoTheme {
 	};
 
 	type MiniSearchOptions = {
-		/**
-		 * @see https://lucaong.github.io/minisearch/types/MiniSearch.Options.html
-		 */
+		/** @see https://lucaong.github.io/minisearch/types/MiniSearch.Options.html */
 		options?: Pick<_MiniSearchOptions, 'extractField' | 'tokenize' | 'processTerm'>;
-		/**
-		 * @see https://lucaong.github.io/minisearch/types/MiniSearch.SearchOptions.html
-		 */
+		/** @see https://lucaong.github.io/minisearch/types/MiniSearch.SearchOptions.html */
 		searchOptions?: _MiniSearchOptions['searchOptions'];
 	};
 
 	// Algolia -------------------------------------------------------------------
 
-	/**
-	 * Algolia search options.
-	 */
+	/** Algolia search options. */
 	export type AlgoliaSearchOptions = Omit<DocSearchProps, 'container'> & {
 		locales?: Record<string, Partial<Omit<DocSearchProps, 'container'>>>;
 	};

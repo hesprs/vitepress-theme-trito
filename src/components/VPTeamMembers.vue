@@ -1,12 +1,9 @@
 <script setup lang="ts">
+import VPTeamMembersItem from './VPTeamMembersItem.vue';
 import { computed } from 'vue';
 import type { TritoTheme } from '@/shared';
-import VPTeamMembersItem from './VPTeamMembersItem.vue';
 
-type Props = {
-	size?: 'small' | 'medium';
-	members: Array<TritoTheme.TeamMember>;
-};
+type Props = { size?: 'small' | 'medium'; members: Array<TritoTheme.TeamMember> };
 
 const { size = 'medium', members } = defineProps<Props>();
 const classes = computed(() => [size, `count-${members.length}`]);

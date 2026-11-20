@@ -9,10 +9,7 @@ const onAfter = new Set<Func>();
 export function useRouteChange() {
 	const onBeforeRouteChange = (func: Func) => onBefore.add(func);
 	const onAfterRouteChange = (func: Func) => onAfter.add(func);
-	return {
-		onAfterRouteChange,
-		onBeforeRouteChange,
-	};
+	return { onAfterRouteChange, onBeforeRouteChange };
 }
 
 export function setupRouteChange() {

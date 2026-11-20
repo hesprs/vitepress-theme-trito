@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { useWindowSize } from '@vueuse/core';
-import { ref, watch, useTemplateRef, computed } from 'vue';
+import VPSidebarGroup from './VPSidebarGroup.vue';
 import { useLayout } from '@/composables/layout';
 import useBodyScrollLock from '@/composables/scroll-lock';
 import { useSidebarControl } from '@/composables/sidebar';
-import VPSidebarGroup from './VPSidebarGroup.vue';
+import { useWindowSize } from '@vueuse/core';
+import { ref, watch, useTemplateRef, computed } from 'vue';
 
 const { sidebarGroups, hasSidebar } = useLayout();
 const { isOpen } = useSidebarControl();

@@ -22,8 +22,8 @@ type DeepPartial<T> =
 export type PageData = {
 	relativePath: string;
 	/**
-	 * Differs from relativePath in case of path rewrites
-	 * empty string if the page is virtual (e.g. 404 page)
+	 * Differs from relativePath in case of path rewrites empty string if the page is virtual (e.g.
+	 * 404 page)
 	 */
 	filePath: string;
 	title: string;
@@ -36,59 +36,37 @@ export type PageData = {
 	lastUpdated?: number;
 };
 
-/**
- * SFC block extracted from markdown
- */
+/** SFC block extracted from markdown */
 export type SfcBlock = {
-	/**
-	 * The type of the block
-	 */
+	/** The type of the block */
 	type: string;
-	/**
-	 * The content, including open-tag and close-tag
-	 */
+	/** The content, including open-tag and close-tag */
 	content: string;
-	/**
-	 * The content that stripped open-tag and close-tag off
-	 */
+	/** The content that stripped open-tag and close-tag off */
 	contentStripped: string;
-	/**
-	 * The open-tag
-	 */
+	/** The open-tag */
 	tagOpen: string;
-	/**
-	 * The close-tag
-	 */
+	/** The close-tag */
 	tagClose: string;
 };
 
 export type MarkdownSfcBlocks = {
-	/**
-	 * The `<template>` block
-	 */
+	/** The `<template>` block */
 	template?: SfcBlock;
-	/**
-	 * The common `<script>` block
-	 */
+	/** The common `<script>` block */
 	script?: SfcBlock;
-	/**
-	 * The `<script setup>` block
-	 */
+	/** The `<script setup>` block */
 	scriptSetup?: SfcBlock;
 	/**
 	 * All `<script>` blocks.
 	 *
-	 * By default, SFC only allows one `<script>` block and one `<script setup>` block.
-	 * However, some tools may support different types of `<script>`s, so we keep all of them here.
+	 * By default, SFC only allows one `<script>` block and one `<script setup>` block. However,
+	 * some tools may support different types of `<script>`s, so we keep all of them here.
 	 */
 	scripts: Array<SfcBlock>;
-	/**
-	 * All `<style>` blocks.
-	 */
+	/** All `<style>` blocks. */
 	styles: Array<SfcBlock>;
-	/**
-	 * All custom blocks.
-	 */
+	/** All custom blocks. */
 	customBlocks: Array<SfcBlock>;
 };
 
@@ -99,9 +77,7 @@ export type Header = {
 	 * `1` to `6` for `<h1>` to `<h6>`
 	 */
 	level: number;
-	/**
-	 * The title of the header
-	 */
+	/** The title of the header */
 	title: string;
 	/**
 	 * The slug of the header
@@ -115,9 +91,7 @@ export type Header = {
 	 * Typically using `#${slug}` as the anchor hash
 	 */
 	link: string;
-	/**
-	 * The children of the header
-	 */
+	/** The children of the header */
 	children: Array<Header>;
 };
 
@@ -140,9 +114,7 @@ export type SiteData<ThemeConfig = any> = {
 	locales: LocaleConfig<ThemeConfig>;
 	localeIndex?: string;
 	contentProps?: Record<string, any>;
-	router: {
-		prefetchLinks: boolean;
-	};
+	router: { prefetchLinks: boolean };
 	additionalConfig?: AdditionalConfigDict<ThemeConfig> | AdditionalConfigLoader<ThemeConfig>;
 };
 
@@ -150,10 +122,7 @@ export type HeadConfig =
 	| [string, Record<string, string>]
 	| [string, Record<string, string>, string];
 
-export type PageDataPayload = {
-	path: string;
-	pageData: PageData;
-};
+export type PageDataPayload = { path: string; pageData: PageData };
 
 export type LocaleSpecificConfig<ThemeConfig = any> = {
 	lang?: string;
@@ -181,9 +150,7 @@ export type AdditionalConfigLoader<ThemeConfig = any> = (
 // Manually declaring all properties as rollup-plugin-dts
 // Is unable to merge augmented module declarations
 export type MarkdownEnv = {
-	/**
-	 * The raw Markdown content without frontmatter
-	 */
+	/** The raw Markdown content without frontmatter */
 	content?: string;
 	/**
 	 * The excerpt that extracted by `@mdit-vue/plugin-frontmatter`
@@ -192,21 +159,13 @@ export type MarkdownEnv = {
 	 * - Would be the raw Markdown when `renderExcerpt` is disabled
 	 */
 	excerpt?: string;
-	/**
-	 * The frontmatter that extracted by `@mdit-vue/plugin-frontmatter`
-	 */
+	/** The frontmatter that extracted by `@mdit-vue/plugin-frontmatter` */
 	frontmatter?: Record<string, unknown>;
-	/**
-	 * The headers that extracted by `@mdit-vue/plugin-headers`
-	 */
+	/** The headers that extracted by `@mdit-vue/plugin-headers` */
 	headers?: Array<Header>;
-	/**
-	 * SFC blocks that extracted by `@mdit-vue/plugin-sfc`
-	 */
+	/** SFC blocks that extracted by `@mdit-vue/plugin-sfc` */
 	sfcBlocks?: MarkdownSfcBlocks;
-	/**
-	 * The title that extracted by `@mdit-vue/plugin-title`
-	 */
+	/** The title that extracted by `@mdit-vue/plugin-title` */
 	title?: string;
 	path: string;
 	relativePath: string;

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useRoute } from 'vitepress';
-import { computed, onMounted, useTemplateRef } from 'vue';
-import useData from '@/composables/data';
-import { useLayout } from '@/composables/layout';
 import VPDocAsideOutline from './VPDocAsideOutline.vue';
 import VPDocAsideSidebar from './VPDocAsideSidebar.vue';
 import VPDocFooter from './VPDocFooter.vue';
+import useData from '@/composables/data';
+import { useLayout } from '@/composables/layout';
+import { useRoute } from 'vitepress';
+import { computed, onMounted, useTemplateRef } from 'vue';
 
 const { theme, frontmatter } = useData();
 const route = useRoute();

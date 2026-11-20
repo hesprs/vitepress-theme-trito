@@ -1,14 +1,11 @@
 <script lang="ts" setup>
+import createSearchTranslate from '@/support/translation';
 import { IconSearch } from '@tabler/icons-vue';
 import type { ButtonTranslations } from '@/shared/local-search';
-import createSearchTranslate from '@/support/translation';
 
 // Button translations
 const defaultTranslations: { button: ButtonTranslations } = {
-	button: {
-		buttonAriaLabel: 'Search',
-		buttonText: 'Search',
-	},
+	button: { buttonAriaLabel: 'Search', buttonText: 'Search' },
 };
 const translate = createSearchTranslate(defaultTranslations);
 </script>

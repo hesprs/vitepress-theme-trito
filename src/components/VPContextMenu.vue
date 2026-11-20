@@ -7,10 +7,7 @@
 			@contextmenu.stop="closeRightMenu"
 		>
 			<div
-				:style="{
-					left: rightMenuX + 'px',
-					top: rightMenuY + 'px',
-				}"
+				:style="{ left: rightMenuX + 'px', top: rightMenuY + 'px' }"
 				ref="rightMenuRef"
 				class="menu-content s-card hover card-enhance"
 				@contextmenu.stop="closeRightMenu"
@@ -113,7 +110,19 @@
 </template>
 
 <script lang="ts" setup>
-import type { Reactive } from 'vue';
+import {
+	back,
+	copyImage,
+	copyText,
+	downloadImage,
+	forward,
+	openInNewTab,
+	refresh,
+	scrollToTop,
+} from '@/composables/context-menu-actions';
+import useData from '@/composables/data';
+import { useI18n } from '@/composables/i18n';
+import { toggleAppearanceKey } from '@/shared';
 import {
 	IconAppWindow,
 	IconArrowBarToUp,
@@ -130,36 +139,12 @@ import {
 } from '@tabler/icons-vue';
 import { useRouter } from 'vitepress';
 import { inject, nextTick, onBeforeUnmount, onMounted, reactive, ref, useTemplateRef } from 'vue';
-import {
-	back,
-	copyImage,
-	copyText,
-	downloadImage,
-	forward,
-	openInNewTab,
-	refresh,
-	scrollToTop,
-} from '@/composables/context-menu-actions';
-import useData from '@/composables/data';
-import { useI18n } from '@/composables/i18n';
-import { toggleAppearanceKey } from '@/shared';
+import type { Reactive } from 'vue';
 
-type LinkSelection = {
-	type: 'link';
-	data: HTMLLinkElement;
-};
-type ImageSelection = {
-	type: 'image';
-	data: HTMLImageElement;
-};
-type TextSelection = {
-	type: 'text';
-	data: string;
-};
-type NormalSelection = {
-	type: 'normal';
-	data: undefined;
-};
+type LinkSelection = { type: 'link'; data: HTMLLinkElement };
+type ImageSelection = { type: 'image'; data: HTMLImageElement };
+type TextSelection = { type: 'text'; data: string };
+type NormalSelection = { type: 'normal'; data: undefined };
 type selection = LinkSelection | ImageSelection | TextSelection | NormalSelection;
 
 const { isDark, theme } = useData();
@@ -170,9 +155,7 @@ const rightMenuY = ref(0);
 const rightMenuRef = useTemplateRef('rightMenuRef');
 const rightMenuShow = ref(false);
 const toggleAppearance = inject(toggleAppearanceKey);
-const selection = reactive({
-	type: 'normal',
-}) as Reactive<selection>;
+const selection = reactive({ type: 'normal' }) as Reactive<selection>;
 const openRightMenu = (e: PointerEvent) => {
 	if (e.ctrlKey || window.innerWidth < 768) return true;
 	e.preventDefault();

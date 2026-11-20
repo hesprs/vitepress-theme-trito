@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import type { DefaultTheme } from 'vitepress/theme';
+import VPLink from './VPLink.vue';
+import { useSidebarItemControl } from '@/composables/sidebar';
 import { IconChevronRight } from '@tabler/icons-vue';
 import { computed } from 'vue';
-import { useSidebarItemControl } from '@/composables/sidebar';
-import VPLink from './VPLink.vue';
+import type { DefaultTheme } from 'vitepress/theme';
 
-const { item, depth } = defineProps<{
-	item: DefaultTheme.SidebarItem;
-	depth: number;
-}>();
+const { item, depth } = defineProps<{ item: DefaultTheme.SidebarItem; depth: number }>();
 const { collapsed, collapsible, isLink, isActiveLink, hasActiveLink, hasChildren, toggle } =
 	useSidebarItemControl(computed(() => item));
 const sectionTag = computed(() => (hasChildren.value ? 'section' : `div`));

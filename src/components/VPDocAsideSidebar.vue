@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { Ref } from 'vue';
-import { IconMenu2, IconChevronDown } from '@tabler/icons-vue';
-import { useElementSize } from '@vueuse/core';
-import { watch, ref, useTemplateRef } from 'vue';
+import VPSidebarGroup from './VPSidebarGroup.vue';
 import useData from '@/composables/data';
 import { useI18n } from '@/composables/i18n';
 import { useLayout } from '@/composables/layout';
-import VPSidebarGroup from './VPSidebarGroup.vue';
+import { IconMenu2, IconChevronDown } from '@tabler/icons-vue';
+import { useElementSize } from '@vueuse/core';
+import { watch, ref, useTemplateRef } from 'vue';
+import type { Ref } from 'vue';
 
 const i18n = useI18n();
 const collapsed = ref(false);
@@ -34,10 +34,7 @@ function toggle(e: PointerEvent) {
 	<nav
 		aria-labelledby="doc-sidebar-aria-label"
 		class="VPDocAsideSidebar s-card"
-		:class="{
-			'card-enhance': collapsed,
-			collapse: collapsed,
-		}"
+		:class="{ 'card-enhance': collapsed, collapse: collapsed }"
 		:style="{ '--card-max-height': `${contentHeight + 62}px` }"
 		v-if="hasSidebar"
 		@click="toggle"

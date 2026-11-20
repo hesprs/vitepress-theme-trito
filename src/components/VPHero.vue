@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { inject } from 'vue';
-import type { LayoutInfo } from '@/composables/layout';
-import useData from '@/composables/data';
-import { layoutInfoInjectionKey } from '@/composables/layout';
 import VPButton from './VPButton.vue';
 import VPImage from './VPImage.vue';
+import useData from '@/composables/data';
+import { layoutInfoInjectionKey } from '@/composables/layout';
+import { inject } from 'vue';
+import type { LayoutInfo } from '@/composables/layout';
 
 export type HeroAction = {
 	theme?: 'brand' | 'alt';
@@ -14,12 +14,7 @@ export type HeroAction = {
 	rel?: string;
 };
 
-defineProps<{
-	name?: string;
-	text?: string;
-	tagline?: string;
-	actions?: Array<HeroAction>;
-}>();
+defineProps<{ name?: string; text?: string; tagline?: string; actions?: Array<HeroAction> }>();
 
 const { theme } = useData();
 const { heroImageSlotExists } = inject(layoutInfoInjectionKey) as LayoutInfo;

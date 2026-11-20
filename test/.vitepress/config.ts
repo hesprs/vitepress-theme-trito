@@ -17,18 +17,10 @@ export default defineConfig<ThemeConfig>({
 	],
 	lastUpdated: true,
 	locales: {
-		root: {
-			label: 'English',
-			lang: 'en',
-		},
-		'zh-Hans': {
-			label: '简体中文',
-			lang: 'zh-Hans',
-		},
+		root: { label: 'English', lang: 'en' },
+		'zh-Hans': { label: '简体中文', lang: 'zh-Hans' },
 	},
-	markdown: {
-		image: { lazyLoad: true },
-	},
+	markdown: { image: { lazyLoad: true } },
 	outDir: p('dist'),
 	srcDir: p('.'),
 	themeConfig: {
@@ -103,10 +95,5 @@ export default defineConfig<ThemeConfig>({
 		],
 	},
 	title: 'Trito',
-	vite: {
-		publicDir: p('public'),
-		resolve: {
-			alias: { '@': p('../src/') },
-		},
-	},
+	vite: { publicDir: p('public'), resolve: { alias: { '@': p('../src/') } } },
 });

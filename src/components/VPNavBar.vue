@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import { useWindowScroll } from '@vueuse/core';
-import { ref, watchPostEffect } from 'vue';
-import VPLocalNav from '@/components/VPLocalNav.vue';
-import { useLayout } from '@/composables/layout';
 import VPNavBarAppearance from './VPNavBarAppearance.vue';
 import VPNavBarHamburger from './VPNavBarHamburger.vue';
 import VPNavBarMenu from './VPNavBarMenu.vue';
 import VPNavBarSearch from './VPNavBarSearch.vue';
 import VPNavBarTitle from './VPNavBarTitle.vue';
 import VPNavBarTranslations from './VPNavBarTranslations.vue';
+import VPLocalNav from '@/components/VPLocalNav.vue';
+import { useLayout } from '@/composables/layout';
+import { useWindowScroll } from '@vueuse/core';
+import { ref, watchPostEffect } from 'vue';
 
 const { isScreenOpen } = defineProps<{ isScreenOpen: boolean }>();
 

@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import { IconHeart } from '@tabler/icons-vue';
-import type { TritoTheme } from '@/shared';
 import VPLink from './VPLink.vue';
 import VPSocialLinks from './VPSocialLinks.vue';
+import { IconHeart } from '@tabler/icons-vue';
+import type { TritoTheme } from '@/shared';
 
-type Props = {
-	size?: 'small' | 'medium';
-	member: TritoTheme.TeamMember;
-};
+type Props = { size?: 'small' | 'medium'; member: TritoTheme.TeamMember };
 
 const { size = 'medium', member } = defineProps<Props>();
 </script>

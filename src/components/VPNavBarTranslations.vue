@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { IconLanguageHiragana } from '@tabler/icons-vue';
+import VPFlyout from './VPFlyout.vue';
+import VPMenuLink from './VPMenuLink.vue';
 import useData from '@/composables/data';
 import { useI18n } from '@/composables/i18n';
 import useLangs from '@/composables/langs';
-import VPFlyout from './VPFlyout.vue';
-import VPMenuLink from './VPMenuLink.vue';
+import { IconLanguageHiragana } from '@tabler/icons-vue';
 
 const i18n = useI18n();
 const { theme } = useData();
