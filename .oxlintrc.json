@@ -78,14 +78,21 @@
 		"eslint/no-multi-assign": "off",
 		"eslint/no-duplicate-imports": ["warn", { "allowSeparateTypeImports": true }],
 		"vue/require-default-prop": "off",
-		"eslint/one-var": ["warn", "never"]
+		"eslint/one-var": ["warn", "never"],
+		"prefer-promise-reject-errors": "off",
+		"eslint/no-throw-literal": "off",
+		"eslint/max-depth": "off",
+		"typescript/switch-exhaustiveness-check": "off",
+		"eslint/no-loop-func": "off",
+		"eslint/radix": "off",
+		"unicorn/import-style": "off",
+		"unicorn/no-process-exit": "off",
+		"eslint/require-await": "off",
+		"typescript/ban-types": "off",
+		"eslint/capitalized-comments": ["warn", "always", { "ignoreConsecutiveComments": true }],
+		"unicorn/no-array-reduce": "off"
 	},
-	"env": {
-		"builtin": true,
-		"node": true,
-		"browser": true,
-		"vue": true
-	},
+	"env": { "builtin": true, "node": true, "browser": true, "vue": true },
 	"globals": {
 		"__ALGOLIA__": "readonly",
 		"__VP_LOCAL_SEARCH__": "readonly",
@@ -93,7 +100,5 @@
 		"__ASSETS_DIR__": "readonly"
 	},
 	"ignorePatterns": ["**/node_modules/**", "**/dist/**"],
-	"options": {
-		"typeAware": true
-	}
+	"options": { "typeAware": true }
 }

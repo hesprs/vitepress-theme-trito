@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import VPLink from './VPLink.vue';
+import useLangs from '@/composables/langs';
 import { IconChevronDown } from '@tabler/icons-vue';
 import { ref } from 'vue';
-import useLangs from '@/composables/langs';
-import VPLink from './VPLink.vue';
 
 const { localeLinks, currentLang } = useLangs({ linkToCorrespondingPage: true });
 const isOpen = ref(false);

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useNavigatorLanguage } from '@vueuse/core';
-import { computed, onMounted, shallowRef, useTemplateRef, watchEffect } from 'vue';
 import useData from '@/composables/data';
 import { useI18n } from '@/composables/i18n';
+import { useNavigatorLanguage } from '@vueuse/core';
+import { computed, onMounted, shallowRef, useTemplateRef, watchEffect } from 'vue';
 
 const { theme, page, lang: pageLang } = useData();
 const { language: browserLang } = useNavigatorLanguage();
@@ -20,10 +20,7 @@ onMounted(() => {
 
 		datetime.value = new Intl.DateTimeFormat(
 			lang,
-			theme.value.lastUpdated ?? {
-				dateStyle: 'medium',
-				timeStyle: 'medium',
-			},
+			theme.value.lastUpdated ?? { dateStyle: 'medium', timeStyle: 'medium' },
 		).format(date.value);
 
 		if (lang && pageLang.value !== lang) timeRef.value?.setAttribute('lang', lang);

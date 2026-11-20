@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref, useTemplateRef } from 'vue';
-import useBodyScrollLock from '@/composables/scroll-lock';
 import VPNavScreenAppearance from './VPNavScreenAppearance.vue';
 import VPNavScreenMenu from './VPNavScreenMenu.vue';
 import VPNavScreenSocialLinks from './VPNavScreenSocialLinks.vue';
 import VPNavScreenTranslations from './VPNavScreenTranslations.vue';
+import useBodyScrollLock from '@/composables/scroll-lock';
+import { ref, useTemplateRef } from 'vue';
 
 defineProps<{ open: boolean }>();
 const isLocked = useBodyScrollLock();

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { IconEdit } from '@tabler/icons-vue';
-import { computed } from 'vue';
+import VPDocFooterLastUpdated from './VPDocFooterLastUpdated.vue';
+import VPLink from './VPLink.vue';
 import useData from '@/composables/data';
 import useEditLink from '@/composables/edit-link';
 import { useI18n } from '@/composables/i18n';
 import usePrevNext from '@/composables/prev-next';
-import VPDocFooterLastUpdated from './VPDocFooterLastUpdated.vue';
-import VPLink from './VPLink.vue';
+import { IconEdit } from '@tabler/icons-vue';
+import { computed } from 'vue';
 
 const { theme, page, frontmatter } = useData();
 const i18n = useI18n();

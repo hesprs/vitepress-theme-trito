@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { onMounted, useTemplateRef } from 'vue';
-import useData from '@/composables/data';
 import VPFooterSocialLinks from './VPFooterSocialLinks.vue';
+import useData from '@/composables/data';
+import { onMounted, useTemplateRef } from 'vue';
 
 const { theme, frontmatter } = useData();
 const footer = useTemplateRef('footer');

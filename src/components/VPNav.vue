@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { inBrowser } from 'vitepress';
-import { computed, provide, watchEffect } from 'vue';
-import useData from '@/composables/data';
-import { navInjectionKey, useNav } from '@/composables/nav';
 import VPNavBar from './VPNavBar.vue';
 import VPNavScreen from './VPNavScreen.vue';
+import useData from '@/composables/data';
+import { navInjectionKey, useNav } from '@/composables/nav';
+import { inBrowser } from 'vitepress';
+import { computed, provide, watchEffect } from 'vue';
 
 const { isScreenOpen, closeScreen, toggleScreen } = useNav();
 const { frontmatter } = useData();

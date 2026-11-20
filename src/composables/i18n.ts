@@ -1,5 +1,5 @@
-import { computed } from 'vue';
 import useData from './data';
+import { computed } from 'vue';
 
 export function useI18n() {
 	const { localeIndex } = useData();

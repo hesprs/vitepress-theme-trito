@@ -94,10 +94,9 @@ function unlockEvents() {
 /**
  * Locks page scrolling behind an overlay.
  *
- * Prefer `scrollbar-gutter: stable` + `overflow: hidden` so layout width
- * stays stable when the scrollbar is hidden. If unsupported, fall back to
- * blocking scroll events while still allowing events inside scrollable
- * elements.
+ * Prefer `scrollbar-gutter: stable` + `overflow: hidden` so layout width stays stable when the
+ * scrollbar is hidden. If unsupported, fall back to blocking scroll events while still allowing
+ * events inside scrollable elements.
  */
 function useBodyScrollLock() {
 	const isLocked = shallowRef(false);
@@ -122,10 +121,7 @@ function useBodyScrollLock() {
 
 	onScopeDispose(unlock);
 
-	return computed({
-		get: () => isLocked.value,
-		set: (value) => (value ? lock() : unlock()),
-	});
+	return computed({ get: () => isLocked.value, set: (value) => (value ? lock() : unlock()) });
 }
 
 export default useBodyScrollLock;

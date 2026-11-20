@@ -1,12 +1,9 @@
 <script setup lang="ts">
-import { useWindowSize } from '@vueuse/core';
 import useData from '@/composables/data';
+import { useWindowSize } from '@vueuse/core';
 
 const { frontmatter } = useData();
-const { width: vw } = useWindowSize({
-	includeScrollbar: false,
-	initialWidth: 0,
-});
+const { width: vw } = useWindowSize({ includeScrollbar: false, initialWidth: 0 });
 </script>
 
 <template>

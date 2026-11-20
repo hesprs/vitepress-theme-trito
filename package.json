@@ -1,6 +1,6 @@
 {
 	"name": "vitepress-theme-trito",
-	"version": "1.3.0",
+	"version": "1.3.1",
 	"description": "Visually refurbished VitePress default theme.",
 	"keywords": [
 		"front-end",
@@ -34,36 +34,34 @@
 		"provenance": true
 	},
 	"scripts": {
-		"build": "tsdown",
-		"fix": "oxlint --fix && oxfmt",
-		"check": "vue-tsc && oxfmt --check && oxlint",
+		"compile": "tsdown",
+		"fix": "oxlint --fix && bun fmt",
+		"check": "vue-tsc && bun fmt --check && oxlint",
 		"dev": "vitepress dev test",
 		"build:test": "vitepress build test",
 		"preview": "vitepress preview test"
 	},
 	"dependencies": {
-		"@docsearch/css": "^5.0.5",
-		"@docsearch/js": "^5.0.5",
-		"@tabler/icons-vue": "^3.46.0",
-		"@vueuse/core": "^14.4.0",
-		"@vueuse/integrations": "^14.4.0",
+		"@docsearch/css": "^5.2.0",
+		"@docsearch/js": "^5.2.0",
+		"@tabler/icons-vue": "^3.52.0",
+		"@vueuse/core": "^15.0.0",
+		"@vueuse/integrations": "^15.0.0",
 		"mark.js": "^8.11.1",
 		"minisearch": "^7.2.0",
-		"vitepress": "^2.0.0-alpha.20",
-		"vue": "^3.5.42"
+		"vitepress": "^2.0.0-alpha.21",
+		"vue": "^3.5.46"
 	},
 	"devDependencies": {
-		"@tsdown/css": "^0.23.0",
-		"@types/bun": "^1.4.2",
-		"oxfmt": "^0.67.0",
-		"oxlint": "^1.82.0",
-		"oxlint-tsgolint": "^7.0.2001",
-		"sass-embedded": "^1.104.0",
-		"tsdown": "^0.23.0",
+		"@tsdown/css": "^0.23.7",
+		"@types/bun": "^1.4.5",
+		"oxlint": "^1.94.0",
+		"oxlint-tsgolint": "^7.0.2007",
+		"sass-embedded": "^1.108.2",
+		"tsdown": "^0.23.7",
 		"typescript": "^6.0.3",
-		"unplugin-vue": "^7.2.0",
-		"vite": "^8.2.2",
-		"vue-tsc": "^3.3.11"
+		"unplugin-vue": "^8.0.1",
+		"vue-tsc": "^3.3.14"
 	},
-	"packageManager": "bun@1.3.13"
+	"packageManager": "bun@1.4.4"
 }

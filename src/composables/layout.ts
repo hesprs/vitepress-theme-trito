@@ -1,11 +1,11 @@
-import type { ComputedRef, InjectionKey } from 'vue';
+import useData from './data';
+import { getHeaders } from './outline';
+import { getSidebar, getSidebarGroups } from '@/support/sidebar';
 import { useWindowScroll } from '@vueuse/core';
 import { onContentUpdated } from 'vitepress';
 import { computed, shallowReadonly, shallowRef, watch } from 'vue';
 import type { TritoTheme } from '@/shared';
-import { getSidebar, getSidebarGroups } from '@/support/sidebar';
-import useData from './data';
-import { getHeaders } from './outline';
+import type { ComputedRef, InjectionKey } from 'vue';
 
 const headers = shallowRef<Array<TritoTheme.OutlineItem>>([]);
 const sidebar = shallowRef<Array<TritoTheme.SidebarItem>>([]);
@@ -67,8 +67,6 @@ export function registerWatchers() {
 	});
 }
 
-export type LayoutInfo = {
-	heroImageSlotExists: ComputedRef<boolean>;
-};
+export type LayoutInfo = { heroImageSlotExists: ComputedRef<boolean> };
 
 export const layoutInfoInjectionKey: InjectionKey<LayoutInfo> = Symbol('layout-info');

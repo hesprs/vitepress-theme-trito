@@ -1,8 +1,8 @@
 <script lang="ts" setup generic="T extends TritoTheme.NavItem">
+import VPMenu from './VPMenu.vue';
 import { IconChevronDown } from '@tabler/icons-vue';
 import { onMounted, onUnmounted, ref, useTemplateRef, watch } from 'vue';
 import type { TritoTheme } from '@/shared';
-import VPMenu from './VPMenu.vue';
 
 defineProps<{
 	icon?: string;

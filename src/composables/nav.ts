@@ -1,7 +1,7 @@
-import type { InjectionKey } from 'vue';
 import { useMediaQuery, whenever } from '@vueuse/core';
 import { useRoute } from 'vitepress';
 import { ref, watch } from 'vue';
+import type { InjectionKey } from 'vue';
 
 export function useNav() {
 	const isScreenOpen = ref(false);
@@ -9,9 +9,7 @@ export function useNav() {
 	const route = useRoute();
 	watch(() => route.path, closeScreen);
 
-	/**
-	 * Close screen when the window becomes wider than a tablet.
-	 */
+	/** Close screen when the window becomes wider than a tablet. */
 	const isTablet = useMediaQuery('(min-width: 48rem)');
 	whenever(isTablet, closeScreen);
 
@@ -28,16 +26,9 @@ export function useNav() {
 		else openScreen();
 	}
 
-	return {
-		closeScreen,
-		isScreenOpen,
-		openScreen,
-		toggleScreen,
-	};
+	return { closeScreen, isScreenOpen, openScreen, toggleScreen };
 }
 
-export type NavExposedMethods = {
-	closeScreen: () => void;
-};
+export type NavExposedMethods = { closeScreen: () => void };
 
 export const navInjectionKey: InjectionKey<NavExposedMethods> = Symbol('nav');

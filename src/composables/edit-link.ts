@@ -1,6 +1,6 @@
-import { computed } from 'vue';
 import useData from './data';
 import { useI18n } from './i18n';
+import { computed } from 'vue';
 
 export default function useEditLink() {
 	const { theme, page } = useData();

@@ -1,6 +1,6 @@
-import type { DefaultTheme } from 'vitepress/theme';
-import { isActive } from '@/shared';
 import { ensureStartingSlash } from './utils';
+import { isActive } from '@/shared';
+import type { DefaultTheme } from 'vitepress/theme';
 
 export type SidebarLink = {
 	text: string;
@@ -13,10 +13,9 @@ export type SidebarLink = {
 type SidebarItem = DefaultTheme.SidebarItem;
 
 /**
- * Get the `Sidebar` from sidebar option. This method will ensure to get correct
- * sidebar config from `MultiSideBarConfig` with various path combinations such
- * as matching `guide/` and `/guide/`. If no matching config was found, it will
- * return empty array.
+ * Get the `Sidebar` from sidebar option. This method will ensure to get correct sidebar config from
+ * `MultiSideBarConfig` with various path combinations such as matching `guide/` and `/guide/`. If
+ * no matching config was found, it will return empty array.
  */
 export function getSidebar(
 	_sidebar: DefaultTheme.Sidebar | undefined,
@@ -34,9 +33,7 @@ export function getSidebar(
 	return Array.isArray(sidebar) ? addBase(sidebar) : addBase(sidebar.items, sidebar.base);
 }
 
-/**
- * Get or generate sidebar group from the given sidebar items.
- */
+/** Get or generate sidebar group from the given sidebar items. */
 export function getSidebarGroups(sidebar: Array<SidebarItem>): Array<SidebarItem> {
 	const groups: Array<SidebarItem> = [];
 
@@ -77,9 +74,7 @@ export function getFlatSideBarLinks(sidebar: Array<SidebarItem>): Array<SidebarL
 	return links;
 }
 
-/**
- * Check if the given sidebar item contains any active link.
- */
+/** Check if the given sidebar item contains any active link. */
 export function hasActiveLink(path: string, items: SidebarItem | Array<SidebarItem>): boolean {
 	if (Array.isArray(items)) return items.some((item) => hasActiveLink(path, item));
 

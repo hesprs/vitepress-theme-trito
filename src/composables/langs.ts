@@ -1,7 +1,7 @@
+import useData from './data';
+import { ensureStartingSlash } from '@/support/utils';
 import { useRoute } from 'vitepress';
 import { computed } from 'vue';
-import { ensureStartingSlash } from '@/support/utils';
-import useData from './data';
 
 export default function useLangs({ linkToCorrespondingPage = false } = {}) {
 	const data = useData();
@@ -35,15 +35,13 @@ export default function useLangs({ linkToCorrespondingPage = false } = {}) {
 }
 
 /**
- * Resolves the link used for switching from the current page to
- * `targetLocale`. Without `linkToCorrespondingPage`, this is simply the home
- * of the target locale. With it, the current page's path is rewritten into
- * the target locale (honoring `cleanUrls`) — unless
- * `themeConfig.i18nRouting` is `false` (the locale home is used instead) or
- * a function (which then fully controls the resolution).
+ * Resolves the link used for switching from the current page to `targetLocale`. Without
+ * `linkToCorrespondingPage`, this is simply the home of the target locale. With it, the current
+ * page's path is rewritten into the target locale (honoring `cleanUrls`) — unless
+ * `themeConfig.i18nRouting` is `false` (the locale home is used instead) or a function (which then
+ * fully controls the resolution).
  *
- * The current query and hash are carried over, except when a custom
- * `i18nRouting` function is used.
+ * The current query and hash are carried over, except when a custom `i18nRouting` function is used.
  */
 function resolveLocaleLink(
 	data: ReturnType<typeof useData>,

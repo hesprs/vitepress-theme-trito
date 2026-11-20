@@ -1,15 +1,13 @@
 <script lang="ts" setup>
-import { computed, inject } from 'vue';
-import type { NavExposedMethods } from '@/composables/nav';
-import type { TritoTheme } from '@/shared';
+import VPLink from './VPLink.vue';
 import useData from '@/composables/data';
 import { navInjectionKey } from '@/composables/nav';
 import { isActive } from '@/shared';
-import VPLink from './VPLink.vue';
+import { computed, inject } from 'vue';
+import type { NavExposedMethods } from '@/composables/nav';
+import type { TritoTheme } from '@/shared';
 
-const { item } = defineProps<{
-	item: TritoTheme.NavItemWithLink;
-}>();
+const { item } = defineProps<{ item: TritoTheme.NavItemWithLink }>();
 const { page } = useData();
 const href = computed(() => (typeof item.link === 'function' ? item.link(page.value) : item.link));
 const isActiveLink = computed(() =>

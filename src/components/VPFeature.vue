@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { IconArrowRight } from '@tabler/icons-vue';
-import type { TritoTheme } from '@/shared';
 import VPImage from './VPImage.vue';
 import VPLink from './VPLink.vue';
+import { IconArrowRight } from '@tabler/icons-vue';
+import type { TritoTheme } from '@/shared';
 
 defineProps<{
 	icon?: TritoTheme.FeatureIcon;

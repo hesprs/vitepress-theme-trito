@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { inject, ref, watchPostEffect } from 'vue';
+import VPSwitch from './VPSwitch.vue';
 import useData from '@/composables/data';
 import { useI18n } from '@/composables/i18n';
 import { toggleAppearanceKey } from '@/shared';
-import VPSwitch from './VPSwitch.vue';
+import { inject, ref, watchPostEffect } from 'vue';
 
 const { site, isDark, theme } = useData();
 const toggleAppearance = inject(toggleAppearanceKey, async () => {

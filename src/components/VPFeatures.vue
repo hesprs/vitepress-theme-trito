@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import VPFeature from './VPFeature.vue';
 import { computed } from 'vue';
 import type { TritoTheme } from '@/shared';
-import VPFeature from './VPFeature.vue';
 
 export type Feature = {
 	icon?: TritoTheme.FeatureIcon;

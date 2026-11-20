@@ -1,8 +1,8 @@
 <script lang="ts" setup>
+import VPIcon from './VPIcon.vue';
+import { isExternal } from '@/shared';
 import { computed } from 'vue';
 import type { TritoTheme } from '@/shared';
-import { isExternal } from '@/shared';
-import VPIcon from './VPIcon.vue';
 
 const { icon, link } = defineProps<{
 	icon: TritoTheme.SocialLinkIcon;

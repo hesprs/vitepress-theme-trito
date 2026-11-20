@@ -1,9 +1,9 @@
 <script lang="ts" setup generic="T extends TritoTheme.NavItemWithLink">
-import { computed } from 'vue';
-import type { TritoTheme } from '@/shared';
-import useData from '@/composables/data';
 import { isActive } from '../shared';
 import VPLink from './VPLink.vue';
+import useData from '@/composables/data';
+import { computed } from 'vue';
+import type { TritoTheme } from '@/shared';
 
 const { item } = defineProps<{ item: T }>();
 const { page } = useData();

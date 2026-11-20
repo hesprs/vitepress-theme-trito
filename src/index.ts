@@ -4,10 +4,10 @@ import '@/styles/components/custom-block.css';
 import '@/styles/components/vp-code.css';
 import '@/styles/components/vp-code-group.css';
 import '@/styles/components/vp-doc.scss';
-import type { Theme } from 'vitepress';
-import type TritoTheme from '@/theme-config';
 import VPBadge from '@/components/VPBadge.vue';
 import Layout from '@/Layout.vue';
+import type TritoTheme from '@/theme-config';
+import type { Theme } from 'vitepress';
 
 export { default as VPBadge } from '@/components/VPBadge.vue';
 export { default as VPButton } from '@/components/VPButton.vue';

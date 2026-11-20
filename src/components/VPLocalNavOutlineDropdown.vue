@@ -1,13 +1,13 @@
 <script setup lang="ts">
+import VPDocOutlineItem from './VPDocOutlineItem.vue';
+import { scrollToTop as toTop } from '@/composables/context-menu-actions';
+import useData from '@/composables/data';
+import { useI18n } from '@/composables/i18n';
 import { IconArrowBarToUp, IconChevronLeft } from '@tabler/icons-vue';
 import { onKeyStroke } from '@vueuse/core';
 import { onContentUpdated } from 'vitepress';
 import { nextTick, ref, watch } from 'vue';
 import type { TritoTheme } from '@/shared';
-import { scrollToTop as toTop } from '@/composables/context-menu-actions';
-import useData from '@/composables/data';
-import { useI18n } from '@/composables/i18n';
-import VPDocOutlineItem from './VPDocOutlineItem.vue';
 
 defineProps<{ headers: Array<TritoTheme.OutlineItem> }>();
 

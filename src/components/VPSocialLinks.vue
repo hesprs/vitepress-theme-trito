@@ -1,11 +1,8 @@
 <script lang="ts" setup>
-import type { TritoTheme } from '@/shared';
 import VPSocialLink from './VPSocialLink.vue';
+import type { TritoTheme } from '@/shared';
 
-defineProps<{
-	links: Array<TritoTheme.SocialLink>;
-	me?: boolean;
-}>();
+defineProps<{ links: Array<TritoTheme.SocialLink>; me?: boolean }>();
 </script>
 
 <template>

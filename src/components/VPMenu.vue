@@ -1,11 +1,9 @@
 <script lang="ts" setup generic="T extends TritoTheme.NavItem">
-import type { TritoTheme } from '@/shared';
 import VPMenuGroup from './VPMenuGroup.vue';
 import VPMenuLink from './VPMenuLink.vue';
+import type { TritoTheme } from '@/shared';
 
-defineProps<{
-	items?: Array<T>;
-}>();
+defineProps<{ items?: Array<T> }>();
 </script>
 
 <template>

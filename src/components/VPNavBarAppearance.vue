@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { IconMoonStars, IconSun } from '@tabler/icons-vue';
-import { inject } from 'vue';
 import useData from '@/composables/data';
 import { useI18n } from '@/composables/i18n';
 import { toggleAppearanceKey } from '@/shared';
+import { IconMoonStars, IconSun } from '@tabler/icons-vue';
+import { inject } from 'vue';
 
 const { site, isDark, theme } = useData();
 const i18n = useI18n();

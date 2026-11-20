@@ -1,6 +1,9 @@
 <script lang="ts" setup>
-import type { SearchResult } from 'minisearch';
-import type { Ref } from 'vue';
+import useData from '@/composables/data';
+import useBodyScrollLock from '@/composables/scroll-lock';
+import { escapeRegExp, pathToFile } from '@/shared';
+import LRUCache from '@/support/lru';
+import createSearchTranslate from '@/support/translation';
 import localSearchIndex from '@localSearchIndex';
 import { IconArrowDown, IconArrowLeft, IconArrowUp, IconChevronRight } from '@tabler/icons-vue';
 import {
@@ -28,11 +31,8 @@ import {
 	watchEffect,
 } from 'vue';
 import type { ModalTranslations } from '@/shared/local-search';
-import useData from '@/composables/data';
-import useBodyScrollLock from '@/composables/scroll-lock';
-import { escapeRegExp, pathToFile } from '@/shared';
-import LRUCache from '@/support/lru';
-import createSearchTranslate from '@/support/translation';
+import type { SearchResult } from 'minisearch';
+import type { Ref } from 'vue';
 
 const emit = defineEmits<(e: 'close') => void>();
 const el = shallowRef<HTMLElement>();
@@ -47,11 +47,7 @@ if (import.meta.hot)
 		if (m) searchIndexData.value = m.default;
 	});
 
-type Result = {
-	title: string;
-	titles: Array<string>;
-	text?: string;
-};
+type Result = { title: string; titles: Array<string>; text?: string };
 
 const vitePressData = useData();
 const { activate } = useFocusTrap(el, {
@@ -466,9 +462,7 @@ function onMouseMove(e: MouseEvent) {
 						<a
 							:href="p.id"
 							class="result"
-							:class="{
-								selected: selectedIndex === index,
-							}"
+							:class="{ selected: selectedIndex === index }"
 							:aria-label="[...p.titles, p.title].join(' > ')"
 							@mouseenter="!disableMouseOver && (selectedIndex = index)"
 							@focusin="selectedIndex = index"

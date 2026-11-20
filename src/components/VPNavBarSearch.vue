@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import '@docsearch/css';
+import VPNavBarSearchButton from './VPNavBarSearchButton.vue';
+import useData from '@/composables/data';
 import { onKeyStroke } from '@vueuse/core';
 import { defineAsyncComponent, onMounted, onUnmounted, ref } from 'vue';
 import type { TritoTheme } from '@/shared';
-import useData from '@/composables/data';
-import VPNavBarSearchButton from './VPNavBarSearchButton.vue';
 
 const VPLocalSearchBox = __VP_LOCAL_SEARCH__
 	? defineAsyncComponent(() => import('./VPLocalSearchBox.vue'))

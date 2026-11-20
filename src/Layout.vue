@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, provide, useSlots } from 'vue';
+import { setupRouteChange } from './composables/route-change';
 import Background from '@/components/VPBackground.vue';
 import VPContent from '@/components/VPContent.vue';
 import ContextMenu from '@/components/VPContextMenu.vue';
@@ -10,7 +10,7 @@ import VPSidebar from '@/components/VPSidebar.vue';
 import useData from '@/composables/data';
 import { layoutInfoInjectionKey, registerWatchers } from '@/composables/layout';
 import setupTransition from '@/composables/theme-toggle-transition';
-import { setupRouteChange } from './composables/route-change';
+import { computed, provide, useSlots } from 'vue';
 
 const { frontmatter, isDark } = useData();
 setupTransition(isDark);

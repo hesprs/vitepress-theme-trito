@@ -1,9 +1,7 @@
 // oxlint-disable typescript/no-explicit-any
 import useData from '@/composables/data';
 
-/**
- * @param themeObject Can be an object with `translations` and `locales` properties
- */
+/** @param themeObject Can be an object with `translations` and `locales` properties */
 export default function createSearchTranslate(
 	defaultTranslations: Record<string, any>,
 ): (key: string) => string {

@@ -16,10 +16,7 @@
 		"outDir": "dist",
 		"allowImportingTsExtensions": true,
 		"lib": ["ESNext", "DOM", "dom.iterable"],
-		"paths": {
-			"@/*": ["./src/*"],
-			"@": ["./src"]
-		},
+		"paths": { "@/*": ["./src/*"], "@": ["./src"] },
 		"types": ["bun"]
 	},
 	"include": ["test/.vitepress/**/*", "src/**/*", "tsdown.config.ts"]
